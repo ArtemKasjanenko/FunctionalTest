@@ -1,0 +1,270 @@
+Meta: (PowerPoint) Conversion of PowerPoint documents with internal HyperLinks to PDF format 
+
+Scenario: (PowerPoint) Conversion of single page PowerPoint document with internal HyperLinks 
+
+Given Office conversion service is up and running
+When user sends request to convert single page PowerPoint document <file> with one internal HyperLinks to PDF format
+Then server must respond with status 200
+And converted PDF file has <expectedCountOfGoToLinks> "GoTo" link(s) with page destination value <expectedPageDestinationValue>
+
+Examples:
+|file|expectedCountOfGoToLinks|expectedPageDestinationValue|
+|Hyperlinks/PowerPoint/ppt/P1_OneLinkToP1.ppt|1|1|
+|Hyperlinks/PowerPoint/pptx/P1_OneLinkToP1.pptx|1|1|
+
+Scenario: (PowerPoint) Conversion of selected page from multiple page Excel document with internal HyperLinks to PDF format
+ 
+Given Office conversion service is up and running
+When user sends request to convert page <pageNumber> from PowerPoint document <file> with multiple internal HyperLinks to PDF format
+Then server must respond with status 200
+And converted PDF file has <expectedCountOfGoToLinks> "GoTo" link(s) with page destination value <expectedPageDestinationValue>
+
+Examples:
+|file|pageNumber|expectedCountOfGoToLinks|expectedPageDestinationValue| 
+|Hyperlinks/PowerPoint/ppt/P1_OneLinkToP2_P2_TwoLinksToP1.ppt|0|1|2|
+|Hyperlinks/PowerPoint/ppt/P1_OneLinkToP2_P2_TwoLinksToP1.ppt|1|2|1|
+|Hyperlinks/PowerPoint/pptx/P1_OneLinkToP2_P2_TwoLinksToP1.pptx|0|1|2|
+|Hyperlinks/PowerPoint/pptx/P1_OneLinkToP2_P2_TwoLinksToP1.pptx|1|2|1|
+|Hyperlinks/PowerPoint/pot/P1_OneLinkToP2_P2_TwoLinksToP1.pot|0|1|2|
+|Hyperlinks/PowerPoint/pot/P1_OneLinkToP2_P2_TwoLinksToP1.pot|1|2|1|
+|Hyperlinks/PowerPoint/potx/P1_OneLinkToP2_P2_TwoLinksToP1.potx|0|1|2|
+|Hyperlinks/PowerPoint/potx/P1_OneLinkToP2_P2_TwoLinksToP1.potx|1|2|1|
+|Hyperlinks/PowerPoint/pps/P1_OneLinkToP2_P2_TwoLinksToP1.pps|0|1|2|
+|Hyperlinks/PowerPoint/pps/P1_OneLinkToP2_P2_TwoLinksToP1.pps|1|2|1|
+|Hyperlinks/PowerPoint/ppsx/P1_OneLinkToP2_P2_TwoLinksToP1.ppsx|0|1|2|
+|Hyperlinks/PowerPoint/ppsx/P1_OneLinkToP2_P2_TwoLinksToP1.ppsx|1|2|1|
+|Hyperlinks/PowerPoint/ppsm/P1_OneLinkToP2_P2_TwoLinksToP1.ppsm|0|1|2|
+|Hyperlinks/PowerPoint/ppsm/P1_OneLinkToP2_P2_TwoLinksToP1.ppsm|1|2|1|
+
+|Hyperlinks/PowerPoint/ppt/P1_NoLinks_P2_OneLinkToP1.ppt|1|1|1|
+|Hyperlinks/PowerPoint/pptx/P1_NoLinks_P2_OneLinkToP1.pptx|1|1|1|
+|Hyperlinks/PowerPoint/pot/P1_NoLinks_P2_OneLinkToP1.pot|1|1|1|
+|Hyperlinks/PowerPoint/potx/P1_NoLinks_P2_OneLinkToP1.potx|1|1|1|
+|Hyperlinks/PowerPoint/pps/P1_NoLinks_P2_OneLinkToP1.pps|1|1|1|
+|Hyperlinks/PowerPoint/ppsm/P1_NoLinks_P2_OneLinkToP1.ppsm|1|1|1|
+|Hyperlinks/PowerPoint/ppsx/P1_NoLinks_P2_OneLinkToP1.ppsx|1|1|1|
+
+
+
+Scenario: (PowerPoint) Checking number of Hypelinks in single PDF file after conversion of PowerPoint document
+
+Given Office conversion service is up and running
+When user sends request to convert all pages from PowerPoint document <file> with multiple internal HyperLinks to PDF format
+Then server must respond with status 200
+And converted PDF file has <expectedTotalCountOfGoToLinks> "GoTo" link(s)
+
+Examples:
+|file|expectedTotalCountOfGoToLinks|selectedPageNumber| 
+|--Hyperlinks/PowerPoint/Customer/pot/Jeopardy(pot97).pot|0| PCC-26903
+|--Hyperlinks/PowerPoint/Customer/pot/US_History_since_1877_pp1-3(pot97).pot|0| PCC-26903
+|--Hyperlinks/PowerPoint/Customer/potx/Cell_hyperlink_example(potx).potx|1000| PCC-26903
+|Hyperlinks/PowerPoint/Customer/potx/jeopardy_-_naming_ionic_and_covalent_compounds(potx).potx|20|
+|Hyperlinks/PowerPoint/Customer/potx/PPTHyperlinkQuizPractice(potx).potx|5|
+
+|--Hyperlinks/PowerPoint/Customer/pps/CNSQuiz(pps97).pps|0| PCC-26903
+|--Hyperlinks/PowerPoint/Customer/pps/Leon_Safe_or_Not_Safe_Kids_condensed(pps97).pps|0| PCC-26903
+|--Hyperlinks/PowerPoint/Customer/pps/PowerPointShowparaphrasing(pps97).pps|0| PCC-26903
+|--Hyperlinks/PowerPoint/Customer/pps/SecurityAwarenessTrng(pps97).pps|0| PCC-26903
+
+|--Hyperlinks/PowerPoint/Customer/ppt/battlegraph(ppt97).ppt|0| PCC-26903
+|--Hyperlinks/PowerPoint/Customer/ppt/hunger_games_jeopardy(ppt97).ppt|0| PCC-26903
+|--Hyperlinks/PowerPoint/Customer/ppt/Millionaire_5th_grade_math(ppt97).ppt|0| PCC-26903
+
+|Hyperlinks/PowerPoint/Customer/pptm/BuildingEffectiveCoaches(pptm).pptm|7| 
+|Hyperlinks/PowerPoint/Customer/pptm/Dingo!8thmathacadvoc(pptm).pptm|20|
+|--Hyperlinks/PowerPoint/Customer/pptm/FamilyFeudGame(pptm).pptm|0| PCC-26903
+
+
+Scenario: (PowerPoint) Conversion of all pages from multiple page PowerPoint document with internal HyperLinks to PDF format (single file)
+ 
+Given Office conversion service is up and running
+When user sends request to convert all pages from PowerPoint document <file> with multiple internal HyperLinks to PDF format
+Then server must respond with status 200
+And converted PDF file has <expectedTotalCountOfGoToLinks> "GoTo" link(s)
+And converted PDF file has <expectedCountOfGoToLinksOnSelectedPage> "GoTo" link(s) on page <selectedPageNumber> with page destination value <expectedPageDestinationValue>
+
+Examples:
+|file|expectedTotalCountOfGoToLinks|selectedPageNumber|expectedCountOfGoToLinksOnSelectedPage|expectedPageDestinationValue| 
+|Hyperlinks/PowerPoint/pptx/P1_OneLinkToP2_P2_TwoLinksToP1.pptx          |3|0|1|2|
+|Hyperlinks/PowerPoint/pptx/P1_OneLinkP3_P2_TwoLinksToP1.pptx            |3|0|1|3|
+|Hyperlinks/PowerPoint/pot/P1_OneLinkToP2_P2_TwoLinksToP1.pot          |3|0|1|2|
+|Hyperlinks/PowerPoint/pot/P1_OneLinkP3_P2_TwoLinksToP1.pot            |3|0|1|3|
+|Hyperlinks/PowerPoint/potx/P1_OneLinkToP2_P2_TwoLinksToP1.potx          |3|0|1|2|
+|Hyperlinks/PowerPoint/potx/P1_OneLinkP3_P2_TwoLinksToP1.potx            |3|0|1|3|
+|Hyperlinks/PowerPoint/pps/P1_OneLinkToP2_P2_TwoLinksToP1.pps          |3|0|1|2|
+|Hyperlinks/PowerPoint/pps/P1_OneLinkP3_P2_TwoLinksToP1.pps            |3|0|1|3|
+|Hyperlinks/PowerPoint/ppsm/P1_OneLinkToP2_P2_TwoLinksToP1.ppsm          |3|0|1|2|
+|Hyperlinks/PowerPoint/ppsm/P1_OneLinkP3_P2_TwoLinksToP1.ppsm            |3|0|1|3|
+|Hyperlinks/PowerPoint/ppsx/P1_OneLinkToP2_P2_TwoLinksToP1.ppsx          |3|0|1|2|
+|Hyperlinks/PowerPoint/ppsx/P1_OneLinkP3_P2_TwoLinksToP1.ppsx            |3|0|1|3|
+
+|Hyperlinks/PowerPoint/ppt/P1_OneLinkToP3_P2_NoLinks_P3_NoLinks.ppt |1|0|1|3|
+|Hyperlinks/PowerPoint/pptx/P1_OneLinkToP3_P2_NoLinks_P3_NoLinks.pptx|1|0|1|3|
+|Hyperlinks/PowerPoint/pot/P1_OneLinkToP3_P2_NoLinks_P3_NoLinks.pot|1|0|1|3|
+|Hyperlinks/PowerPoint/potx/P1_OneLinkToP3_P2_NoLinks_P3_NoLinks.potx|1|0|1|3|
+|Hyperlinks/PowerPoint/pps/P1_OneLinkToP3_P2_NoLinks_P3_NoLinks.pps|1|0|1|3|
+|Hyperlinks/PowerPoint/ppsm/P1_OneLinkToP3_P2_NoLinks_P3_NoLinks.ppsm|1|0|1|3|
+|Hyperlinks/PowerPoint/ppsx/P1_OneLinkToP3_P2_NoLinks_P3_NoLinks.ppsx|1|0|1|3|
+
+|Hyperlinks/PowerPoint/ppt/P1_NoLinks_P2_OneLinkToP1.ppt|1|1|1|1|
+|Hyperlinks/PowerPoint/pptx/P1_NoLinks_P2_OneLinkToP1.pptx|1|1|1|1|
+|Hyperlinks/PowerPoint/pot/P1_NoLinks_P2_OneLinkToP1.pot|1|1|1|1|
+|Hyperlinks/PowerPoint/potx/P1_NoLinks_P2_OneLinkToP1.potx|1|1|1|1|
+|Hyperlinks/PowerPoint/pps/P1_NoLinks_P2_OneLinkToP1.pps|1|1|1|1|
+|Hyperlinks/PowerPoint/ppsm/P1_NoLinks_P2_OneLinkToP1.ppsm|1|1|1|1|
+|Hyperlinks/PowerPoint/ppsx/P1_NoLinks_P2_OneLinkToP1.ppsx|1|1|1|1|
+
+|Hyperlinks/PowerPoint/Customer/pptx/Presentation1.pptx|4|0|2|5|
+|Hyperlinks/PowerPoint/Customer/pptx/pptxlink.pptx|12|4|1|1|
+|Hyperlinks/PowerPoint/Customer/pptx/SampleLink.pptx|1|2|1|5|
+|--Hyperlinks/PowerPoint/Customer/ppt/SampleLink.ppt|1|2|1|5|
+
+
+Scenario: (PowerPoint) Checking value of selected link in PowerPoint document on selected page in single page conversation mode 
+Given Office conversion service is up and running
+When user sends request to convert page <pageNumber> from PowerPoint document <file> with multiple internal HyperLinks to PDF format
+Then server must respond with status 200
+And converted PDF file has "GoTo" hyperlink with number <linkNumber> and value <expectedPageDestinationValue>
+
+Examples:
+|file|pageNumber|linkNumber|expectedPageDestinationValue|
+|Hyperlinks/PowerPoint/ppt/P1_OneLinkToP1.ppt|0|0|1|
+|Hyperlinks/PowerPoint/pot/P1_OneLinkToP1.pot|0|0|1|
+|Hyperlinks/PowerPoint/potx/P1_OneLinkToP1.potx|0|0|1|
+|Hyperlinks/PowerPoint/pps/P1_OneLinkToP1.pps|0|0|1|
+|Hyperlinks/PowerPoint/ppsm/P1_OneLinkToP1.ppsm|0|0|1|
+|Hyperlinks/PowerPoint/ppsx/P1_OneLinkToP1.ppsx|0|0|1|
+
+|Hyperlinks/PowerPoint/pptx/P1_OneLinkToP2_P2_TwoLinksToP1.pptx   |0|0|2|
+|Hyperlinks/PowerPoint/pot/P1_OneLinkToP2_P2_TwoLinksToP1.pot   |0|0|2|
+|Hyperlinks/PowerPoint/potx/P1_OneLinkToP2_P2_TwoLinksToP1.potx   |0|0|2|
+|Hyperlinks/PowerPoint/pps/P1_OneLinkToP2_P2_TwoLinksToP1.pps   |0|0|2|
+|Hyperlinks/PowerPoint/ppsm/P1_OneLinkToP2_P2_TwoLinksToP1.ppsm   |0|0|2|
+|Hyperlinks/PowerPoint/ppsx/P1_OneLinkToP2_P2_TwoLinksToP1.ppsx   |0|0|2|
+
+|Hyperlinks/PowerPoint/pptx/P1_OneLinkToP2_P2_TwoLinksToP1.pptx   |1|0|1|
+|Hyperlinks/PowerPoint/pptx/P1_OneLinkToP2_P2_TwoLinksToP1.pptx   |1|1|1|
+|Hyperlinks/PowerPoint/pot/P1_OneLinkToP2_P2_TwoLinksToP1.pot   |1|0|1|
+|Hyperlinks/PowerPoint/pot/P1_OneLinkToP2_P2_TwoLinksToP1.pot   |1|1|1|
+|Hyperlinks/PowerPoint/potx/P1_OneLinkToP2_P2_TwoLinksToP1.potx   |1|0|1|
+|Hyperlinks/PowerPoint/potx/P1_OneLinkToP2_P2_TwoLinksToP1.potx   |1|1|1|
+|Hyperlinks/PowerPoint/pps/P1_OneLinkToP2_P2_TwoLinksToP1.pps   |1|0|1|
+|Hyperlinks/PowerPoint/pps/P1_OneLinkToP2_P2_TwoLinksToP1.pps   |1|1|1|
+|Hyperlinks/PowerPoint/ppsm/P1_OneLinkToP2_P2_TwoLinksToP1.ppsm   |1|0|1|
+|Hyperlinks/PowerPoint/ppsm/P1_OneLinkToP2_P2_TwoLinksToP1.ppsm   |1|1|1|
+|Hyperlinks/PowerPoint/ppsx/P1_OneLinkToP2_P2_TwoLinksToP1.ppsx   |1|0|1|
+|Hyperlinks/PowerPoint/ppsx/P1_OneLinkToP2_P2_TwoLinksToP1.ppsx   |1|1|1|
+
+|Hyperlinks/PowerPoint/ppt/P1_OneLinkToP3_P2_NoLinks_P3_NoLinks.ppt|0|0|3|
+|Hyperlinks/PowerPoint/pot/P1_OneLinkToP3_P2_NoLinks_P3_NoLinks.pot|0|0|3|
+|Hyperlinks/PowerPoint/potx/P1_OneLinkToP3_P2_NoLinks_P3_NoLinks.potx|0|0|3|
+|Hyperlinks/PowerPoint/pps/P1_OneLinkToP3_P2_NoLinks_P3_NoLinks.pps|0|0|3|
+|Hyperlinks/PowerPoint/ppsm/P1_OneLinkToP3_P2_NoLinks_P3_NoLinks.ppsm|0|0|3|
+|Hyperlinks/PowerPoint/ppsx/P1_OneLinkToP3_P2_NoLinks_P3_NoLinks.ppsx|0|0|3|
+
+
+|Hyperlinks/PowerPoint/ppt/P1_NoLinks_P2_OneLinkToP1.ppt|1|0|1|
+|Hyperlinks/PowerPoint/pptx/P1_NoLinks_P2_OneLinkToP1.pptx|1|0|1|
+|Hyperlinks/PowerPoint/pot/P1_NoLinks_P2_OneLinkToP1.pot|1|0|1|
+|Hyperlinks/PowerPoint/potx/P1_NoLinks_P2_OneLinkToP1.potx|1|0|1|
+|Hyperlinks/PowerPoint/pps/P1_NoLinks_P2_OneLinkToP1.pps|1|0|1|
+|Hyperlinks/PowerPoint/ppsm/P1_NoLinks_P2_OneLinkToP1.ppsm|1|0|1|
+|Hyperlinks/PowerPoint/ppsx/P1_NoLinks_P2_OneLinkToP1.ppsx|1|0|1|
+
+|Hyperlinks/PowerPoint/Customer/pptx/Presentation1.pptx|0|0|5|
+|Hyperlinks/PowerPoint/Customer/pptx/Presentation1.pptx|0|1|5|
+|Hyperlinks/PowerPoint/Customer/pptx/Presentation1.pptx|2|0|15|
+|Hyperlinks/PowerPoint/Customer/pptx/Presentation1.pptx|8|0|1|
+|Hyperlinks/PowerPoint/Customer/pptx/pptxlink.pptx|1|0|3|
+|Hyperlinks/PowerPoint/Customer/pptx/pptxlink.pptx|1|1|5|
+|Hyperlinks/PowerPoint/Customer/pptx/pptxlink.pptx|1|2|5|
+|Hyperlinks/PowerPoint/Customer/pptx/pptxlink.pptx|3|0|2|
+|Hyperlinks/PowerPoint/Customer/pptx/pptxlink.pptx|3|1|3|
+|Hyperlinks/PowerPoint/Customer/pptx/pptxlink.pptx|3|2|3|
+|Hyperlinks/PowerPoint/Customer/pptx/pptxlink.pptx|3|3|3|
+|Hyperlinks/PowerPoint/Customer/pptx/pptxlink.pptx|3|4|3|
+|Hyperlinks/PowerPoint/Customer/pptx/pptxlink.pptx|3|5|5|
+|Hyperlinks/PowerPoint/Customer/pptx/pptxlink.pptx|3|6|5|
+|Hyperlinks/PowerPoint/Customer/pptx/pptxlink.pptx|3|7|5|
+|Hyperlinks/PowerPoint/Customer/pptx/pptxlink.pptx|4|0|1|
+
+
+Scenario: (PowerPoint) Comparison of GoTo hyperlinks count and pageDestination values between single file (one PowerPoint file is converted to one pdf file) and multiple files (one PowerPoint file is converted to set of pdf files) conversion modes  
+Given Office conversion service is up and running
+When user sends request to convert all pages from PowerPoint document <file> with multiple internal HyperLinks to one PDF file
+And all GoTo hyperlinks are extracted from all pages of generated single PDF file and saved to set1  
+When user sends set of requests to convert all pages from PowerPoint document <file> with multiple internal HyperLinks set of PDF files
+And all GoTo hyperlinks are extracted from all generated PDF files and saved to set2
+Then count, location and pageDestination values af hyperlinks between set1 and set2 must be the same
+
+Examples:
+|file|
+|Hyperlinks/PowerPoint/ppt/P1_OneLinkToP1.ppt|
+|Hyperlinks/PowerPoint/pot/P1_OneLinkToP1.pot|
+|Hyperlinks/PowerPoint/potx/P1_OneLinkToP1.potx|
+|Hyperlinks/PowerPoint/pps/P1_OneLinkToP1.pps|
+|Hyperlinks/PowerPoint/ppsm/P1_OneLinkToP1.ppsm|
+|Hyperlinks/PowerPoint/ppsx/P1_OneLinkToP1.ppsx|
+
+|Hyperlinks/PowerPoint/pptx/P1_OneLinkToP1.pptx|
+|Hyperlinks/PowerPoint/pot/P1_OneLinkToP1.pot|
+|Hyperlinks/PowerPoint/potx/P1_OneLinkToP1.potx|
+|Hyperlinks/PowerPoint/pps/P1_OneLinkToP1.pps|
+|Hyperlinks/PowerPoint/ppsm/P1_OneLinkToP1.ppsm|
+|Hyperlinks/PowerPoint/ppsx/P1_OneLinkToP1.ppsx|
+
+|Hyperlinks/PowerPoint/ppt/P1_OneLinkToP2_P2_TwoLinksToP1.ppt|
+|Hyperlinks/PowerPoint/pptx/P1_OneLinkToP2_P2_TwoLinksToP1.pptx|
+|Hyperlinks/PowerPoint/pot/P1_OneLinkToP2_P2_TwoLinksToP1.pot|
+|Hyperlinks/PowerPoint/potx/P1_OneLinkToP2_P2_TwoLinksToP1.potx|
+|Hyperlinks/PowerPoint/pps/P1_OneLinkToP2_P2_TwoLinksToP1.pps|
+|Hyperlinks/PowerPoint/ppsm/P1_OneLinkToP2_P2_TwoLinksToP1.ppsm|
+|Hyperlinks/PowerPoint/ppsx/P1_OneLinkToP2_P2_TwoLinksToP1.ppsx|
+
+
+|Hyperlinks/PowerPoint/ppt/P1_OneLinkToP3_P2_NoLinks_P3_NoLinks.ppt|
+|Hyperlinks/PowerPoint/pptx/P1_OneLinkToP3_P2_NoLinks_P3_NoLinks.pptx|
+|Hyperlinks/PowerPoint/pot/P1_OneLinkToP3_P2_NoLinks_P3_NoLinks.pot|
+|Hyperlinks/PowerPoint/potx/P1_OneLinkToP3_P2_NoLinks_P3_NoLinks.potx|
+|Hyperlinks/PowerPoint/pps/P1_OneLinkToP3_P2_NoLinks_P3_NoLinks.pps|
+|Hyperlinks/PowerPoint/ppsm/P1_OneLinkToP3_P2_NoLinks_P3_NoLinks.ppsm|
+|Hyperlinks/PowerPoint/ppsx/P1_OneLinkToP3_P2_NoLinks_P3_NoLinks.ppsx|
+
+
+|Hyperlinks/PowerPoint/ppt/P1_NoLinks_P2_OneLinkToP1.ppt|
+|Hyperlinks/PowerPoint/pptx/P1_NoLinks_P2_OneLinkToP1.pptx|
+|Hyperlinks/PowerPoint/pot/P1_NoLinks_P2_OneLinkToP1.pot|
+|Hyperlinks/PowerPoint/potx/P1_NoLinks_P2_OneLinkToP1.potx|
+|Hyperlinks/PowerPoint/pps/P1_NoLinks_P2_OneLinkToP1.pps|
+|Hyperlinks/PowerPoint/ppsm/P1_NoLinks_P2_OneLinkToP1.ppsm|
+|Hyperlinks/PowerPoint/ppsx/P1_NoLinks_P2_OneLinkToP1.ppsx|
+
+|Hyperlinks/PowerPoint/Customer/pptx/Presentation1.pptx|
+|Hyperlinks/PowerPoint/Customer/pptx/pptxlink.pptx|
+|Hyperlinks/PowerPoint/Customer/pptx/SampleLink.pptx|
+|Hyperlinks/PowerPoint/Customer/ppt/SampleLink.ppt|
+
+|--Hyperlinks/PowerPoint/Customer/pot/Jeopardy(pot97).pot no hyperlinks () https://jira.accusoft.com/browse/PCC-26834
+|--Hyperlinks/PowerPoint/Customer/pot/US_History_since_1877_pp1-3(pot97).pot no hyperlinks https://jira.accusoft.com/browse/PCC-26834
+|--Hyperlinks/PowerPoint/Customer/potx/Cell_hyperlink_example(potx).potx no hyperlinks https://jira.accusoft.com/browse/PCC-26834
+
+
+|-- Dingo!8thmathacadvoc (pptm).pptm	yes(incorrect)	no
+|-- jeopardy_-_naming_ionic_and_covalent_compounds (potx)	yes(incorrect)	yes
+|-- PPT Hyperlink Quiz Practice (potx).potx	yes(incorrect)	no
+
+|Hyperlinks/PowerPoint/Customer/potx/jeopardy_-_naming_ionic_and_covalent_compounds(potx).potx|
+|Hyperlinks/PowerPoint/Customer/potx/PPTHyperlinkQuizPractice(potx).potx|
+
+|--Hyperlinks/PowerPoint/Customer/pps/CNSQuiz(pps97).pps| no hyperlinks
+|--Hyperlinks/PowerPoint/Customer/pps/Leon_Safe_or_Not_Safe_Kids_condensed(pps97).pps| no hyperlinks  https://jira.accusoft.com/browse/PCC-26834
+|--Hyperlinks/PowerPoint/Customer/pps/PowerPointShowparaphrasing(pps97).pps| no hyperlinks https://jira.accusoft.com/browse/PCC-26834
+|--Hyperlinks/PowerPoint/Customer/pps/SecurityAwarenessTrng(pps97).pps| no hyperlinks https://jira.accusoft.com/browse/PCC-26834
+
+|--Hyperlinks/PowerPoint/Customer/ppt/battlegraph(ppt97).ppt| no hyperlinks https://jira.accusoft.com/browse/PCC-26834
+|--Hyperlinks/PowerPoint/Customer/ppt/hunger_games_jeopardy(ppt97).ppt| no hyperlinks https://jira.accusoft.com/browse/PCC-26834
+|--Hyperlinks/PowerPoint/Customer/ppt/Millionaire_5th_grade_math(ppt97).ppt| no hyperlinks https://jira.accusoft.com/browse/PCC-26834
+
+|Hyperlinks/PowerPoint/Customer/pptm/BuildingEffectiveCoaches(pptm).pptm| 
+|Hyperlinks/PowerPoint/Customer/pptm/Dingo!8thmathacadvoc(pptm).pptm|
+|--Hyperlinks/PowerPoint/Customer/pptm/FamilyFeudGame(pptm).pptm| no hyperlinks https://jira.accusoft.com/browse/PCC-26834

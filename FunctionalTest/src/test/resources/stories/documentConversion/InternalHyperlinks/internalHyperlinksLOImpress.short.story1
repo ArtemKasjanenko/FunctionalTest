@@ -1,0 +1,21 @@
+Meta: (LOImpress) Conversion of LOImpress documents with internal HyperLinks to PDF format (short set) 
+
+Scenario: (LOImpress) Conversion of selected page from multiple page LOImpress document with internal HyperLinks to PDF format
+ 
+Given Office conversion service is up and running
+When user sends request to convert page <pageNumber> from LOImpress document <file> with multiple internal HyperLinks to PDF format
+Then server must respond with status 200
+And converted PDF file has <expectedCountOfGoToLinks> "GoTo" link(s) with page destination value <expectedPageDestinationValue>
+
+Examples:
+|file|pageNumber|expectedCountOfGoToLinks|expectedPageDestinationValue| 
+|Hyperlinks/LOImpress/odp/P1_OneLinkToP2_P2_TwoLinksToP1.odp|0|1|2|
+|Hyperlinks/LOImpress/odp/P1_OneLinkToP2_P2_TwoLinksToP1.odp|1|2|1|
+|Hyperlinks/LOImpress/fodp/P1_OneLinkToP2_P2_TwoLinksToP1.fodp|0|1|2|
+|Hyperlinks/LOImpress/fodp/P1_OneLinkToP2_P2_TwoLinksToP1.fodp|1|2|1|
+|Hyperlinks/LOImpress/otp/P1_OneLinkToP2_P2_TwoLinksToP1.otp|0|1|2|
+|Hyperlinks/LOImpress/otp/P1_OneLinkToP2_P2_TwoLinksToP1.otp|1|2|1|
+|Hyperlinks/LOImpress/odp/P1_NoLinks_P2_OneLinkToP1.odp|1|1|1|
+|Hyperlinks/LOImpress/fodp/P1_NoLinks_P2_OneLinkToP1.fodp|1|1|1|
+|Hyperlinks/LOImpress/otp/P1_NoLinks_P2_OneLinkToP1.otp|1|1|1|
+

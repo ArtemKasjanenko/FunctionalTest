@@ -1,0 +1,6 @@
+Meta: Positive scenario for INFO request to Conversion Service
+
+Scenario: As a user I want to get information about the service version
+Given Office conversion service is up and running
+When user requests OfficeConversionService information
+Then server must respond with status 200

@@ -1,0 +1,20 @@
+Meta: (LOCalc) Conversion of LOCalc documents with internal HyperLinks to PDF format (short set) 
+
+Scenario: (LOCalc) Conversion of selected page from multiple page LOCalc document with internal HyperLinks to PDF format
+Given Office conversion service is up and running
+When user sends request to convert page <pageNumber> from LOCalc document <file> with multiple internal HyperLinks to PDF format
+Then server must respond with status 200
+And converted PDF file has <expectedCountOfGoToLinks> "GoTo" link(s) with page destination value <expectedPageDestinationValue>
+
+Examples:
+|file|pageNumber|expectedCountOfGoToLinks|expectedPageDestinationValue| 
+|Hyperlinks/LOCalc/ods/S1_OneLinkToS2OnP2_S2_TwoLinksToS1OnP1.ods|0|1|2|
+|Hyperlinks/LOCalc/ods/S1_OneLinkToS2OnP2_S2_TwoLinksToS1OnP1.ods|1|2|1|
+|Hyperlinks/LOCalc/ots/S1_OneLinkToS2OnP2_S2_TwoLinksToS1OnP1.ots|0|1|2|
+|Hyperlinks/LOCalc/ots/S1_OneLinkToS2OnP2_S2_TwoLinksToS1OnP1.ots|1|2|1|
+|Hyperlinks/LOCalc/fods/S1_OneLinkToS2OnP2_S2_TwoLinksToS1OnP1.fods|0|1|2|
+|Hyperlinks/LOCalc/fods/S1_OneLinkToS2OnP2_S2_TwoLinksToS1OnP1.fods|1|2|1|
+|Hyperlinks/LOCalc/ods/S1_NoLinks_S2_LinkToS1.ods|1|1|1|
+|Hyperlinks/LOCalc/ots/S1_NoLinks_S2_LinkToS1.ots|1|1|1|
+|Hyperlinks/LOCalc/fods/S1_NoLinks_S2_LinkToS1.fods|1|1|1|
+

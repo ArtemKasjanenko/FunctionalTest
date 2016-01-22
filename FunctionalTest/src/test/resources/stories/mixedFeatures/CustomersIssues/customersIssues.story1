@@ -1,0 +1,458 @@
+Meta: Conversation of office documents which was created to check set of bug fixes 
+
+Scenario: Testing fix for  PCC-25400
+
+Given Office conversion service is up and running
+When user sends request to convert page <pageNumber> of office document <file> to pdf format
+Then server must respond with status 200
+And conversion result matches with template <referenceImage> (difference less 0.1 percent)
+
+Examples:
+|file|pageNumber|referenceImage|
+|CustomersIssues/PCC-25400/CommentIssue.xlsx|0|CustomersIssues/PCC-25400/CommentIssue.xlsx.page.0.pdf.png|
+
+
+Scenario: Testing fix for  PCC-26105
+
+Given Office conversion service is up and running
+When user sends request to convert page <pageNumber> of office document <file> to pdf format
+Then server must respond with status 200
+And conversion result matches with template <referenceImage> (difference less 0.1 percent)
+
+Examples:
+|file|pageNumber|referenceImage|
+|CustomersIssues/PCC-26105/PCC-26105-1.docx|0|CustomersIssues/PCC-26105/PCC-26105-1.docx.page.0.pdf.png|
+|CustomersIssues/PCC-26105/PCC-26105-2.docx|0|CustomersIssues/PCC-26105/PCC-26105-2.docx.page.0.pdf.png|
+|CustomersIssues/PCC-26105/PCC-26105.docx|0|CustomersIssues/PCC-26105/PCC-26105.docx.page.0.pdf.png|
+
+Scenario: Testing fix for  PCC-25483
+
+Given Office conversion service is up and running
+When user sends request to convert page <pageNumber> of office document <file> to pdf format
+Then server must respond with status 200
+And conversion result matches with template <referenceImage> (difference less 0.1 percent)
+
+Examples:
+|file|pageNumber|referenceImage|
+|CustomersIssues/PCC-25483/collegeEssayWFooter.doc|0|CustomersIssues/PCC-25483/collegeEssayWFooter.doc.page.0.pdf.png|
+
+
+Scenario: Testing fix for  PCC-19982
+
+Given Office conversion service is up and running
+When user sends request to convert page <pageNumber> of office document <file> to pdf format
+Then server must respond with status 200
+And conversion result matches with template <referenceImage> (difference less 0.1 percent)
+
+Examples:
+|file|pageNumber|referenceImage|
+|CustomersIssues/PCC-19982/page1.docx|0|CustomersIssues/PCC-19982/page1.docx.page.0.pdf.png|
+|CustomersIssues/PCC-19982/page2.docx|0|CustomersIssues/PCC-19982/page2.docx.page.0.pdf.png|
+
+Scenario: Testing fix for  PCC-10567
+
+Given Office conversion service is up and running
+When user sends request to convert page <pageNumber> of office document <file> to pdf format
+Then server must respond with status 200
+And conversion result matches with template <referenceImage> (difference less 0.1 percent)
+
+Examples:
+|file|pageNumber|referenceImage|
+|LibraryOfficeCustomizations/ssrf.xlsx|0|CustomersIssues/PCC-10567/ssrf.xlsx.page.0.pdf.png|
+
+Scenario: Testing fix for  PCC-13561
+
+Given Office conversion service is up and running
+When user sends request to convert page <pageNumber> of office document <file> to pdf format
+Then server must respond with status 200
+And conversion result matches with template <referenceImage> (difference less 0.1 percent)
+
+Examples:
+|file|pageNumber|referenceImage|
+|CustomersIssues/PCC-13561/CopyOfMysteryExcel.xlsx|0|CustomersIssues/PCC-13561/CopyOfMysteryExcel.xlsx.page.0.pdf.png|
+
+
+Scenario: Testing fix for  PCC-14200
+
+Given Office conversion service is up and running
+When user sends request to convert page <pageNumber> of office document <file> to pdf format
+Then server must respond with status 200
+And conversion result matches with template <referenceImage> (difference less 0.1 percent)
+
+Examples:
+|file|pageNumber|referenceImage|
+|CustomersIssues/PCC-14200/Source_File.docx|0|CustomersIssues/PCC-14200/Source_File.docx.page.0.pdf.png|
+|CustomersIssues/PCC-14200/Source_File.docx|13|CustomersIssues/PCC-14200/Source_File.docx.page.13.pdf.png|
+|CustomersIssues/PCC-14200/Source_File.docx|14|CustomersIssues/PCC-14200/Source_File.docx.page.14.pdf.png|
+|CustomersIssues/PCC-14200/Source_File.docx|15|CustomersIssues/PCC-14200/Source_File.docx.page.15.pdf.png|
+|CustomersIssues/PCC-14200/Source_File.docx|16|CustomersIssues/PCC-14200/Source_File.docx.page.16.pdf.png|
+
+
+
+Scenario: Testing fix for  PCC-18411
+
+Given Office conversion service is up and running
+When user sends request to convert page <pageNumber> of office document <file> to pdf format
+Then server must respond with status 200
+And conversion result matches with template <referenceImage> (difference less 0.1 percent)
+
+Examples:
+|file|pageNumber|referenceImage|
+|CustomersIssues/PCC-18411/Feedback.doc|0|CustomersIssues/PCC-18411/Feedback.doc.page.0.pdf.png|
+|CustomersIssues/PCC-18411/New_Hires_Detais.xls|0|CustomersIssues/PCC-18411/New_Hires_Detais.xls.page.0.pdf.png|
+
+Scenario: Testing fix for  PCC-21521
+
+Given Office conversion service is up and running
+When user sends request to convert page <pageNumber> of office document <file> to pdf format
+Then server must respond with status 200
+And conversion result matches with template <referenceImage> (difference less 0.1 percent)
+
+Examples:
+|file|pageNumber|referenceImage|
+|CustomersIssues/PCC-21521/5779_38715.docx|0|CustomersIssues/PCC-21521/5779_38715.docx.page.0.pdf.png|
+|CustomersIssues/PCC-21521/5779_38715.docx|0|CustomersIssues/PCC-21521/5779_38715.docx.page.0.pdf.png|
+
+
+Scenario: Testing fix for  PCC-25714
+
+Given Office conversion service is up and running
+When user sends request to convert page <pageNumber> of office document <file> to pdf format
+Then server must respond with status 200
+And conversion result matches with template <referenceImage> (difference less 0.1 percent)
+
+Examples:
+|file|pageNumber|referenceImage|
+|CustomersIssues/PCC-25714/fileEmf01.docx|0|CustomersIssues/PCC-25714/fileEmf01.docx.page.0.pdf.png|
+|CustomersIssues/PCC-25714/fileEmf02.docx|0|CustomersIssues/PCC-25714/fileEmf02.docx.page.0.pdf.png|
+|CustomersIssues/PCC-25714/fileEmf03.docx|0|CustomersIssues/PCC-25714/fileEmf03.docx.page.0.pdf.png|
+|CustomersIssues/PCC-25714/fileEmf04.docx|0|CustomersIssues/PCC-25714/fileEmf04.docx.page.0.pdf.png|
+|CustomersIssues/PCC-25714/fileEmf05.docx|0|CustomersIssues/PCC-25714/fileEmf05.docx.page.0.pdf.png|
+|CustomersIssues/PCC-25714/fileEmf06.docx|0|CustomersIssues/PCC-25714/fileEmf06.docx.page.0.pdf.png|
+|CustomersIssues/PCC-25714/fileEmf07.docx|0|CustomersIssues/PCC-25714/fileEmf07.docx.page.0.pdf.png|
+|CustomersIssues/PCC-25714/fileEmf08.docx|0|CustomersIssues/PCC-25714/fileEmf08.docx.page.0.pdf.png|
+|CustomersIssues/PCC-25714/fileEmf09.docx|0|CustomersIssues/PCC-25714/fileEmf09.docx.page.0.pdf.png|
+|CustomersIssues/PCC-25714/fileEmf10.docx|0|CustomersIssues/PCC-25714/fileEmf10.docx.page.0.pdf.png|
+|CustomersIssues/PCC-25714/fileEmf11.docx|0|CustomersIssues/PCC-25714/fileEmf11.docx.page.0.pdf.png|
+|CustomersIssues/PCC-25714/page1.docx|0|CustomersIssues/PCC-25714/page1.docx.page.0.pdf.png|
+|CustomersIssues/PCC-25714/page2.docx|0|CustomersIssues/PCC-25714/page2.docx.page.0.pdf.png|
+
+
+Scenario: Testing fix for  PCC-25809
+
+Given Office conversion service is up and running
+When user sends request to convert page <pageNumber> of office document <file> to pdf format
+Then server must respond with status 200
+And conversion result matches with template <referenceImage> (difference less 0.1 percent)
+
+Examples:
+|file|pageNumber|referenceImage|
+|CustomersIssues/PCC-25809/PCC-25809.docx|0|CustomersIssues/PCC-25809/PCC-25809.docx.page.0.pdf.png|
+
+
+Scenario: Testing fix for  PCC-26663
+
+Given Office conversion service is up and running
+When user sends request to convert page <pageNumber> of office document <file> to pdf format
+Then server must respond with status 200
+And conversion result matches with template <referenceImage> (difference less 0.1 percent)
+
+Examples:
+|file|pageNumber|referenceImage|
+|CustomersIssues/PCC-26663/file1893.ppt|3|CustomersIssues/PCC-26663/file1893.ppt.page.3.pdf.png|
+
+
+
+Scenario: Testing fix for  PCC-27850
+
+Given Office conversion service is up and running
+When user sends request to convert page <pageNumber> of office document <file> to pdf format
+Then server must respond with status 200
+And conversion result matches with template <referenceImage> (difference less 0.1 percent)
+
+Examples:
+|file|pageNumber|referenceImage|
+|CustomersIssues/PCC-27850/page1.docx|0|CustomersIssues/PCC-27850/page1.docx.page.0.pdf.png|
+|CustomersIssues/PCC-27850/page2.docx|0|CustomersIssues/PCC-27850/page2.docx.page.0.pdf.png|
+
+
+Scenario: Testing fix for  PCC-27916
+
+Given Office conversion service is up and running
+When user sends request to convert page <pageNumber> of office document <file> to pdf format
+Then server must respond with status 200
+And conversion result matches with template <referenceImage> (difference less 0.1 percent)
+
+Examples:
+|file|pageNumber|referenceImage|
+|CustomersIssues/PCC-27916/file1113.doc|4|CustomersIssues/PCC-27916/file1113.doc.page.4.pdf.png|
+
+
+Scenario: Testing fix for  PCC-17821
+
+Given Office conversion service is up and running
+When user sends request to convert page <pageNumber> of office document <file> to pdf format
+Then server must respond with status 200
+And conversion result matches with template <referenceImage> (difference less 0.1 percent)
+
+Examples:
+|file|pageNumber|referenceImage|
+|CustomersIssues/PCC-17821/Source_File.docx|6|CustomersIssues/PCC-17821/Source_File.docx.page.6.pdf.png|
+
+
+Scenario: Testing fix for  PCC-30491
+
+Given Office conversion service is up and running
+When user sends request to convert page <pageNumber> of office document <file> to pdf format
+Then server must respond with status 200
+And conversion result matches with template <referenceImage> (difference less 0.1 percent)
+
+Examples:
+|file|pageNumber|referenceImage|
+|CustomersIssues/PCC-30491/file131.xls|7|CustomersIssues/PCC-30491/file131.xls.page.7.pdf.png|
+|CustomersIssues/PCC-30491/file131.xls|10|CustomersIssues/PCC-30491/file131.xls.page.10.pdf.png|
+
+Scenario: Testing fix for  PCC-29636
+
+Given Office conversion service is up and running
+When user sends request to convert page <pageNumber> of office document <file> to pdf format
+Then server must respond with status 200
+And conversion result matches with template <referenceImage> (difference less 0.1 percent)
+
+Examples:
+|file|pageNumber|referenceImage|
+|CustomersIssues/PCC-29636/ea71f93e.docx|0|CustomersIssues/PCC-29636/ea71f93e.docx.page.0.pdf.png|
+
+Scenario: Testing fix for  PCC-26906
+
+Given Office conversion service is up and running
+When user sends request to convert page <pageNumber> of office document <file> to pdf format
+Then server must respond with status 200
+And conversion result matches with template <referenceImage> (difference less 0.1 percent)
+
+Examples:
+|file|pageNumber|referenceImage|
+|CustomersIssues/PCC-26906/file26906.DOCX|0|CustomersIssues/PCC-26906/file26906.DOCX.page.0.pdf.png|
+
+Scenario: Testing fix for  PCC-30205
+
+Given Office conversion service is up and running
+When user sends request to convert page <pageNumber> of office document <file> to pdf format
+Then server must respond with status 200
+And conversion result matches with template <referenceImage> (difference less 0.1 percent)
+
+Examples:
+|file|pageNumber|referenceImage|
+|CustomersIssues/PCC-30205/PCC-30205.doc|0|CustomersIssues/PCC-30205/PCC-30205.doc.page.0.pdf.png|
+|CustomersIssues/PCC-30205/PCC-30205_LO_bug_90504.doc|0|CustomersIssues/PCC-30205/PCC-30205_LO_bug_90504.doc.page.0.pdf.png|
+
+Scenario: Testing fix for  PCC-29801
+
+Given Office conversion service is up and running
+When user sends request to convert page <pageNumber> of office document <file> to pdf format
+Then server must respond with status 200
+And conversion result matches with template <referenceImage> (difference less 0.1 percent)
+
+Examples:
+|file|pageNumber|referenceImage|
+|CustomersIssues/PCC-29801/PCC-29801.xlsx|1|CustomersIssues/PCC-29801/PCC-29801.xlsx.page.1.pdf.png|
+
+Scenario: Testing fix for  PCC-28831
+
+Given Office conversion service is up and running
+When user sends request to convert page <pageNumber> of office document <file> to pdf format
+Then server must respond with status 200
+And conversion result matches with template <referenceImage> (difference less 0.1 percent)
+
+Examples:
+|file|pageNumber|referenceImage|
+|CustomersIssues/PCC-28831/PCC-28831_customer_file_first_page.docx|0|CustomersIssues/PCC-28831/PCC-28831_customer_file_first_page.docx.page.0.pdf.png|
+|CustomersIssues/PCC-28831/test_file_for_drawing_object_relations.docx|0|CustomersIssues/PCC-28831/test_file_for_drawing_object_relations.docx.page.0.pdf.png|
+
+Scenario: Testing fix for  PCC-32610
+
+Given Office conversion service is up and running
+When user sends request to convert page <pageNumber> of office document <file> to pdf format
+Then server must respond with status 200
+And conversion result matches with template <referenceImage> (difference less 0.1 percent)
+
+Examples:
+|file|pageNumber|referenceImage|
+|CustomersIssues/PCC-32610/PCC-32610.docx|0|CustomersIssues/PCC-32610/PCC-32610.docx.page.0.pdf.png|
+|CustomersIssues/PCC-32610/PCC-30622.doc|0|CustomersIssues/PCC-32610/PCC-30622.doc.page.0.pdf.png|
+|CustomersIssues/PCC-32610/PCC-25973.docx|0|CustomersIssues/PCC-32610/PCC-25973.docx.page.0.pdf.png|
+
+Scenario: Testing fix for  PCC-28217
+
+Given Office conversion service is up and running
+When user sends request to convert page <pageNumber> of office document <file> to pdf format
+Then server must respond with status 200
+And conversion result matches with template <referenceImage> (difference less 0.1 percent)
+
+Examples:
+|file|pageNumber|referenceImage|
+|CustomersIssues/PCC-28217/Languages.txt|0|CustomersIssues/PCC-28217/Languages.txt.page.0.pdf.png|
+
+Scenario: Testing fix for  PCC-31771
+
+Given Office conversion service is up and running
+When user sends request to convert page <pageNumber> of office document <file> to pdf format
+Then server must respond with status 200
+And conversion result matches with template <referenceImage> (difference less 0.1 percent)
+
+Examples:
+|file|pageNumber|referenceImage|
+|CustomersIssues/PCC-31771/rtf-checkbox-example.rtf|1|CustomersIssues/PCC-31771/rtf-checkbox-example.rtf.page.1.pdf.png|
+|CustomersIssues/PCC-31771/rtf-checkbox-example.rtf|5|CustomersIssues/PCC-31771/rtf-checkbox-example.rtf.page.5.pdf.png|
+|CustomersIssues/PCC-31771/rtf-checkbox-example.rtf|8|CustomersIssues/PCC-31771/rtf-checkbox-example.rtf.page.8.pdf.png|
+
+
+Scenario: Testing fix for  PCC-25978
+
+Given Office conversion service is up and running
+When user sends request to convert page <pageNumber> of office document <file> to pdf format
+Then server must respond with status 200
+And conversion result matches with template <referenceImage> (difference less 0.1 percent)
+
+Examples:
+|file|pageNumber|referenceImage|
+|CustomersIssues/PCC-25978/Source_File.docx|0|CustomersIssues/PCC-25978/Source_File.docx.page.0.pdf.png|
+|CustomersIssues/PCC-25978/Source_File.docx|13|CustomersIssues/PCC-25978/Source_File.docx.page.13.pdf.png|
+|CustomersIssues/PCC-25978/Source_File.docx|14|CustomersIssues/PCC-25978/Source_File.docx.page.14.pdf.png|
+|CustomersIssues/PCC-25978/Source_File.docx|15|CustomersIssues/PCC-25978/Source_File.docx.page.15.pdf.png|
+|CustomersIssues/PCC-25978/Source_File.docx|16|CustomersIssues/PCC-25978/Source_File.docx.page.16.pdf.png|
+
+Scenario: Testing fix for  PCC-25967
+
+Given Office conversion service is up and running
+When user sends request to convert page <pageNumber> of office document <file> to pdf format
+Then server must respond with status 200
+And conversion result matches with template <referenceImage> (difference less 0.1 percent)
+
+Examples:
+|file|pageNumber|referenceImage|
+|CustomersIssues/PCC-25967/16101_21505.docx|0|CustomersIssues/PCC-25967/16101_21505.docx.page.0.pdf.png|
+|CustomersIssues/PCC-25967/16101_21505.docx|1|CustomersIssues/PCC-25967/16101_21505.docx.page.1.pdf.png|
+|CustomersIssues/PCC-25967/16101_21505.docx|2|CustomersIssues/PCC-25967/16101_21505.docx.page.2.pdf.png|
+
+
+Scenario: Testing fix for  PCC-25891
+
+Given Office conversion service is up and running
+When user sends request to convert page <pageNumber> of office document <file> to pdf format
+Then server must respond with status 200
+And conversion result matches with template <referenceImage> (difference less 0.1 percent)
+
+Examples:
+|file|pageNumber|referenceImage|
+|CustomersIssues/PCC-25891/002679_Arabic_ALL.docx|0|CustomersIssues/PCC-25891/002679_Arabic_ALL.docx.page.0.pdf.png|
+|CustomersIssues/PCC-25891/002679_Arabic_ALL.docx|1|CustomersIssues/PCC-25891/002679_Arabic_ALL.docx.page.1.pdf.png|
+|CustomersIssues/PCC-25891/003219_RTL_Blackening.docx|0|CustomersIssues/PCC-25891/003219_RTL_Blackening.docx.page.0.pdf.png|
+|CustomersIssues/PCC-25891/003219_RTL_Blackening.docx|1|CustomersIssues/PCC-25891/003219_RTL_Blackening.docx.page.1.pdf.png|
+|CustomersIssues/PCC-25891/003219_RTL_SPSearch.docx|0|CustomersIssues/PCC-25891/003219_RTL_SPSearch.docx.page.0.pdf.png|
+|CustomersIssues/PCC-25891/003219_RTL_SPSearch.docx|1|CustomersIssues/PCC-25891/003219_RTL_SPSearch.docx.page.1.pdf.png|
+|CustomersIssues/PCC-25891/003219_RTL_SPSearch.docx|2|CustomersIssues/PCC-25891/003219_RTL_SPSearch.docx.page.2.pdf.png|
+|CustomersIssues/PCC-25891/003219_RTL_SPSearch.docx|3|CustomersIssues/PCC-25891/003219_RTL_SPSearch.docx.page.3.pdf.png|
+|CustomersIssues/PCC-25891/run_paragraph_mixed.docx|0|CustomersIssues/PCC-25891/run_paragraph_mixed.docx.page.0.pdf.png|
+|CustomersIssues/PCC-25891/run_paragraph_mixed.docx|1|CustomersIssues/PCC-25891/run_paragraph_mixed.docx.page.1.pdf.png|
+|CustomersIssues/PCC-25891/run_paragraph_mixed.docx|2|CustomersIssues/PCC-25891/run_paragraph_mixed.docx.page.2.pdf.png|
+|CustomersIssues/PCC-25891/run_paragraph_mixed.docx|3|CustomersIssues/PCC-25891/run_paragraph_mixed.docx.page.3.pdf.png|
+|CustomersIssues/PCC-25891/run_paragraph_mixed.docx|4|CustomersIssues/PCC-25891/run_paragraph_mixed.docx.page.4.pdf.png|
+|CustomersIssues/PCC-25891/run_paragraph_mixed.docx|5|CustomersIssues/PCC-25891/run_paragraph_mixed.docx.page.5.pdf.png|
+|CustomersIssues/PCC-25891/run_paragraph_mixed.docx|6|CustomersIssues/PCC-25891/run_paragraph_mixed.docx.page.6.pdf.png|
+|CustomersIssues/PCC-25891/run_paragraph_mixed.docx|7|CustomersIssues/PCC-25891/run_paragraph_mixed.docx.page.7.pdf.png|
+|CustomersIssues/PCC-25891/run_paragraph_mixed.docx|8|CustomersIssues/PCC-25891/run_paragraph_mixed.docx.page.8.pdf.png|
+|CustomersIssues/PCC-25891/run_paragraph_mixed.docx|9|CustomersIssues/PCC-25891/run_paragraph_mixed.docx.page.9.pdf.png|
+|CustomersIssues/PCC-25891/run_paragraph_mixed.docx|10|CustomersIssues/PCC-25891/run_paragraph_mixed.docx.page.10.pdf.png|
+|CustomersIssues/PCC-25891/page1.docx|0|CustomersIssues/PCC-25891/page1.docx.page.0.pdf.png|
+|CustomersIssues/PCC-25891/page2.docx|0|CustomersIssues/PCC-25891/page2.docx.page.0.pdf.png|
+
+
+Scenario: Testing fix for  PCC-26811
+
+Given Office conversion service is up and running
+When user sends request to convert page <pageNumber> of office document <file> to pdf format
+Then server must respond with status 200
+And conversion result matches with template <referenceImage> (difference less 0.1 percent)
+
+Examples:
+|file|pageNumber|referenceImage|
+|CustomersIssues/PCC-26811/PCC-26811.docx|30|CustomersIssues/PCC-26811/PCC-26811.docx.page.30.pdf.png|
+|CustomersIssues/PCC-26811/PCC-26811.docx|31|CustomersIssues/PCC-26811/PCC-26811.docx.page.31.pdf.png|
+|CustomersIssues/PCC-26811/PCC-26811.docx|32|CustomersIssues/PCC-26811/PCC-26811.docx.page.32.pdf.png|
+|CustomersIssues/PCC-26811/PCC-26811.docx|33|CustomersIssues/PCC-26811/PCC-26811.docx.page.33.pdf.png|
+|CustomersIssues/PCC-26811/PCC-31439.docx|0|CustomersIssues/PCC-26811/PCC-31439.docx.page.0.pdf.png|
+|CustomersIssues/PCC-26811/PCC-31439.docx|1|CustomersIssues/PCC-26811/PCC-31439.docx.page.1.pdf.png|
+|CustomersIssues/PCC-26811/PCC-31439.docx|2|CustomersIssues/PCC-26811/PCC-31439.docx.page.2.pdf.png|
+|CustomersIssues/PCC-26811/PCC-31439.docx|3|CustomersIssues/PCC-26811/PCC-31439.docx.page.3.pdf.png|
+|CustomersIssues/PCC-26811/PCC-31443.docx|0|CustomersIssues/PCC-26811/PCC-31443.docx.page.0.pdf.png|
+|CustomersIssues/PCC-26811/PCC-31443.docx|1|CustomersIssues/PCC-26811/PCC-31443.docx.page.1.pdf.png|
+|CustomersIssues/PCC-26811/PCC-31443.docx|2|CustomersIssues/PCC-26811/PCC-31443.docx.page.2.pdf.png|
+|CustomersIssues/PCC-26811/PCC-31443.docx|3|CustomersIssues/PCC-26811/PCC-31443.docx.page.3.pdf.png|
+
+
+Scenario: Testing fix for  PCC-27790
+
+Given Office conversion service is up and running
+When user sends request to convert page <pageNumber> of office document <file> to pdf format
+Then server must respond with status 200
+And conversion result matches with template <referenceImage> (difference less 0.1 percent)
+
+Examples:
+|file|pageNumber|referenceImage|
+|CustomersIssues/PCC-27790/page1.docx|0|CustomersIssues/PCC-27790/page1.docx.page.0.pdf.png|
+|CustomersIssues/PCC-27790/page2.docx|0|CustomersIssues/PCC-27790/page2.docx.page.0.pdf.png|
+
+
+Scenario: Testing fix for  PCC-32254
+
+Given Office conversion service is up and running
+When user sends request to convert page <pageNumber> of office document <file> to pdf format
+Then server must respond with status 200
+And conversion result matches with template <referenceImage> (difference less 0.1 percent)
+
+Examples:
+|file|pageNumber|referenceImage|
+|CustomersIssues/PCC-32254/Source_Page2.doc|0|CustomersIssues/PCC-32254/Source_Page2.doc.page.0.pdf.png|
+
+
+Scenario: Testing fix for  PCC-25971
+
+Given Office conversion service is up and running
+When user sends request to convert page <pageNumber> of office document <file> to pdf format
+Then server must respond with status 200
+And conversion result matches with template <referenceImage> (difference less 0.1 percent)
+
+Examples:
+|file|pageNumber|referenceImage|
+|CustomersIssues/PCC-25971/2015.xlsx.xlsx|0|CustomersIssues/PCC-25971/2015.xlsx.xlsx.page.0.pdf.png|
+
+
+Scenario: Testing fix for  PCC-32497
+
+Given Office conversion service is up and running
+When user sends request to convert page <pageNumber> of office document <file> to pdf format
+Then server must respond with status 200
+And conversion result matches with template <referenceImage> (difference less 0.1 percent)
+
+Examples:
+|file|pageNumber|referenceImage|
+|CustomersIssues/PCC-32497/QA_Metrics.pptx|9|CustomersIssues/PCC-32497/QA_Metrics.pptx.page.9.pdf.png|
+|CustomersIssues/PCC-32497/QA_Metrics.pptx|11|CustomersIssues/PCC-32497/QA_Metrics.pptx.page.11.pdf.png|
+
+
+Scenario: Testing fix for  PCC-30622
+
+Given Office conversion service is up and running
+When user sends request to convert page <pageNumber> of office document <file> to pdf format
+Then server must respond with status 200
+And conversion result matches with template <referenceImage> (difference less 0.1 percent)
+
+Examples:
+|file|pageNumber|referenceImage|
+|CustomersIssues/PCC-30622/test_docx.doc|0|CustomersIssues/PCC-30622/test_docx.doc.page.0.pdf.png|
+|CustomersIssues/PCC-30622/test_docx.doc|1|CustomersIssues/PCC-30622/test_docx.doc.page.1.pdf.png|
+|CustomersIssues/PCC-30622/test_docx.doc|2|CustomersIssues/PCC-30622/test_docx.doc.page.2.pdf.png|
+|CustomersIssues/PCC-30622/test_docx.doc|3|CustomersIssues/PCC-30622/test_docx.doc.page.3.pdf.png|
+
+

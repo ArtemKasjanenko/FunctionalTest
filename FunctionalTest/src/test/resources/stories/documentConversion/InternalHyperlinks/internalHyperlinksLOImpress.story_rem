@@ -1,0 +1,172 @@
+Meta: (LOImpress) Conversion of LOImpress documents with internal HyperLinks to PDF format 
+
+Scenario: (LOImpress) Conversion of single page LOImpress document with internal HyperLinks 
+
+Given Office conversion service is up and running
+When user sends request to convert single page LOImpress document <file> with one internal HyperLinks to PDF format
+Then server must respond with status 200
+And converted PDF file has <expectedCountOfGoToLinks> "GoTo" link(s) with page destination value <expectedPageDestinationValue>
+
+Examples:
+|file|expectedCountOfGoToLinks|expectedPageDestinationValue|
+|Hyperlinks/LOImpress/odp/P1_OneLinkToP1.odp|1|1|
+|Hyperlinks/LOImpress/fodp/P1_OneLinkToP1.fodp|1|1|
+|Hyperlinks/LOImpress/otp/P1_OneLinkToP1.otp|1|1|
+
+Scenario: (LOImpress) Conversion of selected page from multiple page LOImpress document with internal HyperLinks to PDF format
+ 
+Given Office conversion service is up and running
+When user sends request to convert page <pageNumber> from LOImpress document <file> with multiple internal HyperLinks to PDF format
+Then server must respond with status 200
+And converted PDF file has <expectedCountOfGoToLinks> "GoTo" link(s) with page destination value <expectedPageDestinationValue>
+
+Examples:
+|file|pageNumber|expectedCountOfGoToLinks|expectedPageDestinationValue| 
+|Hyperlinks/LOImpress/odp/P1_OneLinkToP2_P2_TwoLinksToP1.odp|0|1|2|
+|Hyperlinks/LOImpress/odp/P1_OneLinkToP2_P2_TwoLinksToP1.odp|1|2|1|
+|Hyperlinks/LOImpress/fodp/P1_OneLinkToP2_P2_TwoLinksToP1.fodp|0|1|2|
+|Hyperlinks/LOImpress/fodp/P1_OneLinkToP2_P2_TwoLinksToP1.fodp|1|2|1|
+|Hyperlinks/LOImpress/otp/P1_OneLinkToP2_P2_TwoLinksToP1.otp|0|1|2|
+|Hyperlinks/LOImpress/otp/P1_OneLinkToP2_P2_TwoLinksToP1.otp|1|2|1|
+
+|Hyperlinks/LOImpress/odp/P1_NoLinks_P2_OneLinkToP1.odp|1|1|1|
+|Hyperlinks/LOImpress/fodp/P1_NoLinks_P2_OneLinkToP1.fodp|1|1|1|
+|Hyperlinks/LOImpress/otp/P1_NoLinks_P2_OneLinkToP1.otp|1|1|1|
+
+
+Scenario: (LOImpress) Checking number of Hypelinks in single PDF file after conversion of LOImpress document
+ 
+Given Office conversion service is up and running
+When user sends request to convert all pages from LOImpress document <file> with multiple internal HyperLinks to PDF format
+Then server must respond with status 200
+And converted PDF file has <expectedTotalCountOfGoToLinks> "GoTo" link(s)
+
+Examples:
+|file|expectedTotalCountOfGoToLinks|selectedPageNumber| 
+|Hyperlinks/LOImpress/Customer/odp/CostSharingPrimer.odp|6|
+|Hyperlinks/LOImpress/Customer/odp/FacultyResearchDiscussionGroups.odp|3|
+|Hyperlinks/LOImpress/Customer/odp/FCP-Workshop1.odp|1|
+|Hyperlinks/LOImpress/Customer/odp/feinberg-white.odp|10|
+|Hyperlinks/LOImpress/Customer/odp/friday_1484.odp|2|
+|Hyperlinks/LOImpress/Customer/odp/GoingExempt.odp|6|
+|Hyperlinks/LOImpress/Customer/odp/High_School_Top_Ten.2010.odp|2|
+|Hyperlinks/LOImpress/Customer/odp/MotivatingYourStaff1.11.odp|3|
+|Hyperlinks/LOImpress/Customer/odp/NURAP_EVProp_Budget_5Fina.odp|4|
+|Hyperlinks/LOImpress/Customer/odp/Nuvention-Web-Intro-2015.odp|1|
+|Hyperlinks/LOImpress/Customer/odp/tuesday_d6.odp|3|
+|Hyperlinks/LOImpress/Customer/odp/WritingClear_and_succinct_2012.odp|2|
+|Hyperlinks/LOImpress/Customer/otp/Sample.otp|2|
+|Hyperlinks/LOImpress/Customer/otp/subtlewaves.otp|1|
+
+Scenario: (LOImpress) Conversion of all pages from multiple page LOImpress document with internal HyperLinks to PDF format (single file)
+ 
+Given Office conversion service is up and running
+When user sends request to convert all pages from LOImpress document <file> with multiple internal HyperLinks to PDF format
+Then server must respond with status 200
+And converted PDF file has <expectedTotalCountOfGoToLinks> "GoTo" link(s)
+And converted PDF file has <expectedCountOfGoToLinksOnSelectedPage> "GoTo" link(s) on page <selectedPageNumber> with page destination value <expectedPageDestinationValue>
+
+Examples:
+|file|expectedTotalCountOfGoToLinks|selectedPageNumber|expectedCountOfGoToLinksOnSelectedPage|expectedPageDestinationValue| 
+|Hyperlinks/LOImpress/odp/P1_OneLinkToP2_P2_TwoLinksToP1.odp          |3|0|1|2|
+|Hyperlinks/LOImpress/fodp/P1_OneLinkToP2_P2_TwoLinksToP1.fodp          |3|0|1|2|
+|Hyperlinks/LOImpress/otp/P1_OneLinkToP2_P2_TwoLinksToP1.otp          |3|0|1|2|
+
+|Hyperlinks/LOImpress/odp/P1_OneLinkToP3_P2_TwoLinksToP1.odp            |3|0|1|3|
+|Hyperlinks/LOImpress/fodp/P1_OneLinkToP3_P2_TwoLinksToP1.fodp            |3|0|1|3|
+|Hyperlinks/LOImpress/otp/P1_OneLinkToP3_P2_TwoLinksToP1.otp            |3|0|1|3|
+
+|Hyperlinks/LOImpress/odp/P1_OneLinkToP3_P2_NoLinks_P3_NoLinks.odp|1|0|1|3|
+|Hyperlinks/LOImpress/fodp/P1_OneLinkToP3_P2_NoLinks_P3_NoLinks.fodp|1|0|1|3|
+|Hyperlinks/LOImpress/otp/P1_OneLinkToP3_P2_NoLinks_P3_NoLinks.otp|1|0|1|3|
+
+|Hyperlinks/LOImpress/odp/P1_NoLinks_P2_OneLinkToP1.odp|1|1|1|1|
+|Hyperlinks/LOImpress/fodp/P1_NoLinks_P2_OneLinkToP1.fodp|1|1|1|1|
+|Hyperlinks/LOImpress/otp/P1_NoLinks_P2_OneLinkToP1.otp|1|1|1|1|
+|-- Hyperlinks/LOImpress/Customer/odp/Presentation1.odp|3|0|1|5| error with test file
+|Hyperlinks/LOImpress/Customer/odp/pptxlink.odp|11|4|1|1|
+|Hyperlinks/LOImpress/Customer/odp/SampleLink.odp|1|2|1|5|
+
+
+Scenario: (LOImpress) Checking value of selected link in LOImpress document on selected page in single page conversation mode 
+Given Office conversion service is up and running
+When user sends request to convert page <pageNumber> from LOImpress document <file> with multiple internal HyperLinks to PDF format
+Then server must respond with status 200
+And converted PDF file has "GoTo" hyperlink with number <linkNumber> and value <expectedPageDestinationValue>
+
+Examples:
+|file|pageNumber|linkNumber|expectedPageDestinationValue|
+|Hyperlinks/LOImpress/odp/P1_OneLinkToP2_P2_TwoLinksToP1.odp   |0|0|2|
+|Hyperlinks/LOImpress/odp/P1_OneLinkToP2_P2_TwoLinksToP1.odp   |1|0|1|
+|Hyperlinks/LOImpress/odp/P1_OneLinkToP2_P2_TwoLinksToP1.odp   |1|1|1|
+|Hyperlinks/LOImpress/fodp/P1_OneLinkToP2_P2_TwoLinksToP1.fodp   |0|0|2|
+|Hyperlinks/LOImpress/fodp/P1_OneLinkToP2_P2_TwoLinksToP1.fodp   |1|0|1|
+|Hyperlinks/LOImpress/fodp/P1_OneLinkToP2_P2_TwoLinksToP1.fodp   |1|1|1|
+|Hyperlinks/LOImpress/otp/P1_OneLinkToP2_P2_TwoLinksToP1.otp   |0|0|2|
+|Hyperlinks/LOImpress/otp/P1_OneLinkToP2_P2_TwoLinksToP1.otp   |1|0|1|
+|Hyperlinks/LOImpress/otp/P1_OneLinkToP2_P2_TwoLinksToP1.otp   |1|1|1|
+
+|Hyperlinks/LOImpress/odp/P1_NoLinks_P2_OneLinkToP1.odp|1|0|1|
+|Hyperlinks/LOImpress/fodp/P1_NoLinks_P2_OneLinkToP1.fodp|1|0|1|
+|Hyperlinks/LOImpress/otp/P1_NoLinks_P2_OneLinkToP1.otp|1|0|1|
+|--Hyperlinks/LOImpress/Customer/odp/Presentation1.odp|0|0|5| error with test file
+|--Hyperlinks/LOImpress/Customer/odp/Presentation1.odp|2|0|15| error with test file
+|--Hyperlinks/LOImpress/Customer/odp/Presentation1.odp|8|0|1| error with test file
+|Hyperlinks/LOImpress/Customer/odp/pptxlink.odp|1|0|3|
+|Hyperlinks/LOImpress/Customer/odp/pptxlink.odp|1|1|5|
+|Hyperlinks/LOImpress/Customer/odp/pptxlink.odp|3|0|2|
+|Hyperlinks/LOImpress/Customer/odp/pptxlink.odp|3|1|3|
+|Hyperlinks/LOImpress/Customer/odp/pptxlink.odp|3|2|3|
+|Hyperlinks/LOImpress/Customer/odp/pptxlink.odp|3|3|3|
+|Hyperlinks/LOImpress/Customer/odp/pptxlink.odp|3|4|3|
+|Hyperlinks/LOImpress/Customer/odp/pptxlink.odp|3|5|5|
+|Hyperlinks/LOImpress/Customer/odp/pptxlink.odp|3|6|5|
+|Hyperlinks/LOImpress/Customer/odp/pptxlink.odp|3|7|5|
+|Hyperlinks/LOImpress/Customer/odp/pptxlink.odp|4|0|1|
+
+
+Scenario: (LOImpress) Comparison of GoTo hyperlinks count and pageDestination values between single file (one LOImpress file is converted to one pdf file) and multiple files (one LOImpress file is converted to set of pdf files) conversion modes  
+Given Office conversion service is up and running
+When user sends request to convert all pages from LOImpress document <file> with multiple internal HyperLinks to one PDF file
+And all GoTo hyperlinks are extracted from all pages of generated single PDF file and saved to set1  
+When user sends set of requests to convert all pages from LOImpress document <file> with multiple internal HyperLinks set of PDF files
+And all GoTo hyperlinks are extracted from all generated PDF files and saved to set2
+Then count, location and pageDestination values af hyperlinks between set1 and set2 must be the same
+
+Examples:
+|file|
+
+|Hyperlinks/LOImpress/odp/P1_OneLinkToP1.odp|
+|Hyperlinks/LOImpress/fodp/P1_OneLinkToP1.fodp|
+|Hyperlinks/LOImpress/otp/P1_OneLinkToP1.otp|
+
+|Hyperlinks/LOImpress/odp/P1_OneLinkToP2_P2_TwoLinksToP1.odp|
+|Hyperlinks/LOImpress/fodp/P1_OneLinkToP2_P2_TwoLinksToP1.fodp|
+|Hyperlinks/LOImpress/otp/P1_OneLinkToP2_P2_TwoLinksToP1.otp|
+
+|Hyperlinks/LOImpress/odp/P1_OneLinkToP3_P2_NoLinks_P3_NoLinks.odp|
+|Hyperlinks/LOImpress/fodp/P1_OneLinkToP3_P2_NoLinks_P3_NoLinks.fodp|
+|Hyperlinks/LOImpress/otp/P1_OneLinkToP3_P2_NoLinks_P3_NoLinks.otp|
+
+|Hyperlinks/LOImpress/odp/P1_NoLinks_P2_OneLinkToP1.odp|
+|Hyperlinks/LOImpress/fodp/P1_NoLinks_P2_OneLinkToP1.fodp|
+|Hyperlinks/LOImpress/otp/P1_NoLinks_P2_OneLinkToP1.otp|
+
+|Hyperlinks/LOImpress/Customer/odp/Presentation1.odp|
+|Hyperlinks/LOImpress/Customer/odp/pptxlink.odp|
+|Hyperlinks/LOImpress/Customer/odp/SampleLink.odp|
+
+|Hyperlinks/LOImpress/Customer/odp/CostSharingPrimer.odp|
+|Hyperlinks/LOImpress/Customer/odp/FacultyResearchDiscussionGroups.odp|
+|Hyperlinks/LOImpress/Customer/odp/FCP-Workshop1.odp|
+|Hyperlinks/LOImpress/Customer/odp/feinberg-white.odp|
+|Hyperlinks/LOImpress/Customer/odp/friday_1484.odp|
+|Hyperlinks/LOImpress/Customer/odp/GoingExempt.odp|
+|Hyperlinks/LOImpress/Customer/odp/High_School_Top_Ten.2010.odp|
+|Hyperlinks/LOImpress/Customer/odp/MotivatingYourStaff1.11.odp|
+|Hyperlinks/LOImpress/Customer/odp/NURAP_EVProp_Budget_5Fina.odp|
+|Hyperlinks/LOImpress/Customer/odp/Nuvention-Web-Intro-2015.odp|
+|Hyperlinks/LOImpress/Customer/odp/tuesday_d6.odp|
+|Hyperlinks/LOImpress/Customer/odp/WritingClear_and_succinct_2012.odp|
+|Hyperlinks/LOImpress/Customer/otp/Sample.otp|
+|Hyperlinks/LOImpress/Customer/otp/subtlewaves.otp|

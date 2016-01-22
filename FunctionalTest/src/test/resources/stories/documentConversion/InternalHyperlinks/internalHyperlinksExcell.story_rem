@@ -1,0 +1,507 @@
+Meta: (Excel) Conversion of Excel documents with internal HyperLinks to PDF format 
+
+Scenario: (Excel) Conversion of single page Excel document with internal HyperLinks 
+
+Given Office conversion service is up and running
+When user sends request to convert single page Excel document <file> with one internal HyperLinks to PDF format
+Then server must respond with status 200
+And converted PDF file has <expectedCountOfGoToLinks> "GoTo" link(s) with page destination value <expectedPageDestinationValue>
+
+Examples:
+|file|expectedCountOfGoToLinks|expectedPageDestinationValue|
+|Hyperlinks/Excel/xls/S1_OneLinkToS1_OnP1.xls|1|1|
+|Hyperlinks/Excel/xlt/S1_OneLinkToS1_OnP1.xlt|1|1|
+|Hyperlinks/Excel/xlsx/S1_OneLinkToS1_OnP1.xlsx|1|1|
+|Hyperlinks/Excel/xlsm/S1_OneLinkToS1_OnP1.xlsm|1|1|
+|Hyperlinks/Excel/xltx/S1_OneLinkToS1_OnP1.xltx|1|1|
+|Hyperlinks/Excel/xltm/S1_OneLinkToS1_OnP1.xltm|1|1|
+
+
+Scenario: (Excel) Conversion of selected page from multiple page Excel document with internal HyperLinks to PDF format
+ 
+Given Office conversion service is up and running
+When user sends request to convert page <pageNumber> from Excel document <file> with multiple internal HyperLinks to PDF format
+Then server must respond with status 200
+And converted PDF file has <expectedCountOfGoToLinks> "GoTo" link(s) with page destination value <expectedPageDestinationValue>
+
+Examples:
+|file|pageNumber|expectedCountOfGoToLinks|expectedPageDestinationValue| 
+|Hyperlinks/Excel/xls/S1_OneLinkToS2OnP2_S2_TwoLinksToS1OnP1.xls|0|1|2|
+|Hyperlinks/Excel/xls/S1_OneLinkToS2OnP2_S2_TwoLinksToS1OnP1.xls|1|2|1|
+|Hyperlinks/Excel/xlt/S1_OneLinkToS2OnP2_S2_TwoLinksToS1OnP1.xlt|0|1|2|
+|Hyperlinks/Excel/xlt/S1_OneLinkToS2OnP2_S2_TwoLinksToS1OnP1.xlt|1|2|1|
+|Hyperlinks/Excel/xlsx/S1_OneLinkToS2OnP2_S2_TwoLinksToS1OnP1.xlsx|0|1|2|
+|Hyperlinks/Excel/xlsx/S1_OneLinkToS2OnP2_S2_TwoLinksToS1OnP1.xlsx|1|2|1|
+|Hyperlinks/Excel/xlsm/S1_OneLinkToS2OnP2_S2_TwoLinksToS1OnP1.xlsm|0|1|2|
+|Hyperlinks/Excel/xlsm/S1_OneLinkToS2OnP2_S2_TwoLinksToS1OnP1.xlsm|1|2|1|
+|Hyperlinks/Excel/xltx/S1_OneLinkToS2OnP2_S2_TwoLinksToS1OnP1.xltx|0|1|2|
+|Hyperlinks/Excel/xltx/S1_OneLinkToS2OnP2_S2_TwoLinksToS1OnP1.xltx|1|2|1|
+|Hyperlinks/Excel/xltm/S1_OneLinkToS2OnP2_S2_TwoLinksToS1OnP1.xltm|0|1|2|
+|Hyperlinks/Excel/xltm/S1_OneLinkToS2OnP2_S2_TwoLinksToS1OnP1.xltm|1|2|1|
+
+|Hyperlinks/Excel/xls/S1_NoLinks_S2_LinkToS1.xls|1|1|1|
+|Hyperlinks/Excel/xlt/S1_NoLinks_S2_LinkToS1.xlt|1|1|1|
+|Hyperlinks/Excel/xlsx/S1_NoLinks_S2_LinkToS1.xlsx|1|1|1|
+|Hyperlinks/Excel/xlsm/S1_NoLinks_S2_LinkToS1.xlsm|1|1|1|
+|Hyperlinks/Excel/xltx/S1_NoLinks_S2_LinkToS1.xltx|1|1|1|
+|Hyperlinks/Excel/xltm/S1_NoLinks_S2_LinkToS1.xltm|1|1|1|
+
+
+
+Scenario: (Excel) Checking number of Hypelinks in single PDF file after conversion of Excel document
+ 
+Given Office conversion service is up and running
+When user sends request to convert all pages from Excel document <file> with multiple internal HyperLinks to PDF format
+Then server must respond with status 200
+And converted PDF file has <expectedTotalCountOfGoToLinks> "GoTo" link(s)
+
+Examples:
+|file|expectedTotalCountOfGoToLinks|selectedPageNumber| 
+|Hyperlinks/Excel/Customer/xlsm/excel_tutorial(xlsm).xlsm|127|
+|--Hyperlinks/Excel/Customer/xlsx/Finance-Form-OCH-Ledger(2).xlsx|1000| no hyperlinks
+|Hyperlinks/Excel/Customer/xltm/Instructions(xltm).xltm|10|
+
+
+Scenario: (Excel) Conversion of all pages from multiple page Excel document with internal HyperLinks to PDF format  (single file)
+ 
+Given Office conversion service is up and running
+When user sends request to convert all pages from Excel document <file> with multiple internal HyperLinks to PDF format
+Then server must respond with status 200
+And converted PDF file has <expectedTotalCountOfGoToLinks> "GoTo" link(s)
+And converted PDF file has <expectedCountOfGoToLinksOnSelectedPage> "GoTo" link(s) on page <selectedPageNumber> with page destination value <expectedPageDestinationValue>
+
+Examples:
+|file|expectedTotalCountOfGoToLinks|selectedPageNumber|expectedCountOfGoToLinksOnSelectedPage|expectedPageDestinationValue| 
+|Hyperlinks/Excel/xlsx/S1_OneLinkToS2OnP2_S2_TwoLinksToS1OnP1.xlsx   |3|0|1|2|
+|Hyperlinks/Excel/xlsx/S1_OneLinkToS2OnP3_S2_TwoLinksToS1OnP1.xlsx   |3|0|1|3|
+|Hyperlinks/Excel/xlsm/S1_OneLinkToS2OnP2_S2_TwoLinksToS1OnP1.xlsm   |3|0|1|2|
+|Hyperlinks/Excel/xlsm/S1_OneLinkToS2OnP3_S2_TwoLinksToS1OnP1.xlsm   |3|0|1|3|
+|Hyperlinks/Excel/xltm/S1_OneLinkToS2OnP2_S2_TwoLinksToS1OnP1.xltm   |3|0|1|2|
+|Hyperlinks/Excel/xltm/S1_OneLinkToS2OnP3_S2_TwoLinksToS1OnP1.xltm   |3|0|1|3|
+|Hyperlinks/Excel/xltx/S1_OneLinkToS2OnP2_S2_TwoLinksToS1OnP1.xltx   |3|0|1|2|
+|Hyperlinks/Excel/xltx/S1_OneLinkToS2OnP3_S2_TwoLinksToS1OnP1.xltx   |3|0|1|3|
+
+|Hyperlinks/Excel/xlsx/S1_OneLinkToS2OnP3_S2_NoLinks_S3_NoLinks.xlsx|1|0|1|3|
+|Hyperlinks/Excel/xlsm/S1_OneLinkToS2OnP3_S2_NoLinks_S3_NoLinks.xlsm|1|0|1|3|
+|Hyperlinks/Excel/xltx/S1_OneLinkToS2OnP3_S2_NoLinks_S3_NoLinks.xltx|1|0|1|3|
+|Hyperlinks/Excel/xltm/S1_OneLinkToS2OnP3_S2_NoLinks_S3_NoLinks.xltm|1|0|1|3|
+
+
+|Hyperlinks/Excel/xls/S1_NoLinks_S2_LinkToS1.xls|1|1|1|1|
+|Hyperlinks/Excel/xlt/S1_NoLinks_S2_LinkToS1.xlt|1|1|1|1|
+|Hyperlinks/Excel/xlsx/S1_NoLinks_S2_LinkToS1.xlsx|1|1|1|1|
+|Hyperlinks/Excel/xlsm/S1_NoLinks_S2_LinkToS1.xlsm|1|1|1|1|
+|Hyperlinks/Excel/xltx/S1_NoLinks_S2_LinkToS1.xltx|1|1|1|1|
+|Hyperlinks/Excel/xltm/S1_NoLinks_S2_LinkToS1.xltm|1|1|1|1|
+
+
+|Hyperlinks/Excel/xls/S1_OneLinkToS3_S2_NoLinks_S3_NoLinks.xls|1|0|1|3|
+|Hyperlinks/Excel/xlt/S1_OneLinkToS3_S2_NoLinks_S3_NoLinks.xlt|1|0|1|3|
+|Hyperlinks/Excel/xlsx/S1_OneLinkToS3_S2_NoLinks_S3_NoLinks.xlsx|1|0|1|3|
+|Hyperlinks/Excel/xlsm/S1_OneLinkToS3_S2_NoLinks_S3_NoLinks.xlsm|1|0|1|3|
+|Hyperlinks/Excel/xltx/S1_OneLinkToS3_S2_NoLinks_S3_NoLinks.xltx|1|0|1|3|
+|Hyperlinks/Excel/xltm/S1_OneLinkToS3_S2_NoLinks_S3_NoLinks.xltm|1|0|1|3|
+
+
+|Hyperlinks/Excel/Customer/xls/PrizmCloudStatsGraphLink.xls|1|3|1|1|
+|--Hyperlinks/Excel/Customer/xlsx/PrizmCloudStatsGraphLink.xlsx|1|3|1|1|
+|Hyperlinks/Excel/Customer/xls/SampleMailingList.xls|2|2|1|1|
+|Hyperlinks/Excel/Customer/xlsx/SampleMailingList.xlsx|2|2|1|1|
+
+
+Scenario: (Excel) Checking value of selected link in Excel document on selected page in single page conversation mode 
+Given Office conversion service is up and running
+When user sends request to convert page <pageNumber> from Excel document <file> with multiple internal HyperLinks to PDF format
+Then server must respond with status 200
+And converted PDF file has "GoTo" hyperlink with number <linkNumber> and value <expectedPageDestinationValue>
+
+Examples:
+|file|pageNumber|linkNumber|expectedPageDestinationValue|
+|Hyperlinks/Excel/xls/S1_OneLinkToS1_OnP1.xls|0|0|1|
+
+|Hyperlinks/Excel/xlsx/S1_OneLinkToS2OnP2_S2_TwoLinksToS1OnP1.xlsx   |0|0|2|
+|Hyperlinks/Excel/xlsm/S1_OneLinkToS2OnP2_S2_TwoLinksToS1OnP1.xlsm   |0|0|2|
+|Hyperlinks/Excel/xltx/S1_OneLinkToS2OnP2_S2_TwoLinksToS1OnP1.xltx   |0|0|2|
+|Hyperlinks/Excel/xltm/S1_OneLinkToS2OnP2_S2_TwoLinksToS1OnP1.xltm   |0|0|2|
+
+|Hyperlinks/Excel/xlsx/S1_OneLinkToS2OnP2_S2_TwoLinksToS1OnP1.xlsx   |1|0|1|
+|Hyperlinks/Excel/xlsx/S1_OneLinkToS2OnP2_S2_TwoLinksToS1OnP1.xlsx   |1|1|1|
+|Hyperlinks/Excel/xlsm/S1_OneLinkToS2OnP2_S2_TwoLinksToS1OnP1.xlsm   |1|0|1|
+|Hyperlinks/Excel/xlsm/S1_OneLinkToS2OnP2_S2_TwoLinksToS1OnP1.xlsm   |1|1|1|
+|Hyperlinks/Excel/xltx/S1_OneLinkToS2OnP2_S2_TwoLinksToS1OnP1.xltx   |1|0|1|
+|Hyperlinks/Excel/xltx/S1_OneLinkToS2OnP2_S2_TwoLinksToS1OnP1.xltx   |1|1|1|
+|Hyperlinks/Excel/xltm/S1_OneLinkToS2OnP2_S2_TwoLinksToS1OnP1.xltm   |1|0|1|
+|Hyperlinks/Excel/xltm/S1_OneLinkToS2OnP2_S2_TwoLinksToS1OnP1.xltm   |1|1|1|
+
+|Hyperlinks/Excel/xlsx/S1_OneLinkToS2OnP3_S2_NoLinks_S3_NoLinks.xlsx|0|0|3|
+|Hyperlinks/Excel/xlsm/S1_OneLinkToS2OnP3_S2_NoLinks_S3_NoLinks.xlsm|0|0|3|
+|Hyperlinks/Excel/xltx/S1_OneLinkToS2OnP3_S2_NoLinks_S3_NoLinks.xltx|0|0|3|
+|Hyperlinks/Excel/xltm/S1_OneLinkToS2OnP3_S2_NoLinks_S3_NoLinks.xltm|0|0|3|
+
+
+|Hyperlinks/Excel/xls/S1_NoLinks_S2_LinkToS1.xls|1|0|1|
+|Hyperlinks/Excel/xlt/S1_NoLinks_S2_LinkToS1.xlt|1|0|1|
+|Hyperlinks/Excel/xlsx/S1_NoLinks_S2_LinkToS1.xlsx|1|0|1|
+|Hyperlinks/Excel/xlsm/S1_NoLinks_S2_LinkToS1.xlsm|1|0|1|
+|Hyperlinks/Excel/xltx/S1_NoLinks_S2_LinkToS1.xltx|1|0|1|
+|Hyperlinks/Excel/xltm/S1_NoLinks_S2_LinkToS1.xltm|1|0|1|
+
+
+|Hyperlinks/Excel/xls/S1_OneLinkToS3_S2_NoLinks_S3_NoLinks.xls|0|0|3|
+|Hyperlinks/Excel/xlt/S1_OneLinkToS3_S2_NoLinks_S3_NoLinks.xlt|0|0|3|
+|Hyperlinks/Excel/xlsx/S1_OneLinkToS3_S2_NoLinks_S3_NoLinks.xlsx|0|0|3|
+|Hyperlinks/Excel/xlsm/S1_OneLinkToS3_S2_NoLinks_S3_NoLinks.xlsm|0|0|3|
+|Hyperlinks/Excel/xltx/S1_OneLinkToS3_S2_NoLinks_S3_NoLinks.xltx|0|0|3|
+|Hyperlinks/Excel/xltm/S1_OneLinkToS3_S2_NoLinks_S3_NoLinks.xltm|0|0|3|
+
+
+|Hyperlinks/Excel/Customer/xls/PrizmCloudStatsGraphLink.xls|3|0|1|
+|Hyperlinks/Excel/Customer/xlsx/PrizmCloudStatsGraphLink.xlsx|3|0|1|
+|Hyperlinks/Excel/Customer/xls/SampleMailingList.xls|0|0|2|
+|Hyperlinks/Excel/Customer/xls/SampleMailingList.xls|2|0|1|
+|Hyperlinks/Excel/Customer/xls/SampleMailingList.xls|0|0|2|
+|Hyperlinks/Excel/Customer/xls/SampleMailingList.xls|2|0|1|
+|Hyperlinks/Excel/Customer/xlsx/SampleMailingList.xlsx|0|0|2|
+|Hyperlinks/Excel/Customer/xlsx/SampleMailingList.xlsx|2|0|1|
+
+
+
+
+|common/yahoo/xls/file1073.xls|1|0|1|
+|common/yahoo/xls/file1073.xls|2|0|1|
+|common/yahoo/xls/file1073.xls|3|0|1|
+|common/yahoo/xls/file1073.xls|4|0|1|
+|common/yahoo/xls/file1073.xls|5|0|1|
+|common/yahoo/xls/file1073.xls|7|0|1|
+|common/yahoo/xls/file1073.xls|8|0|1|
+|common/yahoo/xls/file1073.xls|9|0|1|
+|common/yahoo/xls/file1073.xls|10|0|1|
+|common/yahoo/xls/file1073.xls|11|0|1|
+|common/yahoo/xls/file1073.xls|12|0|1|
+|common/yahoo/xls/file1073.xls|13|0|1|
+|common/yahoo/xls/file1073.xls|14|0|1|
+|common/yahoo/xls/file1073.xls|15|0|1|
+|common/yahoo/xls/file1073.xls|16|0|1|
+|common/yahoo/xls/file1073.xls|17|0|1|
+|common/yahoo/xls/file1073.xls|18|0|1|
+|common/yahoo/xls/file1073.xls|19|0|1|
+
+|common/yahoo/xls/file1280.xls|0|0|3|
+|common/yahoo/xls/file1423.xls|0|0|2|
+|common/yahoo/xls/file1423.xls|0|1|7|
+|common/yahoo/xls/file1423.xls|0|2|8|
+|common/yahoo/xls/file1423.xls|0|3|34|
+|common/yahoo/xls/file1423.xls|0|4|47|
+|common/yahoo/xls/file143.xls|0|0|9|
+|common/yahoo/xls/file143.xls|0|1|10|
+|common/yahoo/xls/file143.xls|0|2|11|
+|common/yahoo/xls/file143.xls|0|3|19|
+
+|common/yahoo/xls/file1483.xls|1|0|1|
+|common/yahoo/xls/file1483.xls|101|0|1|
+|common/yahoo/xls/file1483.xls|101|1|34|
+
+|common/yahoo/xls/file1483.xls|110|0|1|
+|common/yahoo/xls/file1483.xls|110|1|34|
+
+|common/yahoo/xls/file1483.xls|111|0|1|
+|common/yahoo/xls/file1483.xls|111|1|34|
+
+|common/yahoo/xls/file1483.xls|112|0|1|
+
+|common/yahoo/xls/file1483.xls|116|0|1|
+|common/yahoo/xls/file1483.xls|116|1|34|
+
+|common/yahoo/xls/file1483.xls|118|0|1|
+|common/yahoo/xls/file1483.xls|118|1|34|
+
+|common/yahoo/xls/file1483.xls|119|0|1|
+|common/yahoo/xls/file1483.xls|119|1|34|
+
+|common/yahoo/xls/file1483.xls|121|0|1|
+|common/yahoo/xls/file1483.xls|121|1|34|
+
+|common/yahoo/xls/file1483.xls|123|0|1|
+|common/yahoo/xls/file1483.xls|123|1|34|
+
+|common/yahoo/xls/file1483.xls|124|0|1|
+|common/yahoo/xls/file1483.xls|124|1|34|
+
+|common/yahoo/xls/file1483.xls|126|0|1|
+|common/yahoo/xls/file1483.xls|126|1|34|
+
+|common/yahoo/xls/file1483.xls|127|0|1|
+|common/yahoo/xls/file1483.xls|127|1|34|
+
+|common/yahoo/xls/file1483.xls|129|0|1|
+|common/yahoo/xls/file1483.xls|129|1|34|
+
+|common/yahoo/xls/file1483.xls|131|0|1|
+|common/yahoo/xls/file1483.xls|131|1|34|
+
+|common/yahoo/xls/file1483.xls|132|0|1|
+|common/yahoo/xls/file1483.xls|132|1|34|
+
+|common/yahoo/xls/file1483.xls|135|0|1|
+|common/yahoo/xls/file1483.xls|135|1|34|
+
+|common/yahoo/xls/file1483.xls|139|0|1|
+|common/yahoo/xls/file1483.xls|139|1|34|
+
+|common/yahoo/xls/file1483.xls|141|0|1|
+|common/yahoo/xls/file1483.xls|141|1|34|
+
+|common/yahoo/xls/file1483.xls|146|0|1|
+|common/yahoo/xls/file1483.xls|146|1|34|
+
+|common/yahoo/xls/file1483.xls|154|0|1|
+|common/yahoo/xls/file1483.xls|154|1|34|
+
+|common/yahoo/xls/file1483.xls|155|0|1|
+|common/yahoo/xls/file1483.xls|155|1|34|
+
+|common/yahoo/xls/file1483.xls|2|0|1|
+
+|common/yahoo/xls/file1483.xls|25|0|1|
+
+|common/yahoo/xls/file1483.xls|26|0|1|
+
+|common/yahoo/xls/file1483.xls|3|0|1|
+
+|common/yahoo/xls/file1483.xls|32|0|1|
+
+|common/yahoo/xls/file1483.xls|33|0|1|
+
+|common/yahoo/xls/file1483.xls|34|0|1|
+|common/yahoo/xls/file1483.xls|34|1|34|
+
+|common/yahoo/xls/file1483.xls|35|0|1|
+|common/yahoo/xls/file1483.xls|35|1|34|
+
+|common/yahoo/xls/file1483.xls|38|0|1|
+|common/yahoo/xls/file1483.xls|38|1|34|
+
+|common/yahoo/xls/file1483.xls|4|0|1|
+
+|common/yahoo/xls/file1483.xls|41|0|1|
+|common/yahoo/xls/file1483.xls|41|1|34|
+
+|common/yahoo/xls/file1483.xls|44|0|1|
+|common/yahoo/xls/file1483.xls|44|1|34|
+
+|common/yahoo/xls/file1483.xls|46|0|1|
+|common/yahoo/xls/file1483.xls|46|1|34|
+
+|common/yahoo/xls/file1483.xls|5|0|1|
+
+|common/yahoo/xls/file1483.xls|52|0|1|
+|common/yahoo/xls/file1483.xls|52|1|34|
+
+|common/yahoo/xls/file1483.xls|54|0|1|
+|common/yahoo/xls/file1483.xls|54|1|34|
+
+|common/yahoo/xls/file1483.xls|58|0|1|
+|common/yahoo/xls/file1483.xls|58|1|34|
+
+|common/yahoo/xls/file1483.xls|6|0|1|
+
+|common/yahoo/xls/file1483.xls|61|0|1|
+|common/yahoo/xls/file1483.xls|61|1|34|
+
+|common/yahoo/xls/file1483.xls|70|0|1|
+|common/yahoo/xls/file1483.xls|70|1|34|
+
+|common/yahoo/xls/file1483.xls|71|0|34|
+
+|common/yahoo/xls/file1483.xls|72|0|1|
+|common/yahoo/xls/file1483.xls|72|1|34|
+
+|common/yahoo/xls/file1483.xls|73|0|1|
+|common/yahoo/xls/file1483.xls|73|1|34|
+
+|common/yahoo/xls/file1483.xls|76|0|1|
+|common/yahoo/xls/file1483.xls|76|1|34|
+
+|common/yahoo/xls/file1483.xls|77|0|1|
+|common/yahoo/xls/file1483.xls|77|1|34|
+
+|common/yahoo/xls/file1483.xls|78|0|1|
+|common/yahoo/xls/file1483.xls|78|1|34|
+
+|common/yahoo/xls/file1483.xls|79|0|1|
+|common/yahoo/xls/file1483.xls|79|1|34|
+
+|common/yahoo/xls/file1483.xls|82|0|1|
+|common/yahoo/xls/file1483.xls|82|1|34|
+
+|common/yahoo/xls/file1483.xls|87|0|1|
+|common/yahoo/xls/file1483.xls|87|1|34|
+
+|common/yahoo/xls/file1483.xls|88|0|1|
+|common/yahoo/xls/file1483.xls|88|1|34|
+
+|common/yahoo/xls/file1483.xls|90|0|1|
+|common/yahoo/xls/file1483.xls|90|1|34|
+
+|common/yahoo/xls/file1483.xls|94|0|1|
+|common/yahoo/xls/file1483.xls|94|1|34|
+
+|common/yahoo/xls/file1483.xls|96|0|1|
+|common/yahoo/xls/file1483.xls|96|1|34|
+
+|common/yahoo/xls/file1483.xls|98|0|1|
+|common/yahoo/xls/file1483.xls|98|1|34|
+
+|common/yahoo/xls/file170.xls|1|1|35|
+|common/yahoo/xls/file170.xls|1|2|35|
+|common/yahoo/xls/file170.xls|1|3|35|
+|common/yahoo/xls/file170.xls|1|4|35|
+|common/yahoo/xls/file170.xls|1|5|35|
+|common/yahoo/xls/file170.xls|1|6|35|
+|common/yahoo/xls/file170.xls|1|7|35|
+|common/yahoo/xls/file170.xls|1|8|35|
+|common/yahoo/xls/file170.xls|1|9|38|
+|common/yahoo/xls/file170.xls|1|10|38|
+
+|common/yahoo/xls/file1770.xls|0|0|1|
+
+|common/yahoo/xls/file2001.xls|4|0|14|
+|common/yahoo/xls/file2001.xls|4|1|14|
+|common/yahoo/xls/file2001.xls|4|2|14|
+|common/yahoo/xls/file2001.xls|4|3|14|
+|common/yahoo/xls/file2001.xls|4|4|14|
+
+|common/yahoo/xls/file2013.xls|0|0|1|
+|common/yahoo/xls/file2013.xls|0|1|3|
+|common/yahoo/xls/file2013.xls|0|2|1|
+|common/yahoo/xls/file2013.xls|0|3|3|
+|common/yahoo/xls/file2013.xls|0|4|2|
+
+|common/yahoo/xls/file2084.xls|1|0|3|
+|common/yahoo/xls/file2084.xls|1|1|4|
+|common/yahoo/xls/file2084.xls|1|2|5|
+|common/yahoo/xls/file2084.xls|1|3|6|
+|common/yahoo/xls/file2084.xls|1|4|7|
+
+|common/yahoo/xls/file2145.xls|0|0|2|
+|common/yahoo/xls/file2145.xls|0|1|2|
+|common/yahoo/xls/file2145.xls|0|2|2|
+|common/yahoo/xls/file2145.xls|0|3|2|
+|common/yahoo/xls/file2145.xls|0|4|2|
+
+|common/yahoo/xls/file2224.xls|4|0|6|
+|common/yahoo/xls/file2224.xls|5|0|7|
+|common/yahoo/xls/file2224.xls|6|0|6|
+|common/yahoo/xls/file2224.xls|8|0|6|
+|common/yahoo/xls/file2224.xls|8|1|7|
+
+|common/yahoo/xls/file245.xls|0|0|3|
+|common/yahoo/xls/file245.xls|0|1|3|
+|common/yahoo/xls/file245.xls|0|2|3|
+|common/yahoo/xls/file245.xls|0|3|3|
+|common/yahoo/xls/file245.xls|0|4|3|
+
+|common/yahoo/xls/file245.xls|1|0|3|
+
+|common/yahoo/xls/file245.xls|2|0|1|
+|common/yahoo/xls/file245.xls|2|1|1|
+|common/yahoo/xls/file245.xls|2|2|1|
+|common/yahoo/xls/file245.xls|2|3|1|
+|common/yahoo/xls/file245.xls|2|4|1|
+
+|common/yahoo/xls/file332.xls|1|0|31|
+|common/yahoo/xls/file332.xls|1|1|5|
+
+|common/yahoo/xls/file397.xls|0|0|2|
+|common/yahoo/xls/file397.xls|0|1|3|
+|common/yahoo/xls/file397.xls|0|2|4|
+
+|common/yahoo/xls/file544.xls|0|0|2|
+|common/yahoo/xls/file544.xls|0|1|3|
+|common/yahoo/xls/file544.xls|0|2|4|
+|common/yahoo/xls/file544.xls|0|3|5|
+
+|common/yahoo/xls/file544.xls|2|0|2|
+|common/yahoo/xls/file544.xls|2|1|1|
+
+|common/yahoo/xls/file836.xls|0|0|3|
+
+|common/yahoo/xls/file910.xls|0|0|2|
+|common/yahoo/xls/file910.xls|0|1|9|
+|common/yahoo/xls/file910.xls|0|2|17|
+
+Scenario: (Excel) Comparison of GoTo hyperlinks count and pageDestination values between single file (one Excel file is converted to one pdf file) and multiple files (one Excel file is converted to set of pdf files) conversion modes  
+Given Office conversion service is up and running
+When user sends request to convert all pages from Excel document <file> with multiple internal HyperLinks to one PDF file
+And all GoTo hyperlinks are extracted from all pages of generated single PDF file and saved to set1  
+When user sends set of requests to convert all pages from Excel document <file> with multiple internal HyperLinks set of PDF files
+And all GoTo hyperlinks are extracted from all generated PDF files and saved to set2
+Then count, location and pageDestination values af hyperlinks between set1 and set2 must be the same
+
+Examples:
+|file|
+|Hyperlinks/Excel/xls/S1_OneLinkToS1_OnP1.xls|
+|Hyperlinks/Excel/xlt/S1_OneLinkToS1_OnP1.xlt|
+|Hyperlinks/Excel/xlsx/S1_OneLinkToS1_OnP1.xlsx|
+|Hyperlinks/Excel/xlsm/S1_OneLinkToS1_OnP1.xlsm|
+|Hyperlinks/Excel/xltx/S1_OneLinkToS1_OnP1.xltx|
+|Hyperlinks/Excel/xltm/S1_OneLinkToS1_OnP1.xltm|
+
+|Hyperlinks/Excel/xls/S1_OneLinkToS2OnP2_S2_TwoLinksToS1OnP1.xls|
+|Hyperlinks/Excel/xlt/S1_OneLinkToS2OnP2_S2_TwoLinksToS1OnP1.xlt|
+|Hyperlinks/Excel/xlsx/S1_OneLinkToS2OnP2_S2_TwoLinksToS1OnP1.xlsx|
+|Hyperlinks/Excel/xlsm/S1_OneLinkToS2OnP2_S2_TwoLinksToS1OnP1.xlsm|
+|Hyperlinks/Excel/xltx/S1_OneLinkToS2OnP2_S2_TwoLinksToS1OnP1.xltx|
+|Hyperlinks/Excel/xltm/S1_OneLinkToS2OnP2_S2_TwoLinksToS1OnP1.xltm|
+
+|Hyperlinks/Excel/xlsx/S1_OneLinkToS2OnP3_S2_TwoLinksToS1OnP1.xlsx|
+|Hyperlinks/Excel/xlsm/S1_OneLinkToS2OnP3_S2_TwoLinksToS1OnP1.xlsm|
+|Hyperlinks/Excel/xltx/S1_OneLinkToS2OnP3_S2_TwoLinksToS1OnP1.xltx|
+|Hyperlinks/Excel/xltm/S1_OneLinkToS2OnP3_S2_TwoLinksToS1OnP1.xltm|
+
+|Hyperlinks/Excel/xlsx/S1_OneLinkToS2OnP3_S2_NoLinks_S3_NoLinks.xlsx|
+|Hyperlinks/Excel/xlsm/S1_OneLinkToS2OnP3_S2_NoLinks_S3_NoLinks.xlsm|
+|Hyperlinks/Excel/xltx/S1_OneLinkToS2OnP3_S2_NoLinks_S3_NoLinks.xltx|
+|Hyperlinks/Excel/xltm/S1_OneLinkToS2OnP3_S2_NoLinks_S3_NoLinks.xltm|
+
+|Hyperlinks/Excel/xls/S1_NoLinks_S2_LinkToS1.xls|
+|Hyperlinks/Excel/xlt/S1_NoLinks_S2_LinkToS1.xlt|
+|Hyperlinks/Excel/xlsx/S1_NoLinks_S2_LinkToS1.xlsx|
+|Hyperlinks/Excel/xlsm/S1_NoLinks_S2_LinkToS1.xlsm|
+|Hyperlinks/Excel/xltx/S1_NoLinks_S2_LinkToS1.xltx|
+|Hyperlinks/Excel/xltm/S1_NoLinks_S2_LinkToS1.xltm|
+
+|Hyperlinks/Excel/xls/S1_OneLinkToS3_S2_NoLinks_S3_NoLinks.xls|
+|Hyperlinks/Excel/xlt/S1_OneLinkToS3_S2_NoLinks_S3_NoLinks.xlt|
+|Hyperlinks/Excel/xlsx/S1_OneLinkToS3_S2_NoLinks_S3_NoLinks.xlsx|
+|Hyperlinks/Excel/xlsm/S1_OneLinkToS3_S2_NoLinks_S3_NoLinks.xlsm|
+|Hyperlinks/Excel/xltx/S1_OneLinkToS3_S2_NoLinks_S3_NoLinks.xltx|
+|Hyperlinks/Excel/xltm/S1_OneLinkToS3_S2_NoLinks_S3_NoLinks.xltm|
+
+|--Hyperlinks/Excel/Customer/xls/PrizmCloudStatsGraphLink.xls|  unknown rundom error
+|--Hyperlinks/Excel/Customer/xlsx/PrizmCloudStatsGraphLink.xlsx|  unknown rundom error
+|Hyperlinks/Excel/Customer/xls/SampleMailingList.xls|
+|Hyperlinks/Excel/Customer/xlsx/SampleMailingList.xlsx|
+
+|common/yahoo/xls/file1073.xls|
+|common/yahoo/xls/file1280.xls|
+|--common/yahoo/xls/file1423.xls| unknown rundom error
+|common/yahoo/xls/file143.xls|
+|common/yahoo/xls/file1483.xls|
+|common/yahoo/xls/file170.xls|
+|common/yahoo/xls/file1770.xls|
+|common/yahoo/xls/file2001.xls|
+|common/yahoo/xls/file2013.xls|
+|common/yahoo/xls/file2084.xls|
+|common/yahoo/xls/file2145.xls|
+|common/yahoo/xls/file2224.xls|
+|common/yahoo/xls/file245.xls|
+|common/yahoo/xls/file332.xls|
+|common/yahoo/xls/file397.xls|
+|common/yahoo/xls/file544.xls|
+|common/yahoo/xls/file836.xls|
+|common/yahoo/xls/file910.xls|
+
+|Hyperlinks/Excel/Customer/xlsm/excel_tutorial(xlsm).xlsm|
+|--Hyperlinks/Excel/Customer/xlsx/Finance-Form-OCH-Ledger(2).xlsx| no hyperlinks
+|Hyperlinks/Excel/Customer/xltm/Instructions(xltm).xltm|

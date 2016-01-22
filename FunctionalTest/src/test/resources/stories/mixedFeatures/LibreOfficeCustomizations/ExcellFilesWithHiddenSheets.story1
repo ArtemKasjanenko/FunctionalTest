@@ -1,0 +1,40 @@
+Meta: Test scenarios which covers Library Office fixes for PCC-13561, PCC-14977
+
+Scenario: Calculation of pages in xls file with hidden pages 
+Given Office conversion service is up and running
+When user sends request to get page count for given file <file>
+Then server must respond with status 200
+And total number of pages in JSON response must be equal to <expectedCountOfPages>
+
+Examples:
+|file      	|expectedCountOfPages|
+|--LibraryOfficeCustomizations/mysteryExcel.xlsx|1|
+|--LibraryOfficeCustomizations/file194.xls|18|
+|LibraryOfficeCustomizations/file327.xls|6|
+
+Scenario: Convertation of all pages from xls file with hidden pages to PDF format
+Given Office conversion service is up and running
+When user sends request to convert all pages from office document <file> to pdf format
+Then server must respond with status 200
+And total number of pages in converted file must be equal to <expectedCountOfPages>
+
+Examples:
+|file      	|expectedCountOfPages|
+|--LibraryOfficeCustomizations/mysteryExcel.xlsx|1|
+|--LibraryOfficeCustomizations/file194.xls|18|
+|LibraryOfficeCustomizations/file327.xls|6|
+
+Scenario: Convertation of selected pages from xls file with hidden pages to PDF format and comparing of converation result with referenced images
+
+Given Office conversion service is up and running
+When user sends request to convert page <pageNumber> of office document <file> to pdf format
+Then server must respond with status 200
+And conversion result matches the <referenceImage>
+
+Examples:
+|file      	|pageNumber|referenceImage|
+|--LibraryOfficeCustomizations/mysteryExcel.xlsx|0|LibraryOfficeCustomizations/mysteryExcel.xlsx.page.0.pdf.png|
+|LibraryOfficeCustomizations/file194.xls|5|LibraryOfficeCustomizations/file194.xls.page.5.pdf.png|
+|LibraryOfficeCustomizations/file194.xls|7|LibraryOfficeCustomizations/file194.xls.page.7.pdf.png|
+|LibraryOfficeCustomizations/file327.xls|4|LibraryOfficeCustomizations/file327.xls.page.4.pdf.png|
+|LibraryOfficeCustomizations/file327.xls|5|LibraryOfficeCustomizations/file327.xls.page.5.pdf.png|

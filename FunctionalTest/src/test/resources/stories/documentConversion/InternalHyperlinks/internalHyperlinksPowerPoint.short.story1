@@ -1,0 +1,33 @@
+Meta: (PowerPoint) Conversion of PowerPoint documents with internal HyperLinks to PDF format (short set) 
+
+Scenario: (PowerPoint) Conversion of selected page from multiple page Excel document with internal HyperLinks to PDF format
+ 
+Given Office conversion service is up and running
+When user sends request to convert page <pageNumber> from PowerPoint document <file> with multiple internal HyperLinks to PDF format
+Then server must respond with status 200
+And converted PDF file has <expectedCountOfGoToLinks> "GoTo" link(s) with page destination value <expectedPageDestinationValue>
+
+Examples:
+|file|pageNumber|expectedCountOfGoToLinks|expectedPageDestinationValue| 
+|Hyperlinks/PowerPoint/ppt/P1_OneLinkToP2_P2_TwoLinksToP1.ppt|0|1|2|
+|Hyperlinks/PowerPoint/ppt/P1_OneLinkToP2_P2_TwoLinksToP1.ppt|1|2|1|
+|Hyperlinks/PowerPoint/pptx/P1_OneLinkToP2_P2_TwoLinksToP1.pptx|0|1|2|
+|Hyperlinks/PowerPoint/pptx/P1_OneLinkToP2_P2_TwoLinksToP1.pptx|1|2|1|
+|Hyperlinks/PowerPoint/pot/P1_OneLinkToP2_P2_TwoLinksToP1.pot|0|1|2|
+|Hyperlinks/PowerPoint/pot/P1_OneLinkToP2_P2_TwoLinksToP1.pot|1|2|1|
+|Hyperlinks/PowerPoint/potx/P1_OneLinkToP2_P2_TwoLinksToP1.potx|0|1|2|
+|Hyperlinks/PowerPoint/potx/P1_OneLinkToP2_P2_TwoLinksToP1.potx|1|2|1|
+|Hyperlinks/PowerPoint/pps/P1_OneLinkToP2_P2_TwoLinksToP1.pps|0|1|2|
+|Hyperlinks/PowerPoint/pps/P1_OneLinkToP2_P2_TwoLinksToP1.pps|1|2|1|
+|Hyperlinks/PowerPoint/ppsx/P1_OneLinkToP2_P2_TwoLinksToP1.ppsx|0|1|2|
+|Hyperlinks/PowerPoint/ppsx/P1_OneLinkToP2_P2_TwoLinksToP1.ppsx|1|2|1|
+|Hyperlinks/PowerPoint/ppsm/P1_OneLinkToP2_P2_TwoLinksToP1.ppsm|0|1|2|
+|Hyperlinks/PowerPoint/ppsm/P1_OneLinkToP2_P2_TwoLinksToP1.ppsm|1|2|1|
+|Hyperlinks/PowerPoint/ppt/P1_NoLinks_P2_OneLinkToP1.ppt|1|1|1|
+|Hyperlinks/PowerPoint/pptx/P1_NoLinks_P2_OneLinkToP1.pptx|1|1|1|
+|Hyperlinks/PowerPoint/pot/P1_NoLinks_P2_OneLinkToP1.pot|1|1|1|
+|Hyperlinks/PowerPoint/potx/P1_NoLinks_P2_OneLinkToP1.potx|1|1|1|
+|Hyperlinks/PowerPoint/pps/P1_NoLinks_P2_OneLinkToP1.pps|1|1|1|
+|Hyperlinks/PowerPoint/ppsm/P1_NoLinks_P2_OneLinkToP1.ppsm|1|1|1|
+|Hyperlinks/PowerPoint/ppsx/P1_NoLinks_P2_OneLinkToP1.ppsx|1|1|1|
+

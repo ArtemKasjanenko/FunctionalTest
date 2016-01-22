@@ -1,0 +1,189 @@
+Meta: (LOWritter) Conversion of LOWritter documents with internal HyperLinks to PDF format 
+
+Scenario: (LOWritter) Conversion of single page LOWritter document with internal HyperLinks 
+
+Given Office conversion service is up and running
+When user sends request to convert single page LOWritter document <file> with one internal HyperLinks to PDF format
+Then server must respond with status 200
+And converted PDF file has <expectedCountOfGoToLinks> "GoTo" link(s) with page destination value <expectedPageDestinationValue>
+
+Examples:
+|file|expectedCountOfGoToLinks|expectedPageDestinationValue|
+|Hyperlinks/LOWritter/odt/P1_OneLinkToP1.odt|1|1|
+|Hyperlinks/LOWritter/fodt/P1_OneLinkToP1.fodt|1|1|
+|Hyperlinks/LOWritter/ott/P1_OneLinkToP1.ott|1|1|
+
+Scenario: (LOWritter) Conversion of selected page from multiple page LOWritter document with internal HyperLinks to PDF format
+ 
+Given Office conversion service is up and running
+When user sends request to convert page <pageNumber> from LOWritter document <file> with multiple internal HyperLinks to PDF format
+Then server must respond with status 200
+And converted PDF file has <expectedCountOfGoToLinks> "GoTo" link(s) with page destination value <expectedPageDestinationValue>
+
+Examples:
+|file|pageNumber|expectedCountOfGoToLinks|expectedPageDestinationValue| 
+|Hyperlinks/LOWritter/odt/P1_OneLinkToP2_P2_TwoLinksToP1.odt|0|1|2|
+|Hyperlinks/LOWritter/odt/P1_OneLinkToP2_P2_TwoLinksToP1.odt|1|2|1|
+
+|Hyperlinks/LOWritter/fodt/P1_OneLinkToP2_P2_TwoLinksToP1.fodt|0|1|2|
+|Hyperlinks/LOWritter/fodt/P1_OneLinkToP2_P2_TwoLinksToP1.fodt|1|2|1|
+
+|Hyperlinks/LOWritter/ott/P1_OneLinkToP2_P2_TwoLinksToP1.ott|0|1|2|
+|Hyperlinks/LOWritter/ott/P1_OneLinkToP2_P2_TwoLinksToP1.ott|1|2|1|
+
+|Hyperlinks/LOWritter/odt/P1_NoLinks_P2_OneLinkToP1.odt|1|1|1|
+|Hyperlinks/LOWritter/fodt/P1_NoLinks_P2_OneLinkToP1.fodt|1|1|1|
+|Hyperlinks/LOWritter/ott/P1_NoLinks_P2_OneLinkToP1.ott|1|1|1|
+
+|Hyperlinks/LOWritter/customer/WorldSoftware.odt|1|1|1|
+|Hyperlinks/LOWritter/customer/WorldSoftware.odt|2|1|1|
+
+
+Scenario: (LOWritter) Checking number of Hypelinks in single PDF file after conversion of LOWritter document
+ 
+Given Office conversion service is up and running
+When user sends request to convert all pages from LOWritter document <file> with multiple internal HyperLinks to PDF format
+Then server must respond with status 200
+And converted PDF file has <expectedTotalCountOfGoToLinks> "GoTo" link(s)
+Examples:
+|file|expectedTotalCountOfGoToLinks|
+|Hyperlinks/LOWritter/customer/odt/0116GS3-OpenSourceStandardsDoc.odt|29|
+|Hyperlinks/LOWritter/customer/odt/07-08-22-MetaData-Examples.odt|26|
+|--Hyperlinks/LOWritter/customer/odt/AndrewBase.odt|1000| too big
+|--Hyperlinks/LOWritter/customer/odt/AndrewMacro.odt|1000| too big
+|Hyperlinks/LOWritter/customer/odt/AOO_GS3411-SettingUpAOO.odt|80|
+|Hyperlinks/LOWritter/customer/odt/AOO_GS3412-OpenSourceStandardsDoc(odt).odt|28|
+|Hyperlinks/LOWritter/customer/odt/Behavior_of_Hyperlinks_in_OOo_Documents.odt|27|
+|Hyperlinks/LOWritter/customer/odt/Edit_Delete_Hyperlink.odt|6|
+|Hyperlinks/LOWritter/customer/odt/First_Time_User_OpenOffice_Writer.odt|15|
+|Hyperlinks/LOWritter/customer/odt/MediaWiki_Export_Filter.odt|55|
+|Hyperlinks/LOWritter/customer/odt/No_Computer_Experience.odt|12|
+|--Hyperlinks/LOWritter/customer/odt/ODF_text_reference_v3.odt|29| has 19 links on Windows
+|--Hyperlinks/LOWritter/customer/odt/OpenDocument-v1.0ed2-cs1.odt|1000| too big
+|--Hyperlinks/LOWritter/customer/odt/OpenDocument-v1.1.odt|1000| too big
+|--Hyperlinks/LOWritter/customer/odt/OpenDocument-v1.1(1).odt|1000| too big
+|Hyperlinks/LOWritter/customer/odt/Publishing_extensions.odt|9|
+|Hyperlinks/LOWritter/customer/ott/Formula_Editor.ott|2|
+|Hyperlinks/LOWritter/customer/ott/Untitled2.ott|31|
+|--Hyperlinks/LOWritter/customer/ott/Untitled4.ott|149| has 148 links on Windows
+|Hyperlinks/LOWritter/customer/fodt/Miscellaneous_Information.fodt|33|
+|Hyperlinks/LOWritter/customer/fodt/Page_Layout_And_Template.fodt|12|
+|Hyperlinks/LOWritter/customer/fodt/Select_Copy_Cut_Paste_Drag.fodt|10|
+|Hyperlinks/LOWritter/customer/fodt/Spellcheck_and_Thesaurus.fodt|11|
+|Hyperlinks/LOWritter/customer/fodt/Untitled5.fodt|5|
+
+
+
+
+Scenario: (LOWritter) Conversion of all pages from multiple page LOWritter document with internal HyperLinks to PDF format (single file)
+ 
+Given Office conversion service is up and running
+When user sends request to convert all pages from LOWritter document <file> with multiple internal HyperLinks to PDF format
+Then server must respond with status 200
+And converted PDF file has <expectedTotalCountOfGoToLinks> "GoTo" link(s)
+And converted PDF file has <expectedCountOfGoToLinksOnSelectedPage> "GoTo" link(s) on page <selectedPageNumber> with page destination value <expectedPageDestinationValue>
+
+Examples:
+|file|expectedTotalCountOfGoToLinks|selectedPageNumber|expectedCountOfGoToLinksOnSelectedPage|expectedPageDestinationValue| 
+|Hyperlinks/LOWritter/odt/P1_OneLinkToP3_P2_NoLinks_P3_NoLinks.odt |1|0|1|3|
+|Hyperlinks/LOWritter/fodt/P1_OneLinkToP3_P2_NoLinks_P3_NoLinks.fodt |1|0|1|3|
+|Hyperlinks/LOWritter/ott/P1_OneLinkToP3_P2_NoLinks_P3_NoLinks.ott |1|0|1|3|
+
+|Hyperlinks/LOWritter/odt/P1_NoLinks_P2_OneLinkToP1.odt|1|1|1|1|
+|Hyperlinks/LOWritter/fodt/P1_NoLinks_P2_OneLinkToP1.fodt|1|1|1|1|
+|Hyperlinks/LOWritter/ott/P1_NoLinks_P2_OneLinkToP1.ott|1|1|1|1|
+
+|Hyperlinks/LOWritter/customer/WorldSoftware.odt|2|1|1|1|
+|Hyperlinks/LOWritter/customer/WorldSoftware.odt|2|2|1|1|
+|Hyperlinks/LOWritter/customer/TestOpenOfficeLink.odt|1|1|1|2|
+
+
+Scenario: (LOWritter) Checking value of selected link in LOWritter document on selected page in single page conversation mode 
+Given Office conversion service is up and running
+When user sends request to convert page <pageNumber> from LOWritter document <file> with multiple internal HyperLinks to PDF format
+Then server must respond with status 200
+And converted PDF file has "GoTo" hyperlink with number <linkNumber> and value <expectedPageDestinationValue>
+
+Examples:
+|file|pageNumber|linkNumber|expectedPageDestinationValue|
+|Hyperlinks/LOWritter/odt/P1_OneLinkToP1.odt|0|0|1|
+|Hyperlinks/LOWritter/fodt/P1_OneLinkToP1.fodt|0|0|1|
+|Hyperlinks/LOWritter/ott/P1_OneLinkToP1.ott|0|0|1|
+
+|Hyperlinks/LOWritter/odt/P1_OneLinkToP3_P2_NoLinks_P3_NoLinks.odt|0|0|3|
+|Hyperlinks/LOWritter/fodt/P1_OneLinkToP3_P2_NoLinks_P3_NoLinks.fodt|0|0|3|
+|Hyperlinks/LOWritter/ott/P1_OneLinkToP3_P2_NoLinks_P3_NoLinks.ott|0|0|3|
+
+|Hyperlinks/LOWritter/odt/P1_NoLinks_P2_OneLinkToP1.odt|1|0|1|
+|Hyperlinks/LOWritter/fodt/P1_NoLinks_P2_OneLinkToP1.fodt|1|0|1|
+|Hyperlinks/LOWritter/ott/P1_NoLinks_P2_OneLinkToP1.ott|1|0|1|
+
+|Hyperlinks/LOWritter/customer/TestOpenOfficeLink.odt|1|0|2|
+|Hyperlinks/LOWritter/customer/TestHyperlinks.odt|0|0|2|
+|Hyperlinks/LOWritter/customer/TestHyperlinks.odt|0|1|2|
+|Hyperlinks/LOWritter/customer/TestHyperlinks.odt|2|0|1|
+|Hyperlinks/LOWritter/customer/TestHyperlinks.odt|2|1|3|
+
+|Hyperlinks/LOWritter/customer/ROSNEFT.odt|0|0|1|
+|Hyperlinks/LOWritter/customer/ROSNEFT.odt|2|0|12|
+|Hyperlinks/LOWritter/customer/ROSNEFT.odt|2|1|5|
+|Hyperlinks/LOWritter/customer/ROSNEFT.odt|2|2|4|
+|Hyperlinks/LOWritter/customer/ROSNEFT.odt|2|3|4|
+|Hyperlinks/LOWritter/customer/ROSNEFT.odt|11|0|1|
+
+Scenario: (LOWritter) Comparison of GoTo hyperlinks count and pageDestination values between single file (one LOWritter file is converted to one pdf file) and multiple files (one LOWritter file is converted to set of pdf files) conversion modes  
+Given Office conversion service is up and running
+When user sends request to convert all pages from LOWritter document <file> with multiple internal HyperLinks to one PDF file
+And all GoTo hyperlinks are extracted from all pages of generated single PDF file and saved to set1  
+When user sends set of requests to convert all pages from LOWritter document <file> with multiple internal HyperLinks set of PDF files
+And all GoTo hyperlinks are extracted from all generated PDF files and saved to set2
+Then count, location and pageDestination values af hyperlinks between set1 and set2 must be the same
+
+Examples:
+|file|
+|Hyperlinks/LOWritter/odt/P1_OneLinkToP1.odt|
+|Hyperlinks/LOWritter/fodt/P1_OneLinkToP1.fodt|
+|Hyperlinks/LOWritter/ott/P1_OneLinkToP1.ott|
+
+|Hyperlinks/LOWritter/odt/P1_OneLinkToP2_P2_TwoLinksToP1.odt|
+|Hyperlinks/LOWritter/fodt/P1_OneLinkToP2_P2_TwoLinksToP1.fodt|
+|Hyperlinks/LOWritter/ott/P1_OneLinkToP2_P2_TwoLinksToP1.ott|
+
+|Hyperlinks/LOWritter/odt/P1_OneLinkToP3_P2_NoLinks_P3_NoLinks.odt|
+|Hyperlinks/LOWritter/fodt/P1_OneLinkToP3_P2_NoLinks_P3_NoLinks.fodt|
+|Hyperlinks/LOWritter/ott/P1_OneLinkToP3_P2_NoLinks_P3_NoLinks.ott|
+
+|Hyperlinks/LOWritter/odt/P1_NoLinks_P2_OneLinkToP1.odt|
+|Hyperlinks/LOWritter/fodt/P1_NoLinks_P2_OneLinkToP1.fodt|
+|Hyperlinks/LOWritter/ott/P1_NoLinks_P2_OneLinkToP1.ott|
+
+|Hyperlinks/LOWritter/customer/WorldSoftware.odt|
+|Hyperlinks/LOWritter/customer/TestOpenOfficeLink.odt|
+|--Hyperlinks/LOWritter/customer/ROSNEFT.odt|
+|Hyperlinks/LOWritter/customer/TestHyperlinks.odt|
+
+
+|Hyperlinks/LOWritter/customer/odt/0116GS3-OpenSourceStandardsDoc.odt|
+|--Hyperlinks/LOWritter/customer/odt/07-08-22-MetaData-Examples.odt| TODO:
+|--Hyperlinks/LOWritter/customer/odt/AndrewBase.odt|  too big
+|--Hyperlinks/LOWritter/customer/odt/AndrewMacro.odt| too big
+|Hyperlinks/LOWritter/customer/odt/AOO_GS3411-SettingUpAOO.odt|
+|Hyperlinks/LOWritter/customer/odt/AOO_GS3412-OpenSourceStandardsDoc(odt).odt|
+|Hyperlinks/LOWritter/customer/odt/Behavior_of_Hyperlinks_in_OOo_Documents.odt|
+|Hyperlinks/LOWritter/customer/odt/Edit_Delete_Hyperlink.odt|
+|Hyperlinks/LOWritter/customer/odt/First_Time_User_OpenOffice_Writer.odt|
+|Hyperlinks/LOWritter/customer/odt/MediaWiki_Export_Filter.odt|
+|Hyperlinks/LOWritter/customer/odt/No_Computer_Experience.odt|
+|Hyperlinks/LOWritter/customer/odt/ODF_text_reference_v3.odt|
+|--Hyperlinks/LOWritter/customer/odt/OpenDocument-v1.0ed2-cs1.odt| too big
+|--Hyperlinks/LOWritter/customer/odt/OpenDocument-v1.1.odt| too big
+|--Hyperlinks/LOWritter/customer/odt/OpenDocument-v1.1(1).odt| too big
+|Hyperlinks/LOWritter/customer/odt/Publishing_extensions.odt|
+|Hyperlinks/LOWritter/customer/ott/Formula_Editor.ott|
+|Hyperlinks/LOWritter/customer/ott/Untitled2.ott|
+|Hyperlinks/LOWritter/customer/ott/Untitled4.ott|
+|Hyperlinks/LOWritter/customer/fodt/Miscellaneous_Information.fodt|
+|Hyperlinks/LOWritter/customer/fodt/Page_Layout_And_Template.fodt|
+|Hyperlinks/LOWritter/customer/fodt/Select_Copy_Cut_Paste_Drag.fodt|
+|Hyperlinks/LOWritter/customer/fodt/Spellcheck_and_Thesaurus.fodt|
+|Hyperlinks/LOWritter/customer/fodt/Untitled5.fodt|

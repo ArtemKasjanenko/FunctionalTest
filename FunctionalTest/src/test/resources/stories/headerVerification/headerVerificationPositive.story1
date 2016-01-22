@@ -1,0 +1,26 @@
+Meta: Positive scenario for header vertification
+
+Scenario: As a user I want to get positive response by service at info request
+Given Office conversion service is up and running
+When user sends info request with correct header
+Then server must respond with status 200
+
+
+Scenario: As a user I want to get positive response by service at request for conversion
+Given Office conversion service is up and running
+When user sends convert request with correct header for given file <file>
+Then server must respond with status 200
+Examples:
+|file|
+|HeaderVerification/office1.doc|
+|HeaderVerification/office2.docm|
+
+
+Scenario: As a user I want to get positive response by service at documentAttributes request
+Given Office conversion service is up and running
+When user sends documentAttributes request with correct header for given file <file>
+Then server must respond with status 200
+Examples:
+|file|
+|HeaderVerification/office1.doc|
+|HeaderVerification/office2.docm|

@@ -1,0 +1,34 @@
+Meta: Conversation of Visio documents
+
+Scenario: Comparison of converted visio files with reference images 
+
+Given Office conversion service is up and running
+When user sends request to convert page <pageNumber> of visio document <file> to pdf format
+Then server must respond with status 200
+And conversion result matches with template <referenceImage> (difference less 0.1 percent)
+
+Examples:
+|file|pageNumber|referenceImage|
+
+|common/visio/vdx/animation_tests.vdx|2|Visio/vdx/animation_tests.vdx.page.2.pdf.png|
+|common/visio/vdx/basic_shapes.vdx|0|Visio/vdx/basic_shapes.vdx.page.0.pdf.png|
+|common/visio/vdx/seq_test.vdx|0|Visio/vdx/seq_test.vdx.page.0.pdf.png|
+|common/visio/vdx/test.vdx|0|Visio/vdx/test.vdx.page.0.pdf.png|
+ 
+|common/visio/vsd/3d_Zhuravsky.vsd|0|Visio/vsd/3d_Zhuravsky.vsd.page.0.pdf.png|
+|common/visio/vsd/BFlowcht.vsd|1|Visio/vsd/BFlowcht.vsd.page.1.pdf.png|
+|common/visio/vsd/Block_Diagram-2.vsd|0|Visio/vsd/Block_Diagram-2.vsd.page.0.pdf.png|
+|common/visio/vsd/BNetwork.vsd|0|Visio/vsd/BNetwork.vsd.page.0.pdf.png|
+|common/visio/vsd/ConnectsPlusShrtPath.vsd|0|Visio/vsd/ConnectsPlusShrtPath.vsd.page.0.pdf.png|
+|common/visio/vsd/Logical_Design_Diagram.vsd|0|Visio/vsd/Logical_Design_Diagram.vsd.page.0.pdf.png|
+ 
+|common/visio/vsdm/ActvDir.vsdm|0|Visio/vsdm/ActvDir.vsdm.page.0.pdf.png|
+|common/visio/vsdm/budget.vsdm|0|Visio/vsdm/budget.vsdm.page.0.pdf.png|
+|common/visio/vsdm/Close_and_Save_visio_doc.vsdm|0|Visio/vsdm/Close_and_Save_visio_doc.vsdm.page.0.pdf.png|
+|common/visio/vsdm/example.vsdm|0|Visio/vsdm/example.vsdm.page.0.pdf.png|
+ 
+|common/visio/vsdx/ActvDir.vsdx|0|Visio/vsdx/ActvDir.vsdx.page.0.pdf.png|
+|common/visio/vsdx/ASTMGT.vsdx|0|Visio/vsdx/ASTMGT.vsdx.page.0.pdf.png|
+|common/visio/vsdx/Example.vsdx|0|Visio/vsdx/Example.vsdx.page.0.pdf.png|
+|common/visio/vsdx/VisioExcel_Example.vsdx|0|Visio/vsdx/VisioExcel_Example.vsdx.page.0.pdf.png|
+|common/visio/vsdx/zones_vsdx_visio2013.vsdx|0|Visio/vsdx/zones_vsdx_visio2013.vsdx.page.0.pdf.png|

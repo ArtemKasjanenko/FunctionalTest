@@ -1,0 +1,13 @@
+Meta: Test scenario which covers Library Office fix for PCC-18411
+
+Scenario: Convertation of document with suffixes in name. Comparing of converation result with referenced images.
+Given Office conversion service is up and running
+When user sends request to convert page <pageNumber> of office document <file> to pdf format
+Then server must respond with status 200
+And conversion result matches the image reference <referenceImage> (difference less 0.01 percent)
+
+Examples:
+|file      	|pageNumber|referenceImage|
+|LibraryOfficeCustomizations/New_Hires_Detais.xls.xls|0|LibraryOfficeCustomizations/New_Hires_Detais.xls.xls.page.0.pdf.png|
+|LibraryOfficeCustomizations/Feedback.doc.doc|0|LibraryOfficeCustomizations/Feedback.doc.doc.page.0.pdf.png|
+|LibraryOfficeCustomizations/Feedback.doc.doc|1|LibraryOfficeCustomizations/Feedback.doc.doc.page.1.pdf.png|

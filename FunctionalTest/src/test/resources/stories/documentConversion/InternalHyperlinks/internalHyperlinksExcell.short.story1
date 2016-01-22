@@ -1,0 +1,31 @@
+Meta: (Excel) Conversion of Excel documents with internal HyperLinks to PDF format (short set) 
+
+Scenario: (Excel) Conversion of selected page from multiple page Excel document with internal HyperLinks to PDF format
+ 
+Given Office conversion service is up and running
+When user sends request to convert page <pageNumber> from Excel document <file> with multiple internal HyperLinks to PDF format
+Then server must respond with status 200
+And converted PDF file has <expectedCountOfGoToLinks> "GoTo" link(s) with page destination value <expectedPageDestinationValue>
+
+Examples:
+|file|pageNumber|expectedCountOfGoToLinks|expectedPageDestinationValue| 
+|Hyperlinks/Excel/xls/S1_OneLinkToS2OnP2_S2_TwoLinksToS1OnP1.xls|0|1|2|
+|Hyperlinks/Excel/xls/S1_OneLinkToS2OnP2_S2_TwoLinksToS1OnP1.xls|1|2|1|
+|Hyperlinks/Excel/xlt/S1_OneLinkToS2OnP2_S2_TwoLinksToS1OnP1.xlt|0|1|2|
+|Hyperlinks/Excel/xlt/S1_OneLinkToS2OnP2_S2_TwoLinksToS1OnP1.xlt|1|2|1|
+|Hyperlinks/Excel/xlsx/S1_OneLinkToS2OnP2_S2_TwoLinksToS1OnP1.xlsx|0|1|2|
+|Hyperlinks/Excel/xlsx/S1_OneLinkToS2OnP2_S2_TwoLinksToS1OnP1.xlsx|1|2|1|
+|Hyperlinks/Excel/xlsm/S1_OneLinkToS2OnP2_S2_TwoLinksToS1OnP1.xlsm|0|1|2|
+|Hyperlinks/Excel/xlsm/S1_OneLinkToS2OnP2_S2_TwoLinksToS1OnP1.xlsm|1|2|1|
+|Hyperlinks/Excel/xltx/S1_OneLinkToS2OnP2_S2_TwoLinksToS1OnP1.xltx|0|1|2|
+|Hyperlinks/Excel/xltx/S1_OneLinkToS2OnP2_S2_TwoLinksToS1OnP1.xltx|1|2|1|
+|Hyperlinks/Excel/xltm/S1_OneLinkToS2OnP2_S2_TwoLinksToS1OnP1.xltm|0|1|2|
+|Hyperlinks/Excel/xltm/S1_OneLinkToS2OnP2_S2_TwoLinksToS1OnP1.xltm|1|2|1|
+
+|Hyperlinks/Excel/xls/S1_NoLinks_S2_LinkToS1.xls|1|1|1|
+|Hyperlinks/Excel/xlt/S1_NoLinks_S2_LinkToS1.xlt|1|1|1|
+|Hyperlinks/Excel/xlsx/S1_NoLinks_S2_LinkToS1.xlsx|1|1|1|
+|Hyperlinks/Excel/xlsm/S1_NoLinks_S2_LinkToS1.xlsm|1|1|1|
+|Hyperlinks/Excel/xltx/S1_NoLinks_S2_LinkToS1.xltx|1|1|1|
+|Hyperlinks/Excel/xltm/S1_NoLinks_S2_LinkToS1.xltm|1|1|1|
+

@@ -1,0 +1,30 @@
+Meta: Negative scenario for INFO request to Conversion Service
+
+Scenario: As a user I want to receive an error if JSON info request is invalid
+Given Office conversion service is up and running
+When user sends info request with unexpected JSON data <postData>
+Then server must respond with status: <code>
+
+Examples:
+|postData                               	|code|
+|{ \"missingData\": }                   	|480 |
+|{ \"data\":"\ unexpected data\"}       	|480 |
+|{ \"data\": {"unexpectedParameter": "0"}} 	|480 |
+|{ \"data\": {"pccisVersion": 0}}       	|480 |
+|{ \"data\": {"pccisVersion": 1.0}}     	|480 |
+|{ \"data\": {"pccisVersion": true}}    	|480 |
+|{ \"data\": {"pccisVersion":{true}}} 		|480 |
+|{ \"data\": {"pccisVersion 1/0//0}} 		|480 |
+
+
+Scenario: missing pccisVersion in request  
+
+Given Office conversion service is up and running
+When user sends info request with missing pccisVersion
+Then server must respond with status 480
+And error code must be <errorCode>
+And error message must be <errorMessage>
+
+Examples:
+|errorCode|errorMessage|
+|480000004|"message":"Parameter is missing","parameter":"pccisVersion"|

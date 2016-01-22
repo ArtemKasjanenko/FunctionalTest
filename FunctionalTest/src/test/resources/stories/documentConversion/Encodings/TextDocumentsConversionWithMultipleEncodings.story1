@@ -1,0 +1,186 @@
+Meta: Convertation of text documents with different encodings to PDF format 
+
+Scenario: Conversion of UTF-8 DOS (CRLF) encoded text documents to PDF format 
+
+Given Office conversion service is up and running
+When user sends request to convert page <pageNumber> of text document <file> with charset <charset> and content language <language> to pdf format
+Then server must respond with status 200
+And conversion result matches with template <referenceImage> (difference less 0.1 percent)
+
+Examples:
+|file|charset|language|pageNumber|referenceImage|
+|TextWithMultipleEncodings/UTF-8-DOS/CS_utf-8_LG_english_N_3CAA263E0D1D.txt|UTF-8-DOS|english|0|TextWithMultipleEncodings/3CAA263E0D1D.txt.page.0.pdf.png|
+|TextWithMultipleEncodings/UTF-8-DOS/CS_utf-8_LG_english_N_3CAA263E0D1D.txt|UTF-8-DOS|english|1|TextWithMultipleEncodings/3CAA263E0D1D.txt.page.1.pdf.png|
+|TextWithMultipleEncodings/UTF-8-DOS/CS_utf-8_LG_english_N_3CAA263E0D1D.txt|UTF-8-DOS|english|2|TextWithMultipleEncodings/3CAA263E0D1D.txt.page.2.pdf.png|
+|TextWithMultipleEncodings/UTF-8-DOS/CS_utf-8_LG_france_N_test_fr.txt.txt|UTF-8-DOS|french|0|TextWithMultipleEncodings/utf-8-dos/test_fr.txt.txt.page.0.pdf.png|
+|TextWithMultipleEncodings/UTF-8-DOS/CS_utf-8_LG_slovak_N_slovak.docx.txt|UTF-8-DOS|slovak|0|TextWithMultipleEncodings/slovak.docx.txt.page.0.pdf.png|
+|TextWithMultipleEncodings/UTF-8-DOS/CS_utf-8_LG_rus_N_lg-rus.txt|UTF-8-DOS|russian|0|TextWithMultipleEncodings/lg-rus.txt.page.0.pdf.png|
+|TextWithMultipleEncodings/UTF-8-DOS/CS_utf-8_LG_ukr_N_lg-ukr.txt|UTF-8-DOS|ukrainian|0|TextWithMultipleEncodings/lg-ukr.txt.page.0.pdf.png|
+|TextWithMultipleEncodings/UTF-8-DOS/CS_utf-8_LG_kor_N_lg-kor.txt|UTF-8-DOS|korean|0|TextWithMultipleEncodings/utf-8-dos/lg-kor.txt.page.0.pdf.png|
+|TextWithMultipleEncodings/UTF-8-DOS/CS_utf-8_LG_gre_N_lg-gre.txt|UTF-8-DOS|greek|0|TextWithMultipleEncodings/lg-gre.txt.page.0.pdf.png|
+|TextWithMultipleEncodings/UTF-8-DOS/CS_utf-8_LG_japan_N_japan.docx.txt|UTF-8-DOS|japan|0|TextWithMultipleEncodings/utf-8-dos/japan.docx.txt.page.0.pdf.png|
+|TextWithMultipleEncodings/UTF-8-DOS/CS_utf-8_LG_german_N_german.pdf.txt|UTF-8-DOS|german|0|TextWithMultipleEncodings/german.pdf.txt.page.0.pdf.png|
+|TextWithMultipleEncodings/UTF-8-DOS/CS_utf-8_LG_ch-trad_N_ch_trad.docx.txt|UTF-8-DOS|chinese_traditional|0|TextWithMultipleEncodings/utf-8-dos/ch_trad.docx.txt.page.0.pdf.png|
+|TextWithMultipleEncodings/UTF-8-DOS/CS_utf-8_LG_ch-simp_N_ch_simp.pdf.txt|UTF-8-DOS|chinese_simple|0|TextWithMultipleEncodings/utf-8-dos/ch_simp.pdf.txt.page.0.pdf.png|
+
+
+Scenario: Conversion of UTF-8 UNIX (CR) encoded text documents to PDF format 
+
+Given Office conversion service is up and running
+When user sends request to convert page <pageNumber> of text document <file> with charset <charset> and content language <language> to pdf format
+Then server must respond with status 200
+And conversion result matches with template <referenceImage> (difference less 0.1 percent)
+
+Examples:
+|file|charset|language|pageNumber|referenceImage|
+|TextWithMultipleEncodings/UTF-8-UNIX/CS_utf-8_LG_english_N_3CAA263E0D1D.txt|UTF-8-UNIX|english|0|TextWithMultipleEncodings/3CAA263E0D1D.txt.page.0.pdf.png|
+|TextWithMultipleEncodings/UTF-8-UNIX/CS_utf-8_LG_english_N_3CAA263E0D1D.txt|UTF-8-UNIX|english|1|TextWithMultipleEncodings/3CAA263E0D1D.txt.page.1.pdf.png|
+|TextWithMultipleEncodings/UTF-8-UNIX/CS_utf-8_LG_english_N_3CAA263E0D1D.txt|UTF-8-UNIX8|english|2|TextWithMultipleEncodings/3CAA263E0D1D.txt.page.2.pdf.png|
+|TextWithMultipleEncodings/UTF-8-UNIX/CS_utf-8_LG_france_N_test_fr.txt.txt|UTF-8-UNIX|french|0|TextWithMultipleEncodings/test_fr.txt.txt.page.0.pdf.png|
+|TextWithMultipleEncodings/UTF-8-UNIX/CS_utf-8_LG_slovak_N_slovak.docx.txt|UTF-8-DOS|slovak|0|TextWithMultipleEncodings/slovak.docx.txt.page.0.pdf.png|
+|TextWithMultipleEncodings/UTF-8-UNIX/CS_utf-8_LG_rus_N_lg-rus.txt|UTF-8-UNIX|russian|0|TextWithMultipleEncodings/lg-rus.txt.page.0.pdf.png|
+|TextWithMultipleEncodings/UTF-8-UNIX/CS_utf-8_LG_ukr_N_lg-ukr.txt|UTF-8-UNIX|ukrainian|0|TextWithMultipleEncodings/lg-ukr.txt.page.0.pdf.png|
+|TextWithMultipleEncodings/UTF-8-UNIX/CS_utf-8_LG_kor_N_lg-kor.txt|UTF-8-UNIX|korean|0|TextWithMultipleEncodings/lg-kor.txt.page.0.pdf.png|
+|TextWithMultipleEncodings/UTF-8-UNIX/CS_utf-8_LG_gre_N_lg-gre.txt|UTF-8-UNIX|greek|0|TextWithMultipleEncodings/lg-gre.txt.page.0.pdf.png|
+|TextWithMultipleEncodings/UTF-8-UNIX/CS_utf-8_LG_japan_N_japan.docx.txt|UTF-8-UNIX|japan|0|TextWithMultipleEncodings/japan.docx.txt.page.0.pdf.png|
+|TextWithMultipleEncodings/UTF-8-UNIX/CS_utf-8_LG_german_N_german.pdf.txt|UTF-8-UNIX|german|0|TextWithMultipleEncodings/german.pdf.txt.page.0.pdf.png|
+|TextWithMultipleEncodings/UTF-8-UNIX/CS_utf-8_LG_ch-trad_N_ch_trad.docx.txt|UTF-8-UNIX|chinese_traditional|0|TextWithMultipleEncodings/ch_trad.docx.txt.page.0.pdf.png|
+|TextWithMultipleEncodings/UTF-8-UNIX/CS_utf-8_LG_ch-simp_N_ch_simp.pdf.txt|UTF-8-UNIX|chinese_simple|0|TextWithMultipleEncodings/ch_simp.pdf.txt.page.0.pdf.png|
+
+Scenario: Conversion of UTF-8-WBOM encoded text documents to PDF format 
+
+Given Office conversion service is up and running
+When user sends request to convert page <pageNumber> of text document <file> with charset <charset> and content language <language> to pdf format
+Then server must respond with status 200
+And conversion result matches with template <referenceImage> (difference less 0.1 percent)
+
+Examples:
+|file|charset|language|pageNumber|referenceImage|
+|TextWithMultipleEncodings/UTF-8-WBOM/CS_utf-8-wbom_LG_english_N_3CAA263E0D1D.txt|UTF-8-WBOM|english|0|TextWithMultipleEncodings/3CAA263E0D1D.txt.page.0.pdf.png|
+|TextWithMultipleEncodings/UTF-8-WBOM/CS_utf-8-wbom_LG_english_N_3CAA263E0D1D.txt|UTF-8-WBOM|english|1|TextWithMultipleEncodings/3CAA263E0D1D.txt.page.1.pdf.png|
+|TextWithMultipleEncodings/UTF-8-WBOM/CS_utf-8-wbom_LG_english_N_3CAA263E0D1D.txt|UTF-8-WBOM|english|2|TextWithMultipleEncodings/3CAA263E0D1D.txt.page.2.pdf.png|
+|TextWithMultipleEncodings/UTF-8-WBOM/CS_utf-8-wbom_LG_france_N_test_fr.txt.txt|UTF-8-WBOM|french|0|TextWithMultipleEncodings/test_fr.txt.txt.page.0.pdf.png|
+|TextWithMultipleEncodings/UTF-8-WBOM/CS_utf-8-wbom_LG_slovak_N_slovak.docx.txt|UTF-8-WBOM|slovak|0|TextWithMultipleEncodings/slovak.docx.txt.page.0.pdf.png|
+|TextWithMultipleEncodings/UTF-8-WBOM/CS_utf-8-wbom_LG_rus_N_lg-rus.txt|UTF-8-WBOM|russian|0|TextWithMultipleEncodings/lg-rus.txt.page.0.pdf.png|
+|TextWithMultipleEncodings/UTF-8-WBOM/CS_utf-8-wbom_LG_ukr_N_lg-ukr.txt|UTF-8-WBOM|ukrainian|0|TextWithMultipleEncodings/lg-ukr.txt.page.0.pdf.png|
+|TextWithMultipleEncodings/UTF-8-WBOM/CS_utf-8-wbom_LG_kor_N_lg-kor.txt|UTF-8-WBOM|korean|0|TextWithMultipleEncodings/utf-8-wbom/lg-kor.txt.page.0.pdf.png|
+|TextWithMultipleEncodings/UTF-8-WBOM/CS_utf-8-wbom_LG_gre_N_lg-gre.txt|UTF-8-WBOM|greek|0|TextWithMultipleEncodings/lg-gre.txt.page.0.pdf.png|
+|TextWithMultipleEncodings/UTF-8-WBOM/CS_utf-8-wbom_LG_japan_N_japan.docx.txt|UTF-8-WBOM|japan|0|TextWithMultipleEncodings/utf-8-wbom/japan.docx.txt.page.0.pdf.png|
+|TextWithMultipleEncodings/UTF-8-WBOM/CS_utf-8-wbom_LG_german_N_german.pdf.txt|UTF-8-WBOM|german|0|TextWithMultipleEncodings/german.pdf.txt.page.0.pdf.png|
+|TextWithMultipleEncodings/UTF-8-WBOM/CS_utf-8-wbom_LG_ch-trad_N_ch_trad.docx.txt|UTF-8-WBOM|chinese_traditional|0|TextWithMultipleEncodings/utf-8-wbom/ch_trad.docx.txt.page.0.pdf.png|
+|TextWithMultipleEncodings/UTF-8-WBOM/CS_utf-8-wbom_LG_ch-simp_N_ch_simp.pdf.txt|UTF-8-WBOM|chinese_simple|0|TextWithMultipleEncodings/utf-8-wbom/ch_simp.pdf.txt.page.0.pdf.png|
+
+Scenario: Conversion of UTF-16LE DOS (CRLF) encoded text documents to PDF format 
+
+Given Office conversion service is up and running
+When user sends request to convert page <pageNumber> of text document <file> with charset <charset> and content language <language> to pdf format
+Then server must respond with status 200
+And conversion result matches with template <referenceImage> (difference less 0.1 percent)
+
+Examples:
+|file|charset|language|pageNumber|referenceImage|
+|TextWithMultipleEncodings/UTF-16LE-DOS/CS_utf-16le_LG_english_N_3CAA263E0D1D.txt|UTF-16LE-DOS|english|0|TextWithMultipleEncodings/3CAA263E0D1D.txt.page.0.pdf.png|
+|TextWithMultipleEncodings/UTF-16LE-DOS/CS_utf-16le_LG_english_N_3CAA263E0D1D.txt|UTF-16LE-DOS|english|1|TextWithMultipleEncodings/3CAA263E0D1D.txt.page.1.pdf.png|
+|TextWithMultipleEncodings/UTF-16LE-DOS/CS_utf-16le_LG_english_N_3CAA263E0D1D.txt|UTF-16LE-DOS|english|2|TextWithMultipleEncodings/3CAA263E0D1D.txt.page.2.pdf.png|
+|TextWithMultipleEncodings/UTF-16LE-DOS/CS_utf-16le_LG_france_N_test_fr.txt.txt|UTF-16LE-DOS|french|0|TextWithMultipleEncodings/test_fr.txt.txt.page.0.pdf.png|
+|TextWithMultipleEncodings/UTF-16LE-DOS/CS_utf-16le_LG_slovak_N_slovak.docx.txt|UTF-16LE-DOS|slovak|0|TextWithMultipleEncodings/slovak.docx.txt.page.0.pdf.png|
+|TextWithMultipleEncodings/UTF-16LE-DOS/CS_utf-16le_LG_rus_N_lg-rus.txt|UTF-16LE-DOS|russian|0|TextWithMultipleEncodings/lg-rus.txt.page.0.pdf.png|
+|TextWithMultipleEncodings/UTF-16LE-DOS/CS_utf-16le_LG_ukr_N_lg-ukr.txt|UTF-16LE-DOS|ukrainian|0|TextWithMultipleEncodings/lg-ukr.txt.page.0.pdf.png|
+|TextWithMultipleEncodings/UTF-16LE-DOS/CS_utf-16le_LG_kor_N_lg-kor.txt|UTF-16LE-DOS|korean|0|TextWithMultipleEncodings/lg-kor.txt.page.0.pdf.png|
+|TextWithMultipleEncodings/UTF-16LE-DOS/CS_utf-16le_LG_gre_N_lg-gre.txt|UTF-16LE-DOS|greek|0|TextWithMultipleEncodings/lg-gre.txt.page.0.pdf.png|
+|TextWithMultipleEncodings/UTF-16LE-DOS/CS_utf-16le_LG_japan_N_japan.docx.txt|UTF-16LE-DOS|japan|0|TextWithMultipleEncodings/japan.docx.txt.page.0.pdf.png|
+|TextWithMultipleEncodings/UTF-16LE-DOS/CS_utf-16le_LG_german_N_german.pdf.txt|UTF-16LE-DOS|german|0|TextWithMultipleEncodings/german.pdf.txt.page.0.pdf.png|
+|TextWithMultipleEncodings/UTF-16LE-DOS/CS_utf-16le_LG_ch-trad_N_ch_trad.docx.txt|UTF-16LE-DOS|chinese_traditional|0|TextWithMultipleEncodings/ch_trad.docx.txt.page.0.pdf.png|
+|TextWithMultipleEncodings/UTF-16LE-DOS/CS_utf-16le_LG_ch-simp_N_ch_simp.pdf.txt|UTF-16LE-DOS|chinese_simple|0|TextWithMultipleEncodings/ch_simp.pdf.txt.page.0.pdf.png|
+
+
+Scenario: Conversion of UTF-16LE UNIX (CR) encoded text documents to PDF format 
+
+Given Office conversion service is up and running
+When user sends request to convert page <pageNumber> of text document <file> with charset <charset> and content language <language> to pdf format
+Then server must respond with status 200
+And conversion result matches with template <referenceImage> (difference less 0.1 percent)
+
+Examples:
+|file|charset|language|pageNumber|referenceImage|
+|TextWithMultipleEncodings/UTF-16LE-UNIX/CS_utf-16le_LG_english_N_3CAA263E0D1D.txt|UTF-16LE-UNIX|english|0|TextWithMultipleEncodings/3CAA263E0D1D.txt.page.0.pdf.png|
+|TextWithMultipleEncodings/UTF-16LE-UNIX/CS_utf-16le_LG_english_N_3CAA263E0D1D.txt|UTF-16LE-UNIX|english|1|TextWithMultipleEncodings/3CAA263E0D1D.txt.page.1.pdf.png|
+|TextWithMultipleEncodings/UTF-16LE-UNIX/CS_utf-16le_LG_english_N_3CAA263E0D1D.txt|UTF-16LE-UNIX|english|2|TextWithMultipleEncodings/3CAA263E0D1D.txt.page.2.pdf.png|
+|TextWithMultipleEncodings/UTF-16LE-UNIX/CS_utf-16le_LG_france_N_test_fr.txt.txt|UTF-16LE-UNIX|french|0|TextWithMultipleEncodings/test_fr.txt.txt.page.0.pdf.png|
+|TextWithMultipleEncodings/UTF-16LE-UNIX/CS_utf-16le_LG_slovak_N_slovak.docx.txt|UTF-16LE-UNIX|slovak|0|TextWithMultipleEncodings/slovak.docx.txt.page.0.pdf.png|
+|TextWithMultipleEncodings/UTF-16LE-UNIX/CS_utf-16le_LG_rus_N_lg-rus.txt|UTF-16LE-UNIX|russian|0|TextWithMultipleEncodings/lg-rus.txt.page.0.pdf.png|
+|TextWithMultipleEncodings/UTF-16LE-UNIX/CS_utf-16le_LG_ukr_N_lg-ukr.txt|UTF-16LE-UNIX|ukrainian|0|TextWithMultipleEncodings/lg-ukr.txt.page.0.pdf.png|
+|TextWithMultipleEncodings/UTF-16LE-UNIX/CS_utf-16le_LG_kor_N_lg-kor.txt|UTF-16LE-UNIX|korean|0|TextWithMultipleEncodings/lg-kor.txt.page.0.pdf.png|
+|TextWithMultipleEncodings/UTF-16LE-UNIX/CS_utf-16le_LG_gre_N_lg-gre.txt|UTF-16LE-UNIX|greek|0|TextWithMultipleEncodings/lg-gre.txt.page.0.pdf.png|
+|TextWithMultipleEncodings/UTF-16LE-UNIX/CS_utf-16le_LG_japan_N_japan.docx.txt|UTF-16LE-UNIX|japan|0|TextWithMultipleEncodings/japan.docx.txt.page.0.pdf.png|
+|TextWithMultipleEncodings/UTF-16LE-UNIX/CS_utf-16le_LG_german_N_german.pdf.txt|UTF-16LE-UNIX|german|0|TextWithMultipleEncodings/german.pdf.txt.page.0.pdf.png|
+|TextWithMultipleEncodings/UTF-16LE-UNIX/CS_utf-16le_LG_ch-trad_N_ch_trad.docx.txt|UTF-16LE-UNIX|chinese_traditional|0|TextWithMultipleEncodings/ch_trad.docx.txt.page.0.pdf.png|
+|TextWithMultipleEncodings/UTF-16LE-UNIX/CS_utf-16le_LG_ch-simp_N_ch_simp.pdf.txt|UTF-16LE-UNIX|chinese_simple|0|TextWithMultipleEncodings/ch_simp.pdf.txt.page.0.pdf.png|
+
+Scenario: Convertation of UTF-16BE DOS (CRLF) encoded text documents to PDF format 
+
+Given Office conversion service is up and running
+When user sends request to convert page <pageNumber> of text document <file> with charset <charset> and content language <language> to pdf format
+Then server must respond with status 200
+And conversion result matches with template <referenceImage> (difference less 0.1 percent)
+
+Examples:
+|file|charset|language|pageNumber|referenceImage|
+|TextWithMultipleEncodings/UTF-16BE-DOS/CS_utf-16be_LG_english_N_3CAA263E0D1D.txt|UTF-16BE-DOS|english|0|TextWithMultipleEncodings/3CAA263E0D1D.txt.page.0.pdf.png|
+|TextWithMultipleEncodings/UTF-16BE-DOS/CS_utf-16be_LG_english_N_3CAA263E0D1D.txt|UTF-16BE-DOS|english|1|TextWithMultipleEncodings/3CAA263E0D1D.txt.page.1.pdf.png|
+|TextWithMultipleEncodings/UTF-16BE-DOS/CS_utf-16be_LG_english_N_3CAA263E0D1D.txt|UTF-16BE-DOS|english|2|TextWithMultipleEncodings/3CAA263E0D1D.txt.page.2.pdf.png|
+|TextWithMultipleEncodings/UTF-16BE-DOS/CS_utf-16be_LG_france_N_test_fr.txt.txt|UTF-16BE-DOS|french|0|TextWithMultipleEncodings/test_fr.txt.txt.page.0.pdf.png|
+|TextWithMultipleEncodings/UTF-16BE-DOS/CS_utf-16be_LG_slovak_N_slovak.docx.txt|UTF-16BE-DOS|slovak|0|TextWithMultipleEncodings/slovak.docx.txt.page.0.pdf.png|
+|TextWithMultipleEncodings/UTF-16BE-DOS/CS_utf-16be_LG_rus_N_lg-rus.txt|UTF-16BE-DOS|russian|0|TextWithMultipleEncodings/lg-rus.txt.page.0.pdf.png|
+|TextWithMultipleEncodings/UTF-16BE-DOS/CS_utf-16be_LG_ukr_N_lg-ukr.txt|UTF-16BE-DOS|ukrainian|0|TextWithMultipleEncodings/lg-ukr.txt.page.0.pdf.png|
+|TextWithMultipleEncodings/UTF-16BE-DOS/CS_utf-16be_LG_kor_N_lg-kor.txt|UTF-16BE-DOS|korean|0|TextWithMultipleEncodings/lg-kor.txt.page.0.pdf.png|
+|TextWithMultipleEncodings/UTF-16BE-DOS/CS_utf-16be_LG_gre_N_lg-gre.txt|UTF-16BE-DOS|greek|0|TextWithMultipleEncodings/lg-gre.txt.page.0.pdf.png|
+|TextWithMultipleEncodings/UTF-16BE-DOS/CS_utf-16be_LG_japan_N_japan.docx.txt|UTF-16BE-DOS|japan|0|TextWithMultipleEncodings/japan.docx.txt.page.0.pdf.png|
+|TextWithMultipleEncodings/UTF-16BE-DOS/CS_utf-16be_LG_german_N_german.pdf.txt|UTF-16BE-DOS|german|0|TextWithMultipleEncodings/german.pdf.txt.page.0.pdf.png|
+|TextWithMultipleEncodings/UTF-16BE-DOS/CS_utf-16be_LG_ch-trad_N_ch_trad.docx.txt|UTF-16BE-DOS|chinese_traditional|0|TextWithMultipleEncodings/ch_trad.docx.txt.page.0.pdf.png|
+|TextWithMultipleEncodings/UTF-16BE-DOS/CS_utf-16be_LG_ch-simp_N_ch_simp.pdf.txt|UTF-16BE-DOS|chinese_simple|0|TextWithMultipleEncodings/ch_simp.pdf.txt.page.0.pdf.png|
+
+Scenario: Convertation of UTF-16BE UNIX (CR) encoded text documents to PDF format 
+
+Given Office conversion service is up and running
+When user sends request to convert page <pageNumber> of text document <file> with charset <charset> and content language <language> to pdf format
+Then server must respond with status 200
+And conversion result matches with template <referenceImage> (difference less 0.1 percent)
+
+Examples:
+|file|charset|language|pageNumber|referenceImage|
+|TextWithMultipleEncodings/UTF-16BE-UNIX/CS_utf-16be_LG_english_N_3CAA263E0D1D.txt|UTF-16BE-UNIX|english|0|TextWithMultipleEncodings/3CAA263E0D1D.txt.page.0.pdf.png|
+|TextWithMultipleEncodings/UTF-16BE-UNIX/CS_utf-16be_LG_english_N_3CAA263E0D1D.txt|UTF-16BE-UNIX|english|1|TextWithMultipleEncodings/3CAA263E0D1D.txt.page.1.pdf.png|
+|TextWithMultipleEncodings/UTF-16BE-UNIX/CS_utf-16be_LG_english_N_3CAA263E0D1D.txt|UTF-16BE-UNIX|english|2|TextWithMultipleEncodings/3CAA263E0D1D.txt.page.2.pdf.png|
+|TextWithMultipleEncodings/UTF-16BE-UNIX/CS_utf-16be_LG_france_N_test_fr.txt.txt|UTF-16BE-UNIX|french|0|TextWithMultipleEncodings/test_fr.txt.txt.page.0.pdf.png|
+|TextWithMultipleEncodings/UTF-16BE-UNIX/CS_utf-16be_LG_slovak_N_slovak.docx.txt|UTF-16BE-UNIX|slovak|0|TextWithMultipleEncodings/slovak.docx.txt.page.0.pdf.png|
+|TextWithMultipleEncodings/UTF-16BE-UNIX/CS_utf-16be_LG_rus_N_lg-rus.txt|UTF-16BE-UNIX|russian|0|TextWithMultipleEncodings/lg-rus.txt.page.0.pdf.png|
+|TextWithMultipleEncodings/UTF-16BE-UNIX/CS_utf-16be_LG_ukr_N_lg-ukr.txt|UTF-16BE-UNIX|ukrainian|0|TextWithMultipleEncodings/lg-ukr.txt.page.0.pdf.png|
+|TextWithMultipleEncodings/UTF-16BE-UNIX/CS_utf-16be_LG_kor_N_lg-kor.txt|UTF-16BE-UNIX|korean|0|TextWithMultipleEncodings/lg-kor.txt.page.0.pdf.png|
+|TextWithMultipleEncodings/UTF-16BE-UNIX/CS_utf-16be_LG_gre_N_lg-gre.txt|UTF-16BE-UNIX|greek|0|TextWithMultipleEncodings/lg-gre.txt.page.0.pdf.png|
+|TextWithMultipleEncodings/UTF-16BE-UNIX/CS_utf-16be_LG_japan_N_japan.docx.txt|UTF-16BE-UNIX|japan|0|TextWithMultipleEncodings/japan.docx.txt.page.0.pdf.png|
+|TextWithMultipleEncodings/UTF-16BE-UNIX/CS_utf-16be_LG_german_N_german.pdf.txt|UTF-16BE-UNIX|german|0|TextWithMultipleEncodings/german.pdf.txt.page.0.pdf.png|
+|TextWithMultipleEncodings/UTF-16BE-UNIX/CS_utf-16be_LG_ch-trad_N_ch_trad.docx.txt|UTF-16BE-UNIX|chinese_traditional|0|TextWithMultipleEncodings/ch_trad.docx.txt.page.0.pdf.png|
+|TextWithMultipleEncodings/UTF-16BE-UNIX/CS_utf-16be_LG_ch-simp_N_ch_simp.pdf.txt|UTF-16BE-UNIX|chinese_simple|0|TextWithMultipleEncodings/ch_simp.pdf.txt.page.0.pdf.png|
+
+Scenario: Convertation of US-ASCII encoded text documents to PDF format 
+
+Given Office conversion service is up and running
+When user sends request to convert page <pageNumber> of text document <file> with charset <charset> and content language <language> to pdf format
+Then server must respond with status 200
+And conversion result matches with template <referenceImage> (difference less 0.1 percent)
+
+Examples:
+|file|charset|language|pageNumber|referenceImage|
+|TextWithMultipleEncodings/US-ASCII/CS_us-ascii_LG_english_N_1.txt|US-ASCII|english|0|TextWithMultipleEncodings/1.txt.page.0.pdf.png|
+
+Scenario: Convertation of ISO-8859-1 encoded text documents to PDF format 
+
+Given Office conversion service is up and running
+When user sends request to convert page <pageNumber> of text document <file> with charset <charset> and content language <language> to pdf format
+Then server must respond with status 200
+And conversion result matches with template <referenceImage> (difference less 0.1 percent)
+
+Examples:
+|file|charset|language|pageNumber|referenceImage|
+|TextWithMultipleEncodings/ISO-8859-1/CS_iso-8859-1_LG_english_N_6B2F30A5F76E.txt|ISO-8859-1|english|0|TextWithMultipleEncodings/6B2F30A5F76E.txt.page.0.pdf.png|

@@ -1,0 +1,263 @@
+Meta: Сonversion of documents on negative stories
+
+Scenario: conversion of missing documents
+
+Given Office conversion service is up and running
+When user sends request to convert page <pageNumber> of missing documents <file> to pdf format
+Then server must respond with status 480
+And error code must be <errorCode>
+And error message must be <errorMessage>
+
+Examples:
+|file|pageNumber|errorCode|errorMessage|
+|--missing document
+|--Excell
+|1DateTime/Excel1/dateTime.xls|1000|480000005|"message":"Source file not found"|
+|1DateTime/Excel1/dateTime.xltx|0|480000005|"message":"Source file not found"|
+|--Word
+|DateTime/Word1/dateTime.doc|1000|480000005|"message":"Source file not found"|
+|DateTime/Word1/dateTime.docm|0|480000005|"message":"Source file not found"|
+|--PowerPoint
+|DateTime/PowerPoint1/dateTime.pot|1000|480000005|"message":"Source file not found"|
+|DateTime/PowerPoint1/dateTime.pptx|0|480000005|"message":"Source file not found"|
+|--Calc
+|DateTime/Calc1/dateTime.ots|1000|480000005|"message":"Source file not found"|
+|DateTime/Calc1/dateTime.ods|0|480000005|"message":"Source file not found"|
+|--Writer
+|1DateTime/Writer/dateTime.odt|1000|480000005|"message":"Source file not found"|
+|1DateTime/Writer/dateTime.ott|0|480000005|"message":"Source file not found"|
+|--Impress
+|1DateTime/Impress/dateTime.odp|1000|480000005|"message":"Source file not found"|
+|1DateTime/Impress/dateTime.fodp|0|480000005|"message":"Source file not found"|
+|--Draw
+|1DateTime/Draw/dateTime.odg|1000|480000005|"message":"Source file not found"|
+|1DateTime/Draw/dateTime.fodg|0|480000005|"message":"Source file not found"|
+
+
+Scenario: Missing src in request  
+
+Given Office conversion service is up and running
+When user sends a request with missing src parametr on conversion of single page <pageNumber> of the office document <file> in PDF format
+Then server must respond with status 480
+And error code must be <errorCode>
+And error message must be <errorMessage>
+
+Examples:
+|file|pageNumber|errorCode|errorMessage|
+|--Excell
+|DateTime/Excel/dateTime.xls|1000|480000004|"message":"Parameter is missing","parameter":"src"|
+|DateTime/Excel/dateTime.xltx|0|480000004|"message":"Parameter is missing","parameter":"src"|
+|--Word
+|DateTime/Word/dateTime.doc|1000|480000004|"message":"Parameter is missing","parameter":"src"|
+|DateTime/Word/dateTime.docm|0|480000004|"message":"Parameter is missing","parameter":"src"|
+|--PowerPoint
+|DateTime/PowerPoint/dateTime.pot|1000|480000004|"message":"Parameter is missing","parameter":"src"|
+|DateTime/PowerPoint/dateTime.pptx|0|480000004|"message":"Parameter is missing","parameter":"src"|
+|--Calc
+|DateTime/Calc/dateTime.ots|1000|480000004|"message":"Parameter is missing","parameter":"src"|
+|DateTime/Calc/dateTime.ods|0|480000004|"message":"Parameter is missing","parameter":"src"|
+|--Writer
+|DateTime/Writer/dateTime.odt|1000|480000004|"message":"Parameter is missing","parameter":"src"|
+|DateTime/Writer/dateTime.ott|0|480000004|"message":"Parameter is missing","parameter":"src"|
+|--Impress
+|DateTime/Impress/dateTime.odp|1000|480000004|"message":"Parameter is missing","parameter":"src"|
+|DateTime/Impress/dateTime.fodp|0|480000004|"message":"Parameter is missing","parameter":"src"|
+|--Draw
+|DateTime/Draw/dateTime.odg|1000|480000004|"message":"Parameter is missing","parameter":"src"|
+|DateTime/Draw/dateTime.fodg|0|480000004|"message":"Parameter is missing","parameter":"src"|
+
+
+Scenario: missing pageNumber in request
+
+Given Office conversion service is up and running
+When user sends a request with missing pageNumber parametr on conversion of single page <pageNumber> of the office document <file> in PDF format
+Then server must respond with status 480
+And error code must be <errorCode>
+And error message must be <errorMessage>
+
+Examples:
+|file|pageNumber|errorCode|errorMessage|
+|--Excell
+|DateTime/Excel/dateTime.xls|1000|480000004|"message":"Parameter is missing","parameter":"pageNumber"|
+|DateTime/Excel/dateTime.xltx|0|480000004|"message":"Parameter is missing","parameter":"pageNumber"|
+|--Word
+|DateTime/Word/dateTime.doc|1000|480000004|"message":"Parameter is missing","parameter":"pageNumber"|
+|DateTime/Word/dateTime.docm|0|480000004|"message":"Parameter is missing","parameter":"pageNumber"|
+|--PowerPoint
+|DateTime/PowerPoint/dateTime.pot|1000|480000004|"message":"Parameter is missing","parameter":"pageNumber"|
+|DateTime/PowerPoint/dateTime.pptx|0|480000004|"message":"Parameter is missing","parameter":"pageNumber"|
+|--Calc
+|DateTime/Calc/dateTime.ots|1000|480000004|"message":"Parameter is missing","parameter":"pageNumber"|
+|DateTime/Calc/dateTime.ods|0|480000004|"message":"Parameter is missing","parameter":"pageNumber"|
+|--Writer
+|DateTime/Writer/dateTime.odt|1000|480000004|"message":"Parameter is missing","parameter":"pageNumber"|
+|DateTime/Writer/dateTime.ott|0|480000004|"message":"Parameter is missing","parameter":"pageNumber"|
+|--Impress
+|DateTime/Impress/dateTime.odp|1000|480000004|"message":"Parameter is missing","parameter":"pageNumber"|
+|DateTime/Impress/dateTime.fodp|0|480000004|"message":"Parameter is missing","parameter":"pageNumber"|
+|--Draw
+|DateTime/Draw/dateTime.odg|1000|480000004|"message":"Parameter is missing","parameter":"pageNumber"|
+|DateTime/Draw/dateTime.fodg|0|480000004|"message":"Parameter is missing","parameter":"pageNumber"|
+
+
+Scenario: missing outputTemplate in request  
+
+Given Office conversion service is up and running
+When user sends a request with missing outputTemplate parametr on conversion of single page <pageNumber> of the office document <file> in PDF format
+Then server must respond with status 480
+And error code must be <errorCode>
+And error message must be <errorMessage>
+
+Examples:
+|file|pageNumber|errorCode|errorMessage|
+|--Excell
+|DateTime/Excel/dateTime.xls|1000|480000004|"message":"Parameter is missing","parameter":"outputTemplate"|
+|DateTime/Excel/dateTime.xltx|0|480000004|"message":"Parameter is missing","parameter":"outputTemplate"|
+|--Word
+|DateTime/Word/dateTime.doc|1000|480000004|"message":"Parameter is missing","parameter":"outputTemplate"|
+|DateTime/Word/dateTime.docm|0|480000004|"message":"Parameter is missing","parameter":"outputTemplate"|
+|--PowerPoint
+|DateTime/PowerPoint/dateTime.pot|1000|480000004|"message":"Parameter is missing","parameter":"outputTemplate"|
+|DateTime/PowerPoint/dateTime.pptx|0|480000004|"message":"Parameter is missing","parameter":"outputTemplate"|
+|--Calc
+|DateTime/Calc/dateTime.ots|1000|480000004|"message":"Parameter is missing","parameter":"outputTemplate"|
+|DateTime/Calc/dateTime.ods|0|480000004|"message":"Parameter is missing","parameter":"outputTemplate"|
+|--Writer
+|DateTime/Writer/dateTime.odt|1000|480000004|"message":"Parameter is missing","parameter":"outputTemplate"|
+|DateTime/Writer/dateTime.ott|0|480000004|"message":"Parameter is missing","parameter":"outputTemplate"|
+|--Impress
+|DateTime/Impress/dateTime.odp|1000|480000004|"message":"Parameter is missing","parameter":"outputTemplate"|
+|DateTime/Impress/dateTime.fodp|0|480000004|"message":"Parameter is missing","parameter":"outputTemplate"|
+|--Draw
+|DateTime/Draw/dateTime.odg|1000|480000004|"message":"Parameter is missing","parameter":"outputTemplate"|
+|DateTime/Draw/dateTime.fodg|0|480000004|"message":"Parameter is missing","parameter":"outputTemplate"|
+
+
+Scenario: missing destFormat in request  
+
+Given Office conversion service is up and running
+When user sends a request with missing destFormat parametr on conversion of single page <pageNumber> of the office document <file>
+Then server must respond with status 480
+And error code must be <errorCode>
+And error message must be <errorMessage>
+
+Examples:
+|file|pageNumber|errorCode|errorMessage|
+|--Excell
+|DateTime/Excel/dateTime.xls|1000|480000004|"message":"Parameter is missing","parameter":"outputTemplate"|
+|DateTime/Excel/dateTime.xltx|0|480000004|"message":"Parameter is missing","parameter":"outputTemplate"|
+|--Word
+|DateTime/Word/dateTime.doc|1000|480000004|"message":"Parameter is missing","parameter":"outputTemplate"|
+|DateTime/Word/dateTime.docm|0|480000004|"message":"Parameter is missing","parameter":"outputTemplate"|
+|--PowerPoint
+|DateTime/PowerPoint/dateTime.pot|1000|480000004|"message":"Parameter is missing","parameter":"outputTemplate"|
+|DateTime/PowerPoint/dateTime.pptx|0|480000004|"message":"Parameter is missing","parameter":"outputTemplate"|
+|--Calc
+|DateTime/Calc/dateTime.ots|1000|480000004|"message":"Parameter is missing","parameter":"outputTemplate"|
+|DateTime/Calc/dateTime.ods|0|480000004|"message":"Parameter is missing","parameter":"outputTemplate"|
+|--Writer
+|DateTime/Writer/dateTime.odt|1000|480000004|"message":"Parameter is missing","parameter":"outputTemplate"|
+|DateTime/Writer/dateTime.ott|0|480000004|"message":"Parameter is missing","parameter":"outputTemplate"|
+|--Impress
+|DateTime/Impress/dateTime.odp|1000|480000004|"message":"Parameter is missing","parameter":"outputTemplate"|
+|DateTime/Impress/dateTime.fodp|0|480000004|"message":"Parameter is missing","parameter":"outputTemplate"|
+|--Draw
+|DateTime/Draw/dateTime.odg|1000|480000004|"message":"Parameter is missing","parameter":"outputTemplate"|
+|DateTime/Draw/dateTime.fodg|0|480000004|"message":"Parameter is missing","parameter":"outputTemplate"|
+
+
+|--false 
+Scenario: source file has not supported type
+
+Given Office conversion service is up and running
+When user sends request to convert page 0 of office file <file> with not supported $format format
+Then server must respond with status 580
+And error code must be <errorCode>
+And error message must be <errorMessage>
+
+Examples:
+|file|format|errorCode|errorMessage|
+|--Calc
+|ConversionNegative/notSupportedType/Calc/dateTime.ts|pdf|580004001|"message":"Office instance failed to load document"|
+|ConversionNegative/notSupportedType/Calc/dateTime.ds|pdf|580004001|"message":"Office instance failed to load document"|
+|ConversionNegative/notSupportedType/Calc/dateTime.fo|pdf|580004001|"message":"Office instance failed to load document"|
+|ConversionNegative/notSupportedType/Other/fileCmd.cmd|pdf|580004001|"message":"Office instance failed to load document"|
+|ConversionNegative/notSupportedType/Other/fileExe2.exe|pdf|580004001|"message":"Office instance failed to load document"|
+|ConversionNegative/notSupportedType/Other/fileJava.jar|pdf|580004001|"message":"Office instance failed to load document"|
+|ConversionNegative/notSupportedType/Other/file.djv|pdf|580004001|"message":"Office instance failed to load document"|
+|ConversionNegative/notSupportedType/Other/file.djvu|pdf|580004001|"message":"Office instance failed to load document"|
+|ConversionNegative/notSupportedType/Other/file.m3d|pdf|580004001|"message":"Office instance failed to load document"|
+|ConversionNegative/notSupportedType/Other/fileCur.cur|pdf|580004001|"message":"Office instance failed to load document"|
+|ConversionNegative/notSupportedType/Other/fileDWG.dwg|pdf|580004001|"message":"Office instance failed to load document"|
+|ConversionNegative/notSupportedType/Other/fileEXE.exe|pdf|580004001|"message":"Office instance failed to load document"|
+|ConversionNegative/notSupportedType/Other/fileGif.gif|pdf|580004001|"message":"Office instance failed to load document"|
+|ConversionNegative/notSupportedType/Other/fileJava2.jar|pdf|580004001|"message":"Office instance failed to load document"|
+|ConversionNegative/notSupportedType/Other/JPEG.jpg|pdf|580004001|"message":"Office instance failed to load document"|
+|ConversionNegative/notSupportedType/Other/filePNG.png|pdf|580004001|"message":"Office instance failed to load document"|
+|ConversionNegative/notSupportedType/Other/fileRar.rar|pdf|580004001|"message":"Office instance failed to load document"|
+|ConversionNegative/notSupportedType/Other/fileWMW.wmv|pdf|580004001|"message":"Office instance failed to load document"|
+|ConversionNegative/notSupportedType/Other/fileZip.zip|pdf|580004001|"message":"Office instance failed to load document"|
+|ConversionNegative/notSupportedType/Other/fileRar.rar|pdf|580004001|"message":"Office instance failed to load document"|
+
+
+Scenario: As a user I want to receive an error if JSON convert request is invalid
+
+Given Office conversion service is up and running
+When user sends convert request with unexpected JSON data <postData>
+Then server must respond with status 480
+And error code must be <errorCode>
+And error message must be <errorMessage>
+Examples:
+|postData                               								|errorCode|errorMessage|
+|{ \"missingData\": }                   								|480000003|"message":"Data is not a valid JSON"|
+|{"data":{"password-null,"pageNumber-1","src:C:/1.xls.page.1000.pdf"}}	|480000003|"message":"Data is not a valid JSON"|
+|{"data":{parametrs}}													|480000003|"message":"Data is not a valid JSON"|
+|{"data":{{password":""},{"pageNumber":0},{"src":"C:/1.xls"},{"destFormat":"pdf"},{"outputTemplate":"C:/1.pdf"}}}			|480000003|"message":"Data is not a valid JSON"|
+|{"data":{"password"="","pageNumber"=1000,"src"="C:/file.xls","destFormat"="pdf","outputTemplate"="C:/file.page.1000.pdf"}}	|480000003|"message":"Data is not a valid JSON"|
+|{{"password":"";"pageNumber":1000,"src";"C:/file.xls";"destFormat":"pdf";"outputTemplate":"C:/file.page.1.pdf"}}}			|480000003|"message":"Data is not a valid JSON"|
+|{"data":{password:"",pageNumber:1000,src:C:/file.xls,destFormat:pdf,outputTemplate:C:/file.0.pdf"}}						|480000003|"message":"Data is not a valid JSON"|
+|{"data":{password:"true",pageNumber:"1000",src:"C:/file.xls,destFormat:pdf",outputTemplate:"C:/file.0.pdf"}}				|480000003|"message":"Data is not a valid JSON"|
+|{ \"data\": {"password":"","pageNumber":0}}    						|480000003|"message":"Data is not a valid JSON"|
+|{ {"data":  {"password":"pageNumber":"src"}}}} 						|480000003|"message":"Data is not a valid JSON"|
+
+
+Scenario: Convert HTTP method is invalid  
+
+Given Office conversion service is up and running
+When user sends request to convert on conversion of single page <pageNumber> of the office document <file> with invalid HTTP GET method
+Then server must respond with status 480
+And error code must be <errorCode>
+And error message must be <errorMessage>
+
+Examples:
+|file|pageNumber|errorCode|errorMessage|
+|--Excell
+|ConversionNegative/notSupportedType/Excel/dateTime.xls|0|480000002|"message":"HTTP method is invalid"|
+|ConversionNegative/notSupportedType/Excel/dateTime.v95.xls|0|480000002|"message":"HTTP method is invalid"|
+|ConversionNegative/notSupportedType/Excel/dateTime.xltx|0|480000002|"message":"HTTP method is invalid"|
+|--Word
+|ConversionNegative/notSupportedType/Word/dateTime.doc|0|480000002|"message":"HTTP method is invalid"|
+|ConversionNegative/notSupportedType/Word/dateTime.docm|0|480000002|"message":"HTTP method is invalid"|
+|ConversionNegative/notSupportedType/Word/dateTime.dotx|0|480000002|"message":"HTTP method is invalid"|
+|--PowerPoint
+|ConversionNegative/notSupportedType/PowerPoint/dateTime.pot|0|480000002|"message":"HTTP method is invalid"|
+|ConversionNegative/notSupportedType/PowerPoint/dateTime.potm|0|480000002|"message":"HTTP method is invalid"|
+|ConversionNegative/notSupportedType/PowerPoint/dateTime.pptx|0|480000002|"message":"HTTP method is invalid"|
+|--Calc
+|ConversionNegative/notSupportedType/Calc/dateTime.ots|0|480000002|"message":"HTTP method is invalid"|
+|ConversionNegative/notSupportedType/Calc/dateTime.ods|0|480000002|"message":"HTTP method is invalid"|
+|ConversionNegative/notSupportedType/Calc/dateTime.fods|0|480000002|"message":"HTTP method is invalid"|
+|--Writer
+|ConversionNegative/notSupportedType/Writer/dateTime.odt|0|480000002|"message":"HTTP method is invalid"|
+|ConversionNegative/notSupportedType/Writer/dateTime.ott|0|480000002|"message":"HTTP method is invalid"|
+|ConversionNegative/notSupportedType/Writer/dateTime.fodt|0|480000002|"message":"HTTP method is invalid"|
+|--Impress
+|ConversionNegative/notSupportedType/Impress/dateTime.odp|0|480000002|"message":"HTTP method is invalid"|
+|ConversionNegative/notSupportedType/Impress/dateTime.otp|0|480000002|"message":"HTTP method is invalid"|
+|ConversionNegative/notSupportedType/Impress/dateTime.fodp|0|480000002|"message":"HTTP method is invalid"|
+|--Draw
+|ConversionNegative/notSupportedType/Draw/dateTime.odg|0|480000002|"message":"HTTP method is invalid"|
+|ConversionNegative/notSupportedType/Draw/dateTime.otg|0|480000002|"message":"HTTP method is invalid"|
+|ConversionNegative/notSupportedType/Draw/dateTime.fodg|0|480000002|"message":"HTTP method is invalid"|
+
+

@@ -1,0 +1,26 @@
+Meta: (LOWritter) Conversion of LOWritter documents with internal HyperLinks to PDF format (short set)  
+
+Scenario: (LOWritter) Conversion of selected page from multiple page LOWritter document with internal HyperLinks to PDF format
+ 
+Given Office conversion service is up and running
+When user sends request to convert page <pageNumber> from LOWritter document <file> with multiple internal HyperLinks to PDF format
+Then server must respond with status 200
+And converted PDF file has <expectedCountOfGoToLinks> "GoTo" link(s) with page destination value <expectedPageDestinationValue>
+
+Examples:
+|file|pageNumber|expectedCountOfGoToLinks|expectedPageDestinationValue| 
+|Hyperlinks/LOWritter/odt/P1_OneLinkToP2_P2_TwoLinksToP1.odt|0|1|2|
+|Hyperlinks/LOWritter/odt/P1_OneLinkToP2_P2_TwoLinksToP1.odt|1|2|1|
+
+|Hyperlinks/LOWritter/fodt/P1_OneLinkToP2_P2_TwoLinksToP1.fodt|0|1|2|
+|Hyperlinks/LOWritter/fodt/P1_OneLinkToP2_P2_TwoLinksToP1.fodt|1|2|1|
+
+|Hyperlinks/LOWritter/ott/P1_OneLinkToP2_P2_TwoLinksToP1.ott|0|1|2|
+|Hyperlinks/LOWritter/ott/P1_OneLinkToP2_P2_TwoLinksToP1.ott|1|2|1|
+
+|Hyperlinks/LOWritter/odt/P1_NoLinks_P2_OneLinkToP1.odt|1|1|1|
+|Hyperlinks/LOWritter/fodt/P1_NoLinks_P2_OneLinkToP1.fodt|1|1|1|
+|Hyperlinks/LOWritter/ott/P1_NoLinks_P2_OneLinkToP1.ott|1|1|1|
+
+|Hyperlinks/LOWritter/customer/WorldSoftware.odt|1|1|1|
+|Hyperlinks/LOWritter/customer/WorldSoftware.odt|2|1|1|

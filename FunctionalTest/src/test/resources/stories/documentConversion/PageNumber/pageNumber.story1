@@ -1,0 +1,107 @@
+Meta: Conversion of documents by wrong page number
+
+Scenario: Verification of the error code
+
+Given Office conversion service is up and running
+When user sends request to convert page <pageNumber> of office document <file> to pdf format
+Then server must respond with status 480
+
+Examples:
+|file|pageNumber|
+|--Excell
+|DateTime/Excel/dateTime.xls|1000|
+|DateTime/Excel/dateTime.v95.xls|1000|
+|DateTime/Excel/dateTime.xlsm|1000|
+|DateTime/Excel/dateTime.xlsx|1000|
+|DateTime/Excel/dateTime.xlt|1000|
+|DateTime/Excel/dateTime.xltm|1000|
+|DateTime/Excel/dateTime.xltx|1000|
+|--Word
+|DateTime/Word/dateTime.doc|1000|
+|DateTime/Word/dateTime.docm|1000|
+|DateTime/Word/dateTime.docx|1000|
+|DateTime/Word/dateTime.dot|1000|
+|DateTime/Word/dateTime.dotm|1000|
+|DateTime/Word/dateTime.dotx|1000|
+|--PowerPoint
+|DateTime/PowerPoint/dateTime.pot|1000|
+|DateTime/PowerPoint/dateTime.potm|1000|
+|DateTime/PowerPoint/dateTime.potx|1000|
+|DateTime/PowerPoint/dateTime.pps|1000|
+|DateTime/PowerPoint/dateTime.ppsm|1000|
+|DateTime/PowerPoint/dateTime.ppsx|1000|
+|DateTime/PowerPoint/dateTime.ppt|1000|
+|DateTime/PowerPoint/dateTime.pptm|1000|
+|DateTime/PowerPoint/dateTime.pptx|1000|
+|--Calc
+|DateTime/Calc/dateTime.ots|1000|
+|DateTime/Calc/dateTime.ods|1000|
+|DateTime/Calc/dateTime.fods|1000|
+|--Writer
+|DateTime/Writer/dateTime.odt|1000|
+|DateTime/Writer/dateTime.ott|1000|
+|DateTime/Writer/dateTime.fodt|1000|
+|--Impress
+|DateTime/Impress/dateTime.odp|1000|
+|DateTime/Impress/dateTime.otp|1000|
+|DateTime/Impress/dateTime.fodp|1000|
+|--Draw
+|DateTime/Draw/dateTime.odg|1000|
+|DateTime/Draw/dateTime.otg|1000|
+|DateTime/Draw/dateTime.fodg|1000|
+
+
+
+Scenario: Verification of the error code and error message
+
+Given Office conversion service is up and running
+When user sends request to convert page <pageNumber> of office document <file> to pdf format
+Then server must respond with status 480
+And error code must be <errorCode>
+And error message must be <errorMessage>
+
+Examples:
+|file|pageNumber|errorCode|errorMessage|
+|--Excell
+|DateTime/Excel/dateTime.xls|1000|480000001|"message":"Page is out of range"|
+|DateTime/Excel/dateTime.v95.xls|1000|480000001|"message":"Page is out of range"|
+|DateTime/Excel/dateTime.xls|1000|480000001|"message":"Page is out of range"|
+|DateTime/Excel/dateTime.v95.xls|1000|480000001|"message":"Page is out of range"|
+|DateTime/Excel/dateTime.xlsm|1000|480000001|"message":"Page is out of range"|
+|DateTime/Excel/dateTime.xlsx|1000|480000001|"message":"Page is out of range"|
+|DateTime/Excel/dateTime.xlt|1000|480000001|"message":"Page is out of range"|
+|DateTime/Excel/dateTime.xltm|1000|480000001|"message":"Page is out of range"|
+|DateTime/Excel/dateTime.xltx|1000|480000001|"message":"Page is out of range"|
+|--Word
+|DateTime/Word/dateTime.doc|1000|480000001|"message":"Page is out of range"|
+|DateTime/Word/dateTime.docm|1000|480000001|"message":"Page is out of range"|
+|DateTime/Word/dateTime.docx|1000|480000001|"message":"Page is out of range"|
+|DateTime/Word/dateTime.dot|1000|480000001|"message":"Page is out of range"|
+|DateTime/Word/dateTime.dotm|1000|480000001|"message":"Page is out of range"|
+|DateTime/Word/dateTime.dotx|1000|480000001|"message":"Page is out of range"|
+|--PowerPoint
+|DateTime/PowerPoint/dateTime.pot|1000|480000001|"message":"Page is out of range"|
+|DateTime/PowerPoint/dateTime.potm|1000|480000001|"message":"Page is out of range"|
+|DateTime/PowerPoint/dateTime.potx|1000|480000001|"message":"Page is out of range"|
+|DateTime/PowerPoint/dateTime.pps|1000|480000001|"message":"Page is out of range"|
+|DateTime/PowerPoint/dateTime.ppsm|1000|480000001|"message":"Page is out of range"|
+|DateTime/PowerPoint/dateTime.ppsx|1000|480000001|"message":"Page is out of range"|
+|DateTime/PowerPoint/dateTime.ppt|1000|480000001|"message":"Page is out of range"|
+|DateTime/PowerPoint/dateTime.pptm|1000|480000001|"message":"Page is out of range"|
+|DateTime/PowerPoint/dateTime.pptx|1000|480000001|"message":"Page is out of range"|
+|--Calc
+|DateTime/Calc/dateTime.ots|1000|480000001|"message":"Page is out of range"|
+|DateTime/Calc/dateTime.ods|1000|480000001|"message":"Page is out of range"|
+|DateTime/Calc/dateTime.fods|1000|480000001|"message":"Page is out of range"|
+|--Writer
+|DateTime/Writer/dateTime.odt|1000|480000001|"message":"Page is out of range"|
+|DateTime/Writer/dateTime.ott|1000|480000001|"message":"Page is out of range"|
+|DateTime/Writer/dateTime.fodt|1000|480000001|"message":"Page is out of range"|
+|--Impress
+|DateTime/Impress/dateTime.odp|1000|480000001|"message":"Page is out of range"|
+|DateTime/Impress/dateTime.otp|1000|480000001|"message":"Page is out of range"|
+|DateTime/Impress/dateTime.fodp|1000|480000001|"message":"Page is out of range"|
+|--Draw
+|DateTime/Draw/dateTime.odg|1000|480000001|"message":"Page is out of range"|
+|DateTime/Draw/dateTime.otg|1000|480000001|"message":"Page is out of range"|
+|DateTime/Draw/dateTime.fodg|1000|480000001|"message":"Page is out of range"|

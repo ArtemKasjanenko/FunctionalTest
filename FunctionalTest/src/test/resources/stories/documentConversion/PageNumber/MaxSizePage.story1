@@ -1,0 +1,102 @@
+Meta: (Office) Conversion of Office documents to PDF format and comparing the page size with max size for page
+Scenario: Conversion of single page Office document to PDF format with max size for page
+    
+Given Office conversion service is up and running
+When user sends request to convert page <pageNumber> of office document <file> to pdf format
+Then server must respond with status 200
+And size of the page less than the max fixed-size <maxPageSize>
+
+Examples:
+|file|pageNumber|maxPageSize|
+|--Excel
+|DateTime/Excel/dateTime.xls|0|25000|
+|DateTime/Excel/dateTime.v95.xls|0|25000|
+|DateTime/Excel/dateTime.xlsm|0|25000|
+|DateTime/Excel/dateTime.xlsx|0|25000|
+|DateTime/Excel/dateTime.xlt|0|25000|
+|DateTime/Excel/dateTime.xltm|0|25000|
+|DateTime/Excel/dateTime.xltx|0|25000|
+|--Word
+|DateTime/Word/dateTime.doc|0|25000|
+|DateTime/Word/dateTime.docm|0|25000|
+|DateTime/Word/dateTime.docx|0|25000|
+|DateTime/Word/dateTime.dot|0|25000|
+|DateTime/Word/dateTime.dotm|0|25000|
+|DateTime/Word/dateTime.dotx|0|25000|
+|--PowerPoint
+|DateTime/PowerPoint/dateTime.pot|0|25000|
+|DateTime/PowerPoint/dateTime.potm|0|25000|
+|DateTime/PowerPoint/dateTime.potx|0|25000|
+|DateTime/PowerPoint/dateTime.pps|0|25000|
+|DateTime/PowerPoint/dateTime.ppsm|0|25000|
+|DateTime/PowerPoint/dateTime.ppsx|0|25000|
+|DateTime/PowerPoint/dateTime.ppt|0|25000|
+|DateTime/PowerPoint/dateTime.pptm|0|25000|
+|DateTime/PowerPoint/dateTime.pptx|0|25000|
+|--Calc
+|DateTime/Calc/dateTime.ots|0|25000|
+|DateTime/Calc/dateTime.ods|0|25000|
+|DateTime/Calc/dateTime.fods|0|25000|
+|--Writer
+|DateTime/Writer/dateTime.odt|0|25000|
+|DateTime/Writer/dateTime.ott|0|25000|
+|DateTime/Writer/dateTime.fodt|0|25000|
+|--Impress
+|DateTime/Impress/dateTime.odp|0|25000|
+|DateTime/Impress/dateTime.otp|0|25000|
+|DateTime/Impress/dateTime.fodp|0|25000|
+|--Draw
+|DateTime/Draw/dateTime.odg|0|25000|
+|DateTime/Draw/dateTime.otg|0|25000|
+|DateTime/Draw/dateTime.fodg|0|25000|
+
+
+Scenario: Conversion of single page Office document to PDF format then to png with max size for page
+
+Given Office conversion service is up and running
+When user sends request to convert page <pageNumber> of office document <file> to pdf format
+Then server must respond with status 200
+And page in pdf format to be converted to png with a size less than the maximum size <maxsize>
+
+Examples:
+|--Excel
+|DateTime/Excel/dateTime.xls|0|25000|
+|DateTime/Excel/dateTime.v95.xls|0|25000|
+|DateTime/Excel/dateTime.xlsm|0|25000|
+|DateTime/Excel/dateTime.xlsx|0|25000|
+|DateTime/Excel/dateTime.xlt|0|25000|
+|DateTime/Excel/dateTime.xltm|0|25000|
+|DateTime/Excel/dateTime.xltx|0|25000|
+|--Word
+|DateTime/Word/dateTime.doc|0|25000|
+|DateTime/Word/dateTime.docm|0|25000|
+|DateTime/Word/dateTime.docx|0|25000|
+|DateTime/Word/dateTime.dot|0|25000|
+|DateTime/Word/dateTime.dotm|0|25000|
+|DateTime/Word/dateTime.dotx|0|25000|
+|--PowerPoint
+|DateTime/PowerPoint/dateTime.pot|0|25000|
+|DateTime/PowerPoint/dateTime.potm|0|25000|
+|DateTime/PowerPoint/dateTime.potx|0|25000|
+|DateTime/PowerPoint/dateTime.pps|0|25000|
+|DateTime/PowerPoint/dateTime.ppsm|0|25000|
+|DateTime/PowerPoint/dateTime.ppsx|0|25000|
+|DateTime/PowerPoint/dateTime.ppt|0|25000|
+|DateTime/PowerPoint/dateTime.pptm|0|25000|
+|DateTime/PowerPoint/dateTime.pptx|0|25000|
+|--Calc
+|DateTime/Calc/dateTime.ots|0|25000|
+|DateTime/Calc/dateTime.ods|0|25000|
+|DateTime/Calc/dateTime.fods|0|25000|
+|--Writer
+|DateTime/Writer/dateTime.odt|0|25000|
+|DateTime/Writer/dateTime.ott|0|25000|
+|DateTime/Writer/dateTime.fodt|0|25000|
+|--Impress
+|DateTime/Impress/dateTime.odp|0|25000|
+|DateTime/Impress/dateTime.otp|0|25000|
+|DateTime/Impress/dateTime.fodp|0|25000|
+|--Draw
+|DateTime/Draw/dateTime.odg|0|25000|
+|DateTime/Draw/dateTime.otg|0|25000|
+|DateTime/Draw/dateTime.fodg|0|25000|

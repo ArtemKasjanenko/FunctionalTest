@@ -1,0 +1,1 @@
+mvn compile exec:java -Dexec.mainClass=com.accusoft.tests.ocs.common.utils.amazon.DownloadDirFromS3  -DawsS3DirName=collections/ocs/functional-tests/source-files -DlocalDirName=filesForTesting/ -DcopyDirContentOnly=true -DawsAccessKeyId=AKIAIHCS22NBAJ33OSNQ -DawsSecretAccessKey=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 -DawsS3BucketName=pcc-test-resources

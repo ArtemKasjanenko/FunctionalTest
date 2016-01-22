@@ -1,0 +1,53 @@
+Meta: (Office) Conversion of Office documents with dynamic date/Time content to PDF format
+Scenario: Conversion of single page Office document with dynamic date/Time content to PDF format
+    
+Given Office conversion service is up and running
+When user sends request to convert single page Office document <file> with one dateTime field to PDF format
+Then server must respond with status 200
+And date/time inside converted PDF file has correct value and matches with format <expectedWindowsFormat> on Windows or <expectedRHELFormat> on RHEL or <expectedUbuntuFormat> on Ubuntu or <expectedCentosFormat> on Centos platforms
+
+Examples:
+|file|expectedWindowsFormat|expectedRHELFormat|expectedUbuntuFormat|expectedCentosFormat|
+|--Excell
+|DateTime/Excel/dateTime.xls|MM/dd/yyyy HH:mm:ss|MM/dd/yyyy HH:mm:ss|MM/dd/yyyy HH:mm:ss|MM/dd/yyyy HH:mm:ss|
+|DateTime/Excel/dateTime.v95.xls|MM/dd/yyyy HH:mm:ss|MM/dd/yyyy HH:mm:ss|MM/dd/yyyy HH:mm:ss|MM/dd/yyyy HH:mm:ss|
+|DateTime/Excel/dateTime.xlsm|MM/dd/yyyy HH:mm:ss|MM/dd/yyyy HH:mm:ss|MM/dd/yyyy HH:mm:ss|MM/dd/yyyy HH:mm:ss|
+|DateTime/Excel/dateTime.xlsx|MM/dd/yyyy HH:mm:ss|MM/dd/yyyy HH:mm:ss|MM/dd/yyyy HH:mm:ss|MM/dd/yyyy HH:mm:ss|
+|DateTime/Excel/dateTime.xlt|MM/dd/yyyy HH:mm:ss|MM/dd/yyyy HH:mm:ss|MM/dd/yyyy HH:mm:ss|MM/dd/yyyy HH:mm:ss|
+|DateTime/Excel/dateTime.xltm|MM/dd/yyyy HH:mm:ss|MM/dd/yyyy HH:mm:ss|MM/dd/yyyy HH:mm:ss|MM/dd/yyyy HH:mm:ss|
+|DateTime/Excel/dateTime.xltx|MM/dd/yyyy HH:mm:ss|MM/dd/yyyy HH:mm:ss|MM/dd/yyyy HH:mm:ss|MM/dd/yyyy HH:mm:ss|
+|--Word
+|DateTime/Word/dateTime.doc|MM/dd/yyyy HH:mm:ss|MM/dd/yyyy HH:mm:ss|MM/dd/yyyy HH:mm:ss|MM/dd/yyyy HH:mm:ss|
+|DateTime/Word/dateTime.docm|MM/dd/yyyy HH:mm:ss|MM/dd/yyyy HH:mm:ss|MM/dd/yyyy HH:mm:ss|MM/dd/yyyy HH:mm:ss|
+|DateTime/Word/dateTime.docx|MM/dd/yyyy HH:mm:ss|MM/dd/yyyy HH:mm:ss|MM/dd/yyyy HH:mm:ss|MM/dd/yyyy HH:mm:ss|
+|DateTime/Word/dateTime.dot|MM/dd/yyyy HH:mm:ss|MM/dd/yyyy HH:mm:ss|MM/dd/yyyy HH:mm:ss|MM/dd/yyyy HH:mm:ss|
+|DateTime/Word/dateTime.dotm|MM/dd/yyyy HH:mm:ss|MM/dd/yyyy HH:mm:ss|MM/dd/yyyy HH:mm:ss|MM/dd/yyyy HH:mm:ss|
+|DateTime/Word/dateTime.dotx|MM/dd/yyyy HH:mm:ss|MM/dd/yyyy HH:mm:ss|MM/dd/yyyy HH:mm:ss|MM/dd/yyyy HH:mm:ss|
+|--PowerPoint
+|DateTime/PowerPoint/dateTime.pot|MM/dd/yy HH:mm:ss|MM/dd/yy HH:mm:ss|MM/dd/yy HH:mm:ss|MM/dd/yy HH:mm:ss|
+|DateTime/PowerPoint/dateTime.potm|MM/dd/yy hh:mm:ss a|MM/dd/yy hh:mm:ss a|MM/dd/yy hh:mm:ss a|MM/dd/yy hh:mm:ss a|
+|DateTime/PowerPoint/dateTime.potx|MM/dd/yy hh:mm:ss a|MM/dd/yy hh:mm:ss a|MM/dd/yy hh:mm:ss a|MM/dd/yy hh:mm:ss a|
+|DateTime/PowerPoint/dateTime.pps|MM/dd/yy HH:mm:ss|MM/dd/yy HH:mm:ss|MM/dd/yy HH:mm:ss|MM/dd/yy HH:mm:ss|
+|DateTime/PowerPoint/dateTime.ppsm|MM/dd/yy hh:mm:ss a|MM/dd/yy hh:mm:ss a|MM/dd/yy hh:mm:ss a|MM/dd/yy hh:mm:ss a|
+|DateTime/PowerPoint/dateTime.ppsx|MM/dd/yy hh:mm:ss a|MM/dd/yy hh:mm:ss a|MM/dd/yy hh:mm:ss a|MM/dd/yy hh:mm:ss a|
+|DateTime/PowerPoint/dateTime.ppt|MM/dd/yy HH:mm:ss|MM/dd/yy HH:mm:ss|MM/dd/yy HH:mm:ss|MM/dd/yy HH:mm:ss|
+|DateTime/PowerPoint/dateTime.pptm|MM/dd/yy hh:mm:ss a|MM/dd/yy hh:mm:ss a|MM/dd/yy hh:mm:ss a|MM/dd/yy hh:mm:ss a|
+|DateTime/PowerPoint/dateTime.pptx|MM/dd/yy hh:mm:ss a|MM/dd/yy hh:mm:ss a|MM/dd/yy hh:mm:ss a|MM/dd/yy hh:mm:ss a|
+|--Calc
+|DateTime/Calc/dateTime.ots|dd.MM.yy HH:mm:ss|dd.MM.yyyy HH:mm:ss|dd.MM.yyyy HH:mm:ss|dd.MM.yyyy HH:mm:ss|
+|DateTime/Calc/dateTime.ods|dd.MM.yy HH:mm:ss|dd.MM.yyyy HH:mm:ss|dd.MM.yyyy HH:mm:ss|dd.MM.yyyy HH:mm:ss|
+|DateTime/Calc/dateTime.fods|dd.MM.yy HH:mm:ss|dd.MM.yyyy HH:mm:ss|dd.MM.yyyy HH:mm:ss|dd.MM.yyyy HH:mm:ss|
+|--Writer
+|DateTime/Writer/dateTime.odt|MM/dd/yy HH:mm:ss|MM/dd/yy HH:mm:ss|MM/dd/yy HH:mm:ss|MM/dd/yy HH:mm:ss|
+|DateTime/Writer/dateTime.ott|MM/dd/yy HH:mm:ss|MM/dd/yy HH:mm:ss|MM/dd/yy HH:mm:ss|MM/dd/yy HH:mm:ss|
+|DateTime/Writer/dateTime.fodt|MM/dd/yy HH:mm:ss|MM/dd/yy HH:mm:ss|MM/dd/yy HH:mm:ss|MM/dd/yy HH:mm:ss|
+|--Impress
+|DateTime/Impress/dateTime.odp|dd.MM.yy HH:mm:ss|dd.MM.yy HH:mm:ss|dd.MM.yy HH:mm:ss|dd.MM.yy HH:mm:ss|
+|DateTime/Impress/dateTime.otp|dd.MM.yy HH:mm:ss|dd.MM.yy HH:mm:ss|dd.MM.yy HH:mm:ss|dd.MM.yy HH:mm:ss|
+|DateTime/Impress/dateTime.fodp|dd.MM.yy HH:mm:ss|dd.MM.yy HH:mm:ss|dd.MM.yy HH:mm:ss|dd.MM.yy HH:mm:ss|
+|--Draw
+|DateTime/Draw/dateTime.odg|dd.MM.yy HH:mm:ss|dd.MM.yy HH:mm:ss|dd.MM.yy HH:mm:ss|dd.MM.yy HH:mm:ss|
+|DateTime/Draw/dateTime.otg|dd.MM.yy HH:mm:ss|dd.MM.yy HH:mm:ss|dd.MM.yy HH:mm:ss|dd.MM.yy HH:mm:ss|
+|DateTime/Draw/dateTime.fodg|dd.MM.yy HH:mm:ss|dd.MM.yy HH:mm:ss|dd.MM.yy HH:mm:ss|dd.MM.yy HH:mm:ss|
+
+

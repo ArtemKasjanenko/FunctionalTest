@@ -1,0 +1,109 @@
+Meta: Negative scenario for header vertification
+
+Scenario: As a user I want to receive an error if missing in INFO request header Accusoft-Parent-Name 
+Given Office conversion service is up and running
+When user sends info request with missing Parent-Name
+Then server must respond with status 480
+And error code must be <errorCode>
+And error message must be <errorMessage>
+
+Examples:
+|errorCode|errorMessage|
+|480000004|"message":"Parameter is missing","parameter":"Accusoft-Parent-Name"|
+
+
+Scenario: As a user I want to receive an error if missing in INFO request heder Accusoft Parent-Pid 
+Given Office conversion service is up and running
+When user sends info request with missing Parent-Pid
+Then server must respond with status 480
+And error code must be <errorCode>
+And error message must be <errorMessage>
+
+Examples:
+|errorCode|errorMessage|
+|480000004|"message":"Parameter is missing","parameter":"Accusoft-Parent-Pid"|
+
+
+Scenario: As a user I want to receive an error if missing in INFO request heder Accusoft Parent-Taskid 
+Given Office conversion service is up and running
+When user sends info request with missing Parent-Taskid
+Then server must respond with status 480
+And error code must be <errorCode>
+And error message must be <errorMessage>
+
+Examples:
+|errorCode|errorMessage|
+|480000004|"message":"Parameter is missing","parameter":"Accusoft-Parent-Taskid"|
+
+Scenario: As a user I want to receive an error if missing in CONVERT request heder Accusoft-Parent-Name 
+Given Office conversion service is up and running
+When user sends a request with missing Parent-Name on conversion of page 0 of the office document <file>
+Then server must respond with status 480
+And error code must be <errorCode>
+And error message must be <errorMessage>
+
+Examples:
+|file|errorCode|errorMessage|
+|HeaderVerification/office1.doc|480000004|"message":"Parameter is missing","parameter":"Accusoft-Parent-Name"|
+|HeaderVerification/office2.docm|480000004|"message":"Parameter is missing","parameter":"Accusoft-Parent-Name"|
+
+
+Scenario: As a user I want to receive an error if missing in CONVERT request heder Accusoft Parent-Pid 
+Given Office conversion service is up and running
+When user sends a request with missing Parent-Pid on conversion of page 0 of the office document <file>
+Then server must respond with status 480
+And error code must be <errorCode>
+And error message must be <errorMessage>
+
+Examples:
+|file|errorCode|errorMessage|
+|HeaderVerification/office1.doc|480000004|"message":"Parameter is missing","parameter":"Accusoft-Parent-Pid"|
+|HeaderVerification/office2.docm|480000004|"message":"Parameter is missing","parameter":"Accusoft-Parent-Pid"|
+
+Scenario: As a user I want to receive an error if missing in CONVERT request heder Accusoft Parent-Taskid 
+Given Office conversion service is up and running
+When user sends a request with missing Parent-Taskid on conversion of page 0 of the office document <file>
+Then server must respond with status 480
+And error code must be <errorCode>
+And error message must be <errorMessage>
+
+Examples:
+|file|errorCode|errorMessage|
+|HeaderVerification/office1.doc|480000004|"message":"Parameter is missing","parameter":"Accusoft-Parent-Taskid"|
+|HeaderVerification/office2.docm|480000004|"message":"Parameter is missing","parameter":"Accusoft-Parent-Taskid"|
+
+Scenario: As a user I want to receive an error if missing in document ATTRIBUTES request heder Accusoft-Parent-Name 
+Given Office conversion service is up and running
+When user sends documentAttributes request with missing Parent-Name for given file <file>
+Then server must respond with status 480
+And error code must be <errorCode>
+And error message must be <errorMessage>
+
+Examples:
+|file|errorCode|errorMessage|
+|HeaderVerification/office1.doc|480000004|"message":"Parameter is missing","parameter":"Accusoft-Parent-Name"|
+|HeaderVerification/office2.docm|480000004|"message":"Parameter is missing","parameter":"Accusoft-Parent-Name"|
+
+Scenario: As a user I want to receive an error if missing in document ATTRIBUTES request heder Accusoft Parent-Pid 
+Given Office conversion service is up and running
+When user sends documentAttributes request with missing Parent-Pid for given file <file>
+Then server must respond with status 480
+And error code must be <errorCode>
+And error message must be <errorMessage>
+
+Examples:
+|file|errorCode|errorMessage|
+|HeaderVerification/office1.doc|480000004|"message":"Parameter is missing","parameter":"Accusoft-Parent-Pid"|
+|HeaderVerification/office2.docm|480000004|"message":"Parameter is missing","parameter":"Accusoft-Parent-Pid"|
+
+Scenario: As a user I want to receive an error if missing in document ATTRIBUTES request heder Accusoft Parent-Taskid 
+Given Office conversion service is up and running
+When user sends documentAttributes request with missing Parent-Taskid for given file <file>
+Then server must respond with status 480
+And error code must be <errorCode>
+And error message must be <errorMessage>
+
+Examples:
+|file|errorCode|errorMessage|
+|HeaderVerification/office1.doc|480000004|"message":"Parameter is missing","parameter":"Accusoft-Parent-Taskid"|
+|HeaderVerification/office2.docm|480000004|"message":"Parameter is missing","parameter":"Accusoft-Parent-Taskid"|

@@ -1,0 +1,16 @@
+Meta: Convertation of office documents which was created to check set of bug fixes PDF format 
+
+Scenario: Comparison of converted office files with reference images 
+
+Given Office conversion service is up and running
+When user sends request to convert page <pageNumber> of office document <file> to pdf format
+Then server must respond with status 200
+And conversion result matches with template <referenceImage> (difference less 0.1 percent)
+
+Examples:
+|file|pageNumber|referenceImage|
+|--common/yahoo/ppt/file2004.ppt|14|Elsevier/file2004.ppt.page.14.pdf.png|
+|common/yahoo/ppt/file2131.ppt|19|Elsevier/file2131.ppt.page.19.pdf.png|
+|common/yahoo/ppt/file2131.ppt|20|Elsevier/file2131.ppt.page.20.pdf.png|
+|common/yahoo/ppt/file2131.ppt|21|Elsevier/file2131.ppt.page.21.pdf.png|
+|Elsevier/fileEmf06.docx|0|Elsevier/fileEmf06.docx.page.0.pdf.png|

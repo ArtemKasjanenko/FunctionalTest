@@ -1,0 +1,412 @@
+Meta: (Word) Conversion of Word documents with internal HyperLinks to PDF format 
+
+Scenario: (Word) Conversion of single page Word document with internal HyperLinks 
+
+Given Office conversion service is up and running
+When user sends request to convert single page Word document <file> with one internal HyperLinks to PDF format
+Then server must respond with status 200
+And converted PDF file has <expectedCountOfGoToLinks> "GoTo" link(s) with page destination value <expectedPageDestinationValue>
+
+Examples:
+|file|expectedCountOfGoToLinks|expectedPageDestinationValue|
+|Hyperlinks/Word/doc.v95/P1_OneLinkToP1.doc|1|1|
+|Hyperlinks/Word/doc/P1_OneLinkToP1.doc|1|1|
+|Hyperlinks/Word/dot/P1_OneLinkToP1.dot|1|1|
+|Hyperlinks/Word/docx/P1_OneLinkToP1.docx|1|1|
+|Hyperlinks/Word/docm/P1_OneLinkToP1.docm|1|1|
+|Hyperlinks/Word/dotx/P1_OneLinkToP1.dotx|1|1|
+|Hyperlinks/Word/dotm/P1_OneLinkToP1.dotm|1|1|
+
+Scenario: (Word) Conversion of selected page from multiple page Word document with internal HyperLinks to PDF format
+ 
+Given Office conversion service is up and running
+When user sends request to convert page <pageNumber> from Word document <file> with multiple internal HyperLinks to PDF format
+Then server must respond with status 200
+And converted PDF file has <expectedCountOfGoToLinks> "GoTo" link(s) with page destination value <expectedPageDestinationValue>
+
+Examples:
+|file|pageNumber|expectedCountOfGoToLinks|expectedPageDestinationValue|
+|Hyperlinks/Word/doc.v95/P1_OneLinkToP2_P2_TwoLinksToP1.doc|0|1|2|
+|Hyperlinks/Word/doc.v95/P1_OneLinkToP2_P2_TwoLinksToP1.doc|1|2|1|
+|Hyperlinks/Word/doc/P1_OneLinkToP2_P2_TwoLinksToP1.doc|0|1|2|
+|Hyperlinks/Word/doc/P1_OneLinkToP2_P2_TwoLinksToP1.doc|1|2|1|
+|Hyperlinks/Word/dot/P1_OneLinkToP2_P2_TwoLinksToP1.dot|0|1|2|
+|Hyperlinks/Word/dot/P1_OneLinkToP2_P2_TwoLinksToP1.dot|1|2|1|
+|Hyperlinks/Word/docx/P1_OneLinkToP2_P2_TwoLinksToP1.docx|0|1|2|
+|Hyperlinks/Word/docx/P1_OneLinkToP2_P2_TwoLinksToP1.docx|1|2|1|
+|Hyperlinks/Word/docm/P1_OneLinkToP2_P2_TwoLinksToP1.docm|0|1|2|
+|Hyperlinks/Word/docm/P1_OneLinkToP2_P2_TwoLinksToP1.docm|1|2|1|
+|Hyperlinks/Word/dotx/P1_OneLinkToP2_P2_TwoLinksToP1.dotx|0|1|2|
+|Hyperlinks/Word/dotx/P1_OneLinkToP2_P2_TwoLinksToP1.dotx|1|2|1|
+|Hyperlinks/Word/dotm/P1_OneLinkToP2_P2_TwoLinksToP1.dotm|0|1|2|
+|Hyperlinks/Word/dotm/P1_OneLinkToP2_P2_TwoLinksToP1.dotm|1|2|1|
+
+|Hyperlinks/Word/doc.v95/P1_NoLinks_P2_OneLinkToP1.doc|1|1|1|
+|Hyperlinks/Word/doc/P1_NoLinks_P2_OneLinkToP1.doc|1|1|1|
+|Hyperlinks/Word/dot/P1_NoLinks_P2_OneLinkToP1.dot|1|1|1|
+|Hyperlinks/Word/docx/P1_NoLinks_P2_OneLinkToP1.docx|1|1|1|
+|Hyperlinks/Word/dotx/P1_NoLinks_P2_OneLinkToP1.dotx|1|1|1|
+|Hyperlinks/Word/docm/P1_NoLinks_P2_OneLinkToP1.docm|1|1|1|
+|Hyperlinks/Word/dotm/P1_NoLinks_P2_OneLinkToP1.dotm|1|1|1|
+
+|Hyperlinks/Word/customer/doc/WorldSoftware.doc|1|1|1|
+|Hyperlinks/Word/customer/doc/WorldSoftware.doc|2|1|1|
+
+Scenario: (Word) Checking number of Hypelinks in single PDF file after conversion of Word document
+
+Given Office conversion service is up and running
+When user sends request to convert all pages from Word document <file> with multiple internal HyperLinks to PDF format
+Then server must respond with status 200
+And converted PDF file has <expectedTotalCountOfGoToLinks> "GoTo" link(s)
+
+Examples:
+|file|expectedTotalCountOfGoToLinks|selectedPageNumber|expectedCountOfGoToLinksOnSelectedPage|expectedPageDestinationValue| 
+|Hyperlinks/Word/customer/doc/rror(doc).doc|1280|
+|Hyperlinks/Word/customer/docm/WordBookmarksDemo(docm).docm|1|
+|Hyperlinks/Word/customer/dot/ASRI-DID-OCD-Template-ver1C(dot97).dot|54|
+|Hyperlinks/Word/customer/dot/EndUserTrainingManualTemplate1(dot97).dot|480|
+|Hyperlinks/Word/customer/dot/schoenick_250210095502(dot97).dot|41|
+|Hyperlinks/Word/customer/dotm/Thesis_and_Dissertation_Windows(dotm).dotm|16|
+|Hyperlinks/Word/customer/dotx/DR-Plan-Template(dotx).dotx|21|
+|Hyperlinks/Word/customer/dotx/DSP1000_1.2.5(dotx).dotx|87|
+|Hyperlinks/Word/customer/dotx/eoa-oa_test_plan(dotx).dotx|62|
+|Hyperlinks/Word/customer/dotx/Template_Standard_Word(dotx).dotx|13|
+
+Scenario: (Word) Conversion of all pages from multiple page Word document with internal HyperLinks to PDF format (single file)
+ 
+Given Office conversion service is up and running
+When user sends request to convert all pages from Word document <file> with multiple internal HyperLinks to PDF format
+Then server must respond with status 200
+And converted PDF file has <expectedTotalCountOfGoToLinks> "GoTo" link(s)
+And converted PDF file has <expectedCountOfGoToLinksOnSelectedPage> "GoTo" link(s) on page <selectedPageNumber> with page destination value <expectedPageDestinationValue>
+
+Examples:
+|file|expectedTotalCountOfGoToLinks|selectedPageNumber|expectedCountOfGoToLinksOnSelectedPage|expectedPageDestinationValue| 
+
+|Hyperlinks/Word/dot/P1_OneLinkToP2_P2_TwoLinksToP1.dot          |3|0|1|2|
+|Hyperlinks/Word/dot/P1_OneLinkP3_P2_TwoLinksToP1.dot            |3|0|1|3|
+|Hyperlinks/Word/docx/P1_OneLinkToP2_P2_TwoLinksToP1.docx          |3|0|1|2|
+|Hyperlinks/Word/docx/P1_OneLinkP3_P2_TwoLinksToP1.docx            |3|0|1|3|
+|Hyperlinks/Word/docm/P1_OneLinkToP2_P2_TwoLinksToP1.docm          |3|0|1|2|
+|Hyperlinks/Word/docm/P1_OneLinkP3_P2_TwoLinksToP1.docm            |3|0|1|3|
+|Hyperlinks/Word/dotx/P1_OneLinkToP2_P2_TwoLinksToP1.dotx          |3|0|1|2|
+|Hyperlinks/Word/dotx/P1_OneLinkP3_P2_TwoLinksToP1.dotx            |3|0|1|3|
+|Hyperlinks/Word/dotm/P1_OneLinkToP2_P2_TwoLinksToP1.dotm          |3|0|1|2|
+|Hyperlinks/Word/dotm/P1_OneLinkP3_P2_TwoLinksToP1.dotm            |3|0|1|3|
+
+|Hyperlinks/Word/doc.v95/P1_OneLinkToP3_P2_NoLinks_P3_NoLinks.doc |1|0|1|3|
+|Hyperlinks/Word/doc/P1_OneLinkToP3_P2_NoLinks_P3_NoLinks.doc |1|0|1|3|
+|Hyperlinks/Word/dot/P1_OneLinkToP3_P2_NoLinks_P3_NoLinks.dot |1|0|1|3|
+|Hyperlinks/Word/docx/P1_OneLinkToP3_P2_NoLinks_P3_NoLinks.docx|1|0|1|3|
+|Hyperlinks/Word/docm/P1_OneLinkToP3_P2_NoLinks_P3_NoLinks.docm|1|0|1|3|
+|Hyperlinks/Word/dotx/P1_OneLinkToP3_P2_NoLinks_P3_NoLinks.dotx|1|0|1|3|
+|Hyperlinks/Word/dotm/P1_OneLinkToP3_P2_NoLinks_P3_NoLinks.dotm|1|0|1|3|
+
+|Hyperlinks/Word/doc.v95/P1_NoLinks_P2_OneLinkToP1.doc|1|1|1|1|
+|Hyperlinks/Word/doc/P1_NoLinks_P2_OneLinkToP1.doc|1|1|1|1|
+|Hyperlinks/Word/dot/P1_NoLinks_P2_OneLinkToP1.dot|1|1|1|1|
+|Hyperlinks/Word/docx/P1_NoLinks_P2_OneLinkToP1.docx|1|1|1|1|
+|Hyperlinks/Word/docm/P1_NoLinks_P2_OneLinkToP1.docm|1|1|1|1|
+|Hyperlinks/Word/dotx/P1_NoLinks_P2_OneLinkToP1.dotx|1|1|1|1|
+|Hyperlinks/Word/dotm/P1_NoLinks_P2_OneLinkToP1.dotm|1|1|1|1|
+
+|Hyperlinks/Word/customer/doc/WorldSoftware.doc|2|1|1|1|
+|Hyperlinks/Word/customer/doc.v95/WorldSoftware.doc|2|1|1|1|
+|Hyperlinks/Word/customer/doc/WorldSoftware.doc|2|2|1|1|
+|Hyperlinks/Word/customer/doc.v95/WorldSoftware.doc|2|2|1|1|
+|Hyperlinks/Word/customer/doc/TestOpenOfficeLink.doc|1|1|1|2|
+|Hyperlinks/Word/customer/doc.v95/TestOpenOfficeLink.doc|1|1|1|2|
+
+
+Scenario: (Word) Checking value of selected FOOTNOTE link in Word document on selected page in single page conversation mode 
+Given Office conversion service is up and running
+When user sends request to convert page <pageNumber> from Word document <file> with multiple internal HyperLinks to PDF format
+Then server must respond with status 200
+And converted PDF file has "GoTo" hyperlink with number <linkNumber> and value <expectedPageDestinationValue>
+
+Examples:
+|file|pageNumber|linkNumber|expectedPageDestinationValue|
+
+|Hyperlinks/Word/doc.v95/Footnotes.doc|0|0|1|
+|Hyperlinks/Word/doc.v95/Footnotes.doc|1|0|2|
+|Hyperlinks/Word/doc.v95/Footnotes.doc|1|1|2|
+|Hyperlinks/Word/doc.v95/Footnotes.doc|2|0|5|
+
+|Hyperlinks/Word/doc/Footnotes.doc|0|0|1|
+|Hyperlinks/Word/doc/Footnotes.doc|1|0|2|
+|Hyperlinks/Word/doc/Footnotes.doc|1|1|2|
+|Hyperlinks/Word/doc/Footnotes.doc|2|0|5|
+
+|Hyperlinks/Word/dot/Footnotes.dot|0|0|1|
+|Hyperlinks/Word/dot/Footnotes.dot|1|0|2|
+|Hyperlinks/Word/dot/Footnotes.dot|1|1|2|
+|Hyperlinks/Word/dot/Footnotes.dot|2|0|5|
+
+|Hyperlinks/Word/docx/Footnotes.docx|0|0|1|
+|Hyperlinks/Word/docx/Footnotes.docx|1|0|2|
+|Hyperlinks/Word/docx/Footnotes.docx|1|1|2|
+|Hyperlinks/Word/docx/Footnotes.docx|2|0|5|
+
+|Hyperlinks/Word/docm/Footnotes.docm|0|0|1|
+|Hyperlinks/Word/docm/Footnotes.docm|1|0|2|
+|Hyperlinks/Word/docm/Footnotes.docm|1|1|2|
+|Hyperlinks/Word/docm/Footnotes.docm|2|0|5|
+
+|Hyperlinks/Word/dotm/Footnotes.dotm|0|0|1|
+|Hyperlinks/Word/dotm/Footnotes.dotm|1|0|2|
+|Hyperlinks/Word/dotm/Footnotes.dotm|1|1|2|
+|Hyperlinks/Word/dotm/Footnotes.dotm|2|0|5|
+
+|Hyperlinks/Word/dotx/Footnotes.dotx|0|0|1|
+|Hyperlinks/Word/dotx/Footnotes.dotx|1|0|2|
+|Hyperlinks/Word/dotx/Footnotes.dotx|1|1|2|
+|Hyperlinks/Word/dotx/Footnotes.dotx|2|0|5|
+
+
+
+|Hyperlinks/Word/customer/docx/TestHyperlinks.docx|2|1|3|
+
+
+Scenario: (Word) Comparison of FOOTNOTE hyperlinks count and pageDestination values between single file (one Word file is converted to one pdf file) and multiple files (one Word file is converted to set of pdf files) conversion modes  
+Given Office conversion service is up and running
+When user sends request to convert all pages from Word document <file> with multiple internal HyperLinks to one PDF file
+And all GoTo hyperlinks are extracted from all pages of generated single PDF file and saved to set1  
+When user sends set of requests to convert all pages from Word document <file> with multiple internal HyperLinks set of PDF files
+And all GoTo hyperlinks are extracted from all generated PDF files and saved to set2
+Then count, location and pageDestination values af hyperlinks between set1 and set2 must be the same
+
+Examples:
+|file|
+|Hyperlinks/Word/doc.v95/Footnotes.doc|
+|Hyperlinks/Word/doc/Footnotes.doc|
+|Hyperlinks/Word/dot/Footnotes.dot|
+|Hyperlinks/Word/docx/Footnotes.docx|
+|Hyperlinks/Word/docm/Footnotes.docm|
+|Hyperlinks/Word/dotx/Footnotes.dotx|
+|Hyperlinks/Word/dotm/Footnotes.dotm|
+
+|Hyperlinks/Word/customer/docx/TestHyperlinks.docx|
+
+
+
+Scenario: (Word) Checking value of selected link in Word document on selected page in single page conversation mode 
+Given Office conversion service is up and running
+When user sends request to convert page <pageNumber> from Word document <file> with multiple internal HyperLinks to PDF format
+Then server must respond with status 200
+And converted PDF file has "GoTo" hyperlink with number <linkNumber> and value <expectedPageDestinationValue>
+
+Examples:
+|file|pageNumber|linkNumber|expectedPageDestinationValue|
+
+|Hyperlinks/Word/doc.v95/P1_OneLinkToP1.doc|0|0|1|
+|Hyperlinks/Word/doc/P1_OneLinkToP1.doc|0|0|1|
+|Hyperlinks/Word/dot/P1_OneLinkToP1.dot|0|0|1|
+|Hyperlinks/Word/docx/P1_OneLinkToP1.docx|0|0|1|
+|Hyperlinks/Word/docm/P1_OneLinkToP1.docm|0|0|1|
+|Hyperlinks/Word/dotx/P1_OneLinkToP1.dotx|0|0|1|
+|Hyperlinks/Word/dotm/P1_OneLinkToP1.dotm|0|0|1|
+
+
+|Hyperlinks/Word/doc.v95/P1_OneLinkToP2_P2_TwoLinksToP1.doc   |0|0|2|
+|Hyperlinks/Word/doc.v95/P1_OneLinkToP2_P2_TwoLinksToP1.doc   |1|0|1|
+|Hyperlinks/Word/doc.v95/P1_OneLinkToP2_P2_TwoLinksToP1.doc   |1|1|1|
+|Hyperlinks/Word/doc/P1_OneLinkToP2_P2_TwoLinksToP1.doc   |0|0|2|
+|Hyperlinks/Word/doc/P1_OneLinkToP2_P2_TwoLinksToP1.doc   |1|0|1|
+|Hyperlinks/Word/doc/P1_OneLinkToP2_P2_TwoLinksToP1.doc   |1|1|1|
+|Hyperlinks/Word/dot/P1_OneLinkToP2_P2_TwoLinksToP1.dot   |0|0|2|
+|Hyperlinks/Word/dot/P1_OneLinkToP2_P2_TwoLinksToP1.dot   |1|0|1|
+|Hyperlinks/Word/dot/P1_OneLinkToP2_P2_TwoLinksToP1.dot   |1|1|1|
+|Hyperlinks/Word/docx/P1_OneLinkToP2_P2_TwoLinksToP1.docx   |0|0|2|
+|Hyperlinks/Word/docx/P1_OneLinkToP2_P2_TwoLinksToP1.docx   |1|0|1|
+|Hyperlinks/Word/docx/P1_OneLinkToP2_P2_TwoLinksToP1.docx   |1|1|1|
+|Hyperlinks/Word/docm/P1_OneLinkToP2_P2_TwoLinksToP1.docm   |0|0|2|
+|Hyperlinks/Word/docm/P1_OneLinkToP2_P2_TwoLinksToP1.docm   |1|0|1|
+|Hyperlinks/Word/docm/P1_OneLinkToP2_P2_TwoLinksToP1.docm   |1|1|1|
+|Hyperlinks/Word/dotx/P1_OneLinkToP2_P2_TwoLinksToP1.dotx   |0|0|2|
+|Hyperlinks/Word/dotx/P1_OneLinkToP2_P2_TwoLinksToP1.dotx   |1|0|1|
+|Hyperlinks/Word/dotx/P1_OneLinkToP2_P2_TwoLinksToP1.dotx   |1|1|1|
+|Hyperlinks/Word/dotm/P1_OneLinkToP2_P2_TwoLinksToP1.dotm   |0|0|2|
+|Hyperlinks/Word/dotm/P1_OneLinkToP2_P2_TwoLinksToP1.dotm   |1|0|1|
+|Hyperlinks/Word/dotm/P1_OneLinkToP2_P2_TwoLinksToP1.dotm   |1|1|1|
+
+|Hyperlinks/Word/doc.v95/P1_OneLinkToP3_P2_NoLinks_P3_NoLinks.doc|0|0|3|
+|Hyperlinks/Word/doc/P1_OneLinkToP3_P2_NoLinks_P3_NoLinks.doc|0|0|3|
+|Hyperlinks/Word/dot/P1_OneLinkToP3_P2_NoLinks_P3_NoLinks.dot|0|0|3|
+|Hyperlinks/Word/docx/P1_OneLinkToP3_P2_NoLinks_P3_NoLinks.docx|0|0|3|
+|Hyperlinks/Word/docm/P1_OneLinkToP3_P2_NoLinks_P3_NoLinks.docm|0|0|3|
+|Hyperlinks/Word/dotx/P1_OneLinkToP3_P2_NoLinks_P3_NoLinks.dotx|0|0|3|
+|Hyperlinks/Word/dotm/P1_OneLinkToP3_P2_NoLinks_P3_NoLinks.dotm|0|0|3|
+
+|Hyperlinks/Word/doc.v95/P1_NoLinks_P2_OneLinkToP1.doc|1|0|1|
+|Hyperlinks/Word/doc/P1_NoLinks_P2_OneLinkToP1.doc|1|0|1|
+|Hyperlinks/Word/dot/P1_NoLinks_P2_OneLinkToP1.dot|1|0|1|
+|Hyperlinks/Word/docx/P1_NoLinks_P2_OneLinkToP1.docx|1|0|1|
+|Hyperlinks/Word/docm/P1_NoLinks_P2_OneLinkToP1.docm|1|0|1|
+|Hyperlinks/Word/dotx/P1_NoLinks_P2_OneLinkToP1.dotx|1|0|1|
+|Hyperlinks/Word/dotm/P1_NoLinks_P2_OneLinkToP1.dotm|1|0|1|
+
+|Hyperlinks/Word/customer/doc/WorldSoftware.doc|1|0|1|1|
+|Hyperlinks/Word/customer/doc/WorldSoftware.doc|2|0|1|1|
+
+|Hyperlinks/Word/customer/doc.v95/WorldSoftware.doc|1|0|1|1|
+|Hyperlinks/Word/customer/doc.v95/WorldSoftware.doc|2|0|1|1|
+
+|Hyperlinks/Word/customer/doc/TestOpenOfficeLink.doc|1|0|2|
+|Hyperlinks/Word/customer/doc.v95/TestOpenOfficeLink.doc|1|0|2|
+
+|Hyperlinks/Word/customer/docx/TestHyperlinks.docx|0|0|2|
+|Hyperlinks/Word/customer/docx/TestHyperlinks.docx|0|1|2|
+|Hyperlinks/Word/customer/docx/TestHyperlinks.docx|2|0|1|
+|Hyperlinks/Word/customer/docx/TestHyperlinks.docx|2|1|3|
+
+|Hyperlinks/Word/customer/doc/ROSNEFT.doc|0|0|1|
+|Hyperlinks/Word/customer/doc/ROSNEFT.doc|2|0|4|
+|Hyperlinks/Word/customer/doc/ROSNEFT.doc|2|1|12|
+|Hyperlinks/Word/customer/doc/ROSNEFT.doc|2|2|5|
+|Hyperlinks/Word/customer/doc/ROSNEFT.doc|2|3|4|
+|Hyperlinks/Word/customer/doc/ROSNEFT.doc|11|0|1|
+
+|Hyperlinks/Word/customer/doc.v95/ROSNEFT.doc|0|0|1|
+|Hyperlinks/Word/customer/doc.v95/ROSNEFT.doc|2|0|4|
+|Hyperlinks/Word/customer/doc.v95/ROSNEFT.doc|2|1|12|
+|Hyperlinks/Word/customer/doc.v95/ROSNEFT.doc|2|2|5|
+|Hyperlinks/Word/customer/doc.v95/ROSNEFT.doc|2|3|4|
+|Hyperlinks/Word/customer/doc.v95/ROSNEFT.doc|11|0|1|
+
+|Hyperlinks/Word/customer/doc/23Jul14_Dev.doc|0|0|2|
+|Hyperlinks/Word/customer/doc/23Jul14_Dev.doc|0|1|2|
+|Hyperlinks/Word/customer/doc/23Jul14_Dev.doc|0|2|3|
+|Hyperlinks/Word/customer/doc/23Jul14_Dev.doc|0|3|3|
+|Hyperlinks/Word/customer/doc/23Jul14_Dev.doc|0|4|4|
+|Hyperlinks/Word/customer/doc/23Jul14_Dev.doc|0|5|5|
+|Hyperlinks/Word/customer/doc/23Jul14_Dev.doc|0|6|5|
+|Hyperlinks/Word/customer/doc/23Jul14_Dev.doc|0|7|5|
+|Hyperlinks/Word/customer/doc/23Jul14_Dev.doc|0|8|6|
+|Hyperlinks/Word/customer/doc/23Jul14_Dev.doc|0|9|6|
+|Hyperlinks/Word/customer/doc/23Jul14_Dev.doc|0|10|7|
+|Hyperlinks/Word/customer/doc/23Jul14_Dev.doc|0|11|7|
+|Hyperlinks/Word/customer/doc/23Jul14_Dev.doc|0|12|8|
+|Hyperlinks/Word/customer/doc/23Jul14_Dev.doc|0|13|9|
+|Hyperlinks/Word/customer/doc/23Jul14_Dev.doc|0|14|10|
+|Hyperlinks/Word/customer/doc/23Jul14_Dev.doc|0|15|10|
+|Hyperlinks/Word/customer/doc/23Jul14_Dev.doc|0|16|11|
+|Hyperlinks/Word/customer/doc/23Jul14_Dev.doc|0|17|11|
+|--Hyperlinks/Word/customer/doc/23Jul14_Dev.doc|0|18|11| it works correctly but we have different result on different platforms (due to different fonts)
+|Hyperlinks/Word/customer/doc/23Jul14_Dev.doc|0|19|12|
+|Hyperlinks/Word/customer/doc/23Jul14_Dev.doc|0|20|12|
+|Hyperlinks/Word/customer/doc/23Jul14_Dev.doc|0|21|13|
+|Hyperlinks/Word/customer/doc/23Jul14_Dev.doc|0|22|13|
+|Hyperlinks/Word/customer/doc/23Jul14_Dev.doc|0|23|14|
+|Hyperlinks/Word/customer/doc/23Jul14_Dev.doc|0|24|14|
+|Hyperlinks/Word/customer/doc/23Jul14_Dev.doc|0|25|14|
+|Hyperlinks/Word/customer/doc/23Jul14_Dev.doc|0|26|15|
+|Hyperlinks/Word/customer/doc/23Jul14_Dev.doc|0|27|15|
+|Hyperlinks/Word/customer/doc/23Jul14_Dev.doc|0|28|15|
+|Hyperlinks/Word/customer/doc/23Jul14_Dev.doc|0|29|15|
+|Hyperlinks/Word/customer/doc/23Jul14_Dev.doc|0|30|17|
+|Hyperlinks/Word/customer/doc/23Jul14_Dev.doc|0|31|18|
+|Hyperlinks/Word/customer/doc/23Jul14_Dev.doc|0|32|18|
+|Hyperlinks/Word/customer/doc/23Jul14_Dev.doc|0|33|2|
+
+|Hyperlinks/Word/customer/docx/30thJune14_Staging.docx|0|0|12|
+|Hyperlinks/Word/customer/docx/30thJune14_Staging.docx|0|1|3|
+|Hyperlinks/Word/customer/docx/30thJune14_Staging.docx|0|2|4|
+|Hyperlinks/Word/customer/docx/30thJune14_Staging.docx|0|3|4|
+|Hyperlinks/Word/customer/docx/30thJune14_Staging.docx|0|4|5|
+|Hyperlinks/Word/customer/docx/30thJune14_Staging.docx|0|5|6|
+|Hyperlinks/Word/customer/docx/30thJune14_Staging.docx|0|6|6|
+|Hyperlinks/Word/customer/docx/30thJune14_Staging.docx|0|7|6|
+|Hyperlinks/Word/customer/docx/30thJune14_Staging.docx|0|8|7|
+|Hyperlinks/Word/customer/docx/30thJune14_Staging.docx|0|9|7|
+|Hyperlinks/Word/customer/docx/30thJune14_Staging.docx|0|10|8|
+|Hyperlinks/Word/customer/docx/30thJune14_Staging.docx|0|11|8|
+|Hyperlinks/Word/customer/docx/30thJune14_Staging.docx|0|12|9|
+|Hyperlinks/Word/customer/docx/30thJune14_Staging.docx|0|13|10|
+|Hyperlinks/Word/customer/docx/30thJune14_Staging.docx|0|14|11|
+|Hyperlinks/Word/customer/docx/30thJune14_Staging.docx|0|15|11|
+|Hyperlinks/Word/customer/docx/30thJune14_Staging.docx|0|16|12|
+|Hyperlinks/Word/customer/docx/30thJune14_Staging.docx|0|17|12|
+|--Hyperlinks/Word/customer/docx/30thJune14_Staging.docx|0|18|12| it works correctly but we have different result on different platforms (due to different fonts)
+|Hyperlinks/Word/customer/docx/30thJune14_Staging.docx|0|19|13|
+|Hyperlinks/Word/customer/docx/30thJune14_Staging.docx|0|20|14|
+|Hyperlinks/Word/customer/docx/30thJune14_Staging.docx|0|21|14|
+|--Hyperlinks/Word/customer/docx/30thJune14_Staging.docx|0|22|14| it works correctly but we have different result on different platforms (due to different fonts)
+|Hyperlinks/Word/customer/docx/30thJune14_Staging.docx|0|23|15|
+|Hyperlinks/Word/customer/docx/30thJune14_Staging.docx|0|24|15|
+|--Hyperlinks/Word/customer/docx/30thJune14_Staging.docx|0|25|15| it works correctly but we have different result on different platforms (due to different fonts)
+|--Hyperlinks/Word/customer/docx/30thJune14_Staging.docx|0|26|15| it works correctly but we have different result on different platforms (due to different fonts)
+|Hyperlinks/Word/customer/docx/30thJune14_Staging.docx|0|27|3|
+|--Hyperlinks/Word/customer/docx/30thJune14_Staging.docx|0|28|3| it works correctly but we have different result on different platforms (due to different fonts)
+
+|--Hyperlinks/Word/customer/docx/30thJune14_Staging.docx|1|0|16|  it works correctly but we have different result on different platforms (due to different fonts)
+|Hyperlinks/Word/customer/docx/30thJune14_Staging.docx|1|1|16|
+|--Hyperlinks/Word/customer/docx/30thJune14_Staging.docx|1|2|17| it works correctly but we have different result on different platforms (due to different fonts)
+|--Hyperlinks/Word/customer/docx/30thJune14_Staging.docx|1|3|18|  it works correctly but we have different result on different platforms (due to different fonts)
+|Hyperlinks/Word/customer/docx/30thJune14_Staging.docx|1|4|19|
+
+
+
+
+Scenario: (Word) Comparison of GoTo hyperlinks count and pageDestination values between single file (one Word file is converted to one pdf file) and multiple files (one Word file is converted to set of pdf files) conversion modes  
+Given Office conversion service is up and running
+When user sends request to convert all pages from Word document <file> with multiple internal HyperLinks to one PDF file
+And all GoTo hyperlinks are extracted from all pages of generated single PDF file and saved to set1  
+When user sends set of requests to convert all pages from Word document <file> with multiple internal HyperLinks set of PDF files
+And all GoTo hyperlinks are extracted from all generated PDF files and saved to set2
+Then count, location and pageDestination values af hyperlinks between set1 and set2 must be the same
+
+Examples:
+|file|
+|Hyperlinks/Word/doc.v95/P1_OneLinkToP1.doc|
+|Hyperlinks/Word/doc/P1_OneLinkToP1.doc|
+|Hyperlinks/Word/dot/P1_OneLinkToP1.dot|
+|Hyperlinks/Word/docx/P1_OneLinkToP1.docx|
+|Hyperlinks/Word/docm/P1_OneLinkToP1.docm|
+|Hyperlinks/Word/dotx/P1_OneLinkToP1.dotx|
+|Hyperlinks/Word/dotm/P1_OneLinkToP1.dotm|
+
+|Hyperlinks/Word/doc.v95/P1_OneLinkToP2_P2_TwoLinksToP1.doc|
+|Hyperlinks/Word/doc/P1_OneLinkToP2_P2_TwoLinksToP1.doc|
+|Hyperlinks/Word/dot/P1_OneLinkToP2_P2_TwoLinksToP1.dot|
+|Hyperlinks/Word/docx/P1_OneLinkToP2_P2_TwoLinksToP1.docx|
+|Hyperlinks/Word/docm/P1_OneLinkToP2_P2_TwoLinksToP1.docm|
+|Hyperlinks/Word/dotx/P1_OneLinkToP2_P2_TwoLinksToP1.dotx|
+|Hyperlinks/Word/dotm/P1_OneLinkToP2_P2_TwoLinksToP1.dotm|
+
+|Hyperlinks/Word/doc.v95/P1_OneLinkToP3_P2_NoLinks_P3_NoLinks.doc|
+|Hyperlinks/Word/doc/P1_OneLinkToP3_P2_NoLinks_P3_NoLinks.doc|
+|Hyperlinks/Word/dot/P1_OneLinkToP3_P2_NoLinks_P3_NoLinks.dot|
+|Hyperlinks/Word/docx/P1_OneLinkToP3_P2_NoLinks_P3_NoLinks.docx|
+|Hyperlinks/Word/docm/P1_OneLinkToP3_P2_NoLinks_P3_NoLinks.docm|
+|Hyperlinks/Word/dotx/P1_OneLinkToP3_P2_NoLinks_P3_NoLinks.dotx|
+|Hyperlinks/Word/dotm/P1_OneLinkToP3_P2_NoLinks_P3_NoLinks.dotm|
+
+|Hyperlinks/Word/doc.v95/P1_NoLinks_P2_OneLinkToP1.doc|
+|Hyperlinks/Word/doc/P1_NoLinks_P2_OneLinkToP1.doc|
+|Hyperlinks/Word/dot/P1_NoLinks_P2_OneLinkToP1.dot|
+|Hyperlinks/Word/docx/P1_NoLinks_P2_OneLinkToP1.docx|
+|Hyperlinks/Word/docm/P1_NoLinks_P2_OneLinkToP1.docm|
+|Hyperlinks/Word/dotx/P1_NoLinks_P2_OneLinkToP1.dotx|
+|Hyperlinks/Word/dotm/P1_NoLinks_P2_OneLinkToP1.dotm|
+
+|Hyperlinks/Word/customer/doc/WorldSoftware.doc|
+|Hyperlinks/Word/customer/doc.v95/WorldSoftware.doc|
+|Hyperlinks/Word/customer/doc/TestOpenOfficeLink.doc|
+|Hyperlinks/Word/customer/doc.v95/TestOpenOfficeLink.doc|
+|Hyperlinks/Word/customer/doc/ROSNEFT.doc|
+|Hyperlinks/Word/customer/doc.v95/ROSNEFT.doc|
+|Hyperlinks/Word/customer/doc/23Jul14_Dev.doc|
+|Hyperlinks/Word/customer/doc.v95/23Jul14_Dev.doc|
+|Hyperlinks/Word/customer/docx/TestHyperlinks.docx|
+
+
+|Hyperlinks/Word/customer/doc/rror(doc).doc|
+|Hyperlinks/Word/customer/docm/WordBookmarksDemo(docm).docm|
+|Hyperlinks/Word/customer/dot/ASRI-DID-OCD-Template-ver1C(dot97).dot|
+|Hyperlinks/Word/customer/dot/EndUserTrainingManualTemplate1(dot97).dot|
+|Hyperlinks/Word/customer/dot/schoenick_250210095502(dot97).dot|
+|Hyperlinks/Word/customer/dotm/Thesis_and_Dissertation_Windows(dotm).dotm|
+|Hyperlinks/Word/customer/dotx/DR-Plan-Template(dotx).dotx|
+|Hyperlinks/Word/customer/dotx/DSP1000_1.2.5(dotx).dotx|
+|Hyperlinks/Word/customer/dotx/eoa-oa_test_plan(dotx).dotx|
+|Hyperlinks/Word/customer/dotx/Template_Standard_Word(dotx).dotx|
