@@ -443,40 +443,52 @@ public class ConvertStepsDefinition extends StepsDefinition {
 		getServiceConvertMissingHeader(fileName, true, true, true);
 	}
 
-	@When ("user sends request convert with hint parameter single page <pageNumber> office document <file> to PDF format")
+	@When("user sends request convert with hint parameter <first> <last> single page <pageNumber> office document <file> to PDF format")
+	@Aliases(values = {
+			"user sends a request with a negative value first <first> hint of parameter <last> to convert pages <pageNumber> office document <file>",
+			"user sends a request with a negative value last <last> hint of parameter <first> to convert pages <pageNumber> office document <file>",
+			"user sends a request with hint parameter <last> (value first <first> in less than NumberPage) to convert pages <pageNumber> office document <file>",
+			"user sends a request with hint parameter <first> (value last <last> hint more than max page) to convert pages <pageNumber> office document <file>"})
 	public void requestConvertWithHintParameters(
-			@Named("file") String fileName, @Named("pageNumber") int pageNumber) {
+			@Named("file") String fileName,
+			@Named("pageNumber") int pageNumber, 
+			@Named("first") int first,
+			@Named("last") int last,
+			boolean firstOf,
+			boolean lastOf) {
 
-		
 		String destFormat = "pdf";
 		sourceOfficeFilePath = sourceFolderPath + fileName;
-		String outputFile = fileName + ".page." + pageNumber + "." + destFormat;
-		convertedPDFFilePath = convertedFolderPath + outputFile;
 
 		JSONObject requestBodyJson = new JSONObject();
 		JSONObject request = new JSONObject();
 		JSONObject hint = new JSONObject();
-		
+
 		requestBodyJson.put("data", request);
 		request.put(Constants.SRC,
 				OsUtilities.prettifyFilePath(sourceOfficeFilePath));
 		request.put(Constants.DEST_FORMAT, destFormat);
-		request.put(Constants.OUTPUT_TEMPLATE,
-				OsUtilities.prettifyFilePath(convertedFolderPath+fileName + ".page." + "{pageNumber}" + "." + destFormat));
+		request.put(
+				Constants.OUTPUT_TEMPLATE,
+				OsUtilities.prettifyFilePath(convertedFolderPath + fileName
+						+ ".page." + "{pageNumber}" + "." + destFormat));
 		request.put("password", "");
 		request.put("pageNumber", pageNumber);
-		hint.put("last", 10);
-		hint.put("first", 1);
+		
+		if (firstOf == true)
+			hint.put("first", first);
+		if (lastOf == true)
+			hint.put("last", last);
 		request.put("hint", hint);
-		
-		
-		
+
 		System.out.println(requestBodyJson.toString());
 		serviceResponse = stepExecutor.sendingConvertRequest(requestBodyJson
 				.toString());
-//		serviceResponse = stepExecutor.sendingConvertRequest(request);
 
 		returnedCode = (Integer) serviceResponse.get("ResponseCode");
 		serviceMessage = (String) serviceResponse.get("ResponseBody");
 	}
+	
+	
+	
 }
