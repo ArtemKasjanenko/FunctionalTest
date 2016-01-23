@@ -443,19 +443,11 @@ public class ConvertStepsDefinition extends StepsDefinition {
 		getServiceConvertMissingHeader(fileName, true, true, true);
 	}
 
-	@When("user sends request convert with hint parameter <first> <last> single page <pageNumber> office document <file> to PDF format")
-	@Aliases(values = {
-			"user sends a request with a negative value first <first> hint of parameter <last> to convert pages <pageNumber> office document <file>",
-			"user sends a request with a negative value last <last> hint of parameter <first> to convert pages <pageNumber> office document <file>",
-			"user sends a request with hint parameter <last> (value first <first> in less than NumberPage) to convert pages <pageNumber> office document <file>",
-			"user sends a request with hint parameter <first> (value last <last> hint more than max page) to convert pages <pageNumber> office document <file>"})
+	@When("user sends a request with hint parameter first <first> and last <last> to convert pages <pageNumber> office document <file>")
 	public void requestConvertWithHintParameters(
 			@Named("file") String fileName,
-			@Named("pageNumber") int pageNumber, 
-			@Named("first") int first,
-			@Named("last") int last,
-			boolean firstOf,
-			boolean lastOf) {
+			@Named("pageNumber") int pageNumber, @Named("first") String first,
+			@Named("last") String last) {
 
 		String destFormat = "pdf";
 		sourceOfficeFilePath = sourceFolderPath + fileName;
@@ -474,11 +466,15 @@ public class ConvertStepsDefinition extends StepsDefinition {
 						+ ".page." + "{pageNumber}" + "." + destFormat));
 		request.put("password", "");
 		request.put("pageNumber", pageNumber);
-		
-		if (firstOf == true)
-			hint.put("first", first);
-		if (lastOf == true)
-			hint.put("last", last);
+
+		if (!first.equalsIgnoreCase("false")) {
+			hint.put("first", Integer.valueOf(first));
+		}
+
+		if (!last.equalsIgnoreCase("false")) {
+			hint.put("last", Integer.valueOf(last));
+		}
+
 		request.put("hint", hint);
 
 		System.out.println(requestBodyJson.toString());
@@ -488,7 +484,4 @@ public class ConvertStepsDefinition extends StepsDefinition {
 		returnedCode = (Integer) serviceResponse.get("ResponseCode");
 		serviceMessage = (String) serviceResponse.get("ResponseBody");
 	}
-	
-	
-	
 }
