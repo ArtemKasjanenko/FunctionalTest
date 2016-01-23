@@ -468,11 +468,11 @@ public class ConvertStepsDefinition extends StepsDefinition {
 		request.put("pageNumber", pageNumber);
 
 		if (!first.equalsIgnoreCase("false")) {
-			hint.put("first", Integer.valueOf(first));
+			hint.put("first", (first.equalsIgnoreCase("text"))?first:Float.valueOf(first));
 		}
 
 		if (!last.equalsIgnoreCase("false")) {
-			hint.put("last", Integer.valueOf(last));
+			hint.put("last", last.equalsIgnoreCase("text")?last:Float.valueOf(last));
 		}
 
 		request.put("hint", hint);

@@ -18,7 +18,7 @@ Examples:
 |Hint/firstLessPage/page7.docx|3|1|7|
 
 
-Scenario: Value "last" hint parameter in less than NumberPage must be ignored
+Scenario: Value "last" hint parameter more then max page must be ignored
 
 Given Office conversion service is up and running
 When user sends a request with hint parameter first <first> and last <last> to convert pages <pageNumber> office document <file>

@@ -72,10 +72,40 @@ Examples:
 |Hint/missingLastHint/page7.docx|0|2|0.6|480000008|"message":"Parameter has incorrect value","parameter":"hint"|
 
 
+Scenario: As a user I want to get an error if value hint parameter "last" less than "first"
+
+Given Office conversion service is up and running
+When user sends a request with hint parameter first <first> and last <last> to convert pages <pageNumber> office document <file>
+Then server must respond with status 480
+And error code must be <errorCode>
+And error message must be <errorMessage>
+Examples:
+|file|pageNumber|first|last|errorCode|errorMessage|
+|Hint/missingLastHint/page7.docx|0|5|1|480000008|"message":"Parameter has incorrect value","parameter":"hint"|
 
 
+Scenario: As a user I want to get an error for text value "first" hint parameter 
+
+Given Office conversion service is up and running
+When user sends a request with hint parameter first <first> and last <last> to convert pages <pageNumber> office document <file>
+Then server must respond with status 480
+And error code must be <errorCode>
+And error message must be <errorMessage>
+Examples:
+|file|pageNumber|first|last|errorCode|errorMessage|
+|Hint/missingLastHint/page7.docx|0|text|6|480000008|"message":"Parameter has incorrect value","parameter":"hint"|
 
 
+Scenario: As a user I want to get an error for text value "last" hint parameter 
+
+Given Office conversion service is up and running
+When user sends a request with hint parameter first <first> and last <last> to convert pages <pageNumber> office document <file>
+Then server must respond with status 480
+And error code must be <errorCode>
+And error message must be <errorMessage>
+Examples:
+|file|pageNumber|first|last|errorCode|errorMessage|
+|Hint/missingLastHint/page7.docx|0|1|text|480000008|"message":"Parameter has incorrect value","parameter":"hint"|
 
 
 
