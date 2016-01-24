@@ -224,7 +224,6 @@ public final class OsUtilities {
 		Map validFile = new HashMap();
 		String[] fileList = null;
 		int amount = 0;
-		CharSequence cs = fileName;
 
 		if (f.exists()) {
 			if (f.isFile()) {
@@ -233,10 +232,10 @@ public final class OsUtilities {
 			if (fdir.isDirectory()) {
 				fileList = fdir.list();
 				for (int i = 0; i < fileList.length; i++) {
-					if (fileList[i].contains(cs)) {
-						amount=amount+1;
+					if (fileList[i].contains(searchRegularExpressions(
+							"\\w+\\.\\w+", fileName))) {
+						amount = amount + 1;
 					}
-
 				}
 				validFile.put("Amount file", amount);
 

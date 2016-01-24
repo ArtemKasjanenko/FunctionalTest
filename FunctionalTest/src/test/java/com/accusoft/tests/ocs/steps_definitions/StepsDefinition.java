@@ -213,7 +213,7 @@ public class StepsDefinition {
 		Map dateFile = new HashMap();
 		String path = OsUtilities.prettifyFilePath(convertedFolderPath
 				+ fileName + ".page." + pageNumber + ".pdf");
-		
+			
 		dateFile = OsUtilities.compareCreateConvertedFileWithFileTesting(path, fileName);
 		Boolean statusFile = (Boolean) dateFile.get("Validation file");
 		int responseAmounts = (Integer) dateFile.get("Amount file");
