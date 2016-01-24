@@ -21,7 +21,9 @@ import com.accusoft.tests.ocs.common.utils.pdfUtils.AnnotationExtractor;
 import com.accusoft.tests.ocs.steps_definitions.internal.Request;
 import com.accusoft.tests.ocs.steps_definitions.internal.RequestNegative;
 
+import java.io.File;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -35,7 +37,7 @@ import static org.junit.Assert.assertTrue;
 public class Steps {
 
 	public static final Logger LOGGER = Logger.getLogger(Steps.class);
-	
+
 	public static final int NUMBER_OF_REDELIVERIES = 1;
 
 	public static final int COMPARE_TIMEOUT = 6 * 1000; // in ms
@@ -233,26 +235,37 @@ public class Steps {
 		assertEquals("Response code is invalid", code, returnedCode);
 		LOGGER.info("Response code validation was successful");
 	}
+
 	@Step
-	public void verifyingServiceResponseErrorCode(int returnedServiceCode, int errorCode, String serviceMessage) {
-		assertEquals("Response service code is invalid", errorCode, returnedServiceCode);
+	public void verifyingServiceResponseErrorCode(int returnedServiceCode,
+			int errorCode, String serviceMessage) {
+		assertEquals("Response service code is invalid", errorCode,
+				returnedServiceCode);
 		LOGGER.info("Response code validation was successful");
 	}
+
 	@Step
-	public void verifyingServiceResponseErrorMessage(String returnedServiceMessage, String errorMessage, String serviceMessage) {
-		assertEquals("Response service message is invalid", returnedServiceMessage, errorMessage);
+	public void verifyingServiceResponseErrorMessage(
+			String returnedServiceMessage, String errorMessage,
+			String serviceMessage) {
+		assertEquals("Response service message is invalid",
+				returnedServiceMessage, errorMessage);
 		LOGGER.info("Response code validation was successful");
 	}
+
 	@Step
 	public void responseCodeVerify(int returnedCode, int code) {
 		assertEquals("Response code is invalid", code, returnedCode);
 		LOGGER.info("Response code validation was successful");
 	}
+
 	@Step
 	public void checkFileSize(int maxFileSize, float currentFileSize) {
-		assertTrue("File size verification fails", maxFileSize>=currentFileSize);
+		assertTrue("File size verification fails",
+				maxFileSize >= currentFileSize);
 		LOGGER.info("File size verification successful");
 	}
+
 	@Step
 	public void serviceStatusVerify(String serviceStatus, String status,
 			String serviceMessage) {
@@ -269,13 +282,14 @@ public class Steps {
 						+ sourceFilePath, pageCountGiven, pageCount);
 		LOGGER.info("Page count verification was successful");
 	}
+
 	@Step
-	public void comparingSizePageToPngWithMaxSize(
-			float pngSize, float maxSize) {
-		assertTrue("Check the size of the png file is successful", pngSize<=maxSize);
+	public void comparingSizePageToPngWithMaxSize(float pngSize, float maxSize) {
+		assertTrue("Check the size of the png file is successful",
+				pngSize <= maxSize);
 		LOGGER.info("File size verification successful");
 	}
-	
+
 	@Step
 	public void compareImages(String referenceImagePath,
 			String convertedImagePath, float expectedRQR) throws Exception {
@@ -670,6 +684,7 @@ public class Steps {
 		}
 
 	}
+
 	@Step
 	public Map sendingInfoRequestInvalidHttpMethod(String requestBodyJson) {
 
@@ -681,13 +696,14 @@ public class Steps {
 		Request request = new Request(path, requestBodyJson);
 		// use sendGet HTTP metod is invalid are be must sendPost
 		request.sendGet();
-		
+
 		serverResponse.put("ResponseBody", request.getResponseBody());
 		serverResponse.put("ResponseCode", request.getResponseCode());
 
 		return serverResponse;
 
 	}
+
 	@Step
 	public Map sendingConvertRequestGet(String requestBodyJson) {
 
@@ -705,45 +721,51 @@ public class Steps {
 
 		return serverResponse;
 	}
-	
+
 	@Step
-	public Map sendingInfoRequestMissingHeader(String requestBodyJson, boolean ofParentName, boolean ofParentPid, boolean ofParentTaskid) {
+	public Map sendingInfoRequestMissingHeader(String requestBodyJson,
+			boolean ofParentName, boolean ofParentPid, boolean ofParentTaskid) {
 
 		Map serverResponse = new HashMap();
 
 		// configure path
 		String path = "/" + TestDefinitionUtils.getServiceName() + "/info";
 
-		RequestNegative request = new RequestNegative(path, requestBodyJson, ofParentName, ofParentPid, ofParentTaskid);
+		RequestNegative request = new RequestNegative(path, requestBodyJson,
+				ofParentName, ofParentPid, ofParentTaskid);
 		request.sendPost();
-		
+
 		serverResponse.put("ResponseBody", request.getResponseBody());
 		serverResponse.put("ResponseCode", request.getResponseCode());
 
 		return serverResponse;
 
 	}
-	
+
 	@Step
-	public Map sendingConvertRequestMissingHeader(String requestBodyJson, boolean ofParentName, boolean ofParentPid, boolean ofParentTaskid) {
+	public Map sendingConvertRequestMissingHeader(String requestBodyJson,
+			boolean ofParentName, boolean ofParentPid, boolean ofParentTaskid) {
 
 		Map serverResponse = new HashMap();
 
 		// configure path
 		String path = "/" + TestDefinitionUtils.getServiceName() + "/convert";
 
-		RequestNegative request = new RequestNegative(path, requestBodyJson, ofParentName, ofParentPid, ofParentTaskid);
+		RequestNegative request = new RequestNegative(path, requestBodyJson,
+				ofParentName, ofParentPid, ofParentTaskid);
 		request.sendPost();
-		
+
 		serverResponse.put("ResponseBody", request.getResponseBody());
 		serverResponse.put("ResponseCode", request.getResponseCode());
 
 		return serverResponse;
 
 	}
-	
+
 	@Step
-	public Map sendingDocumentAttributesRequestMissingHeader(String requestBodyJson, boolean ofParentName, boolean ofParentPid, boolean ofParentTaskid) {
+	public Map sendingDocumentAttributesRequestMissingHeader(
+			String requestBodyJson, boolean ofParentName, boolean ofParentPid,
+			boolean ofParentTaskid) {
 
 		Map serverResponse = new HashMap();
 
@@ -751,7 +773,8 @@ public class Steps {
 		String path = "/" + TestDefinitionUtils.getServiceName()
 				+ "/documentAttributes";
 
-		RequestNegative request = new RequestNegative(path, requestBodyJson, ofParentName, ofParentPid, ofParentTaskid);
+		RequestNegative request = new RequestNegative(path, requestBodyJson,
+				ofParentName, ofParentPid, ofParentTaskid);
 		request.sendPost();
 
 		String responseBody = request.getResponseBody();
@@ -762,7 +785,19 @@ public class Steps {
 
 		return serverResponse;
 	}
-
 	
+	@Step
+	public void compareNotCreateFile(Boolean statusFile) {
+		assertEquals("file was not created", statusFile, false);
+		LOGGER.info("file was not created");
+	}
+	
+	@Step
+	public void compareCreateFile(Boolean statusFile, int responseAmounts, int amounts) {
+		assertEquals("file was created", statusFile, true);
+		assertEquals("amounts file valide", responseAmounts, amounts);
+		LOGGER.info("file was created");
+		LOGGER.info("amounts file: " + responseAmounts +", matches expected amounts file: "+ amounts);
+	}
 
 }

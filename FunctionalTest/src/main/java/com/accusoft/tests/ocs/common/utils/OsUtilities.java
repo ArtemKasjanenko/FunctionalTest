@@ -3,9 +3,12 @@ package com.accusoft.tests.ocs.common.utils;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.codec.CharEncoding;
 import org.apache.log4j.Logger;
 
 import com.accusoft.tests.ocs.common.utils.CompareImagesUtils.CmdOutput;
@@ -201,20 +204,46 @@ public final class OsUtilities {
 		return prettifiedPath;
 	}
 
-	public static String searchRegularExpressions(String compile, String message){
+	public static String searchRegularExpressions(String compile, String message) {
 		String searchMessage = null;
 		Pattern pat = Pattern.compile(compile);
-		Matcher  m = pat.matcher(message);
-		if(m.find()){  
-			searchMessage = m.group(); 
-			
-	        }  
-		return searchMessage;
-		
-		
-		
-	
+		Matcher m = pat.matcher(message);
+		if (m.find()) {
+			searchMessage = m.group();
 
+		}
+		return searchMessage;
 	}
-	
+
+	public static Map compareCreateConvertedFileWithFileTesting(String path,
+			String fileName) {
+
+		File f = new File(path);
+		File fdir = new File(f.getParent());
+
+		Map validFile = new HashMap();
+		String[] fileList = null;
+		int amount = 0;
+		CharSequence cs = fileName;
+
+		if (f.exists()) {
+			if (f.isFile()) {
+				validFile.put("Validation file", f.exists());
+			}
+			if (fdir.isDirectory()) {
+				fileList = fdir.list();
+				for (int i = 0; i < fileList.length; i++) {
+					if (fileList[i].contains(cs)) {
+						amount=amount+1;
+					}
+
+				}
+				validFile.put("Amount file", amount);
+
+			}
+		} else {
+			validFile.put("Validation file", f.exists());
+		}
+		return validFile;
+	}
 }

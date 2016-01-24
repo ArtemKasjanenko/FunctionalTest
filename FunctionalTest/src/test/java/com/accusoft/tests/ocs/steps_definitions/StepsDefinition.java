@@ -64,7 +64,6 @@ public class StepsDefinition {
 	@net.thucydides.core.annotations.Steps
 	public Steps stepExecutor;
 
-
 	@Given("Office conversion service is up and running")
 	@Then("Office conversion service is up and running")
 	public void getServiceParameters() {
@@ -154,7 +153,7 @@ public class StepsDefinition {
 			@Named("pageMarginBottom") float pageMarginBottom) {
 
 	}
-	
+
 	@Then("server must respond with status $code")
 	@Alias("server must respond with status: <code>")
 	public void statusShouldBe(@Named("code") int code) {
@@ -168,25 +167,60 @@ public class StepsDefinition {
 		}
 
 	}
+
 	@Then("error code must be <errorCode>")
 	public void serviceErrorCodeShouldBe(@Named("errorCode") int errorCode) {
 		String compileReg = "\\d+";
-		int returnedServiceCode = Integer.valueOf(OsUtilities.searchRegularExpressions(compileReg, serviceMessage)); 
+		int returnedServiceCode = Integer.valueOf(OsUtilities
+				.searchRegularExpressions(compileReg, serviceMessage));
 		String message = "Response from service: " + serviceMessage;
-		if (serviceMessage != null) 
-			stepExecutor.verifyingServiceResponseErrorCode(returnedServiceCode, errorCode, message);
-		}
-	
+		if (serviceMessage != null)
+			stepExecutor.verifyingServiceResponseErrorCode(returnedServiceCode,
+					errorCode, message);
+	}
+
 	@Then("error message must be <errorMessage>")
-	public void serviceErrorMessageShouldBe(@Named("errorMessage") String errorMessage) {
+	public void serviceErrorMessageShouldBe(
+			@Named("errorMessage") String errorMessage) {
 		String compileReg = "(\"message\":).+(\\\")";
-		String returnedServiceMessage = OsUtilities.searchRegularExpressions(compileReg, serviceMessage); 
+		String returnedServiceMessage = OsUtilities.searchRegularExpressions(
+				compileReg, serviceMessage);
 		String message = "Response from service: " + serviceMessage;
 
-		if (serviceMessage != null) 
-			stepExecutor.verifyingServiceResponseErrorMessage(returnedServiceMessage, errorMessage, message);;
-		}
-	
+		if (serviceMessage != null)
+			stepExecutor.verifyingServiceResponseErrorMessage(
+					returnedServiceMessage, errorMessage, message);
+	}
+
+	@Then("file should not be created")
+	public void fileNotExist(@Named("file") String fileName,
+			@Named("pageNumber") int pageNumber) {
+
+		Map dateFile = new HashMap();
+		String path = OsUtilities.prettifyFilePath(convertedFolderPath
+				+ fileName + ".page." + pageNumber + ".pdf");
+		
+		dateFile = OsUtilities.compareCreateConvertedFileWithFileTesting(path, null);
+		Boolean statusFile = (Boolean) dateFile.get("Validation file");
+		
+		stepExecutor.compareNotCreateFile(statusFile);
+	}
+
+	@Then("amount of files created with the same expected <amount>")
+	public void dateFileCreated(@Named("file") String fileName,
+			@Named("pageNumber") int pageNumber, @Named("amount") int amount) {
+
+		Map dateFile = new HashMap();
+		String path = OsUtilities.prettifyFilePath(convertedFolderPath
+				+ fileName + ".page." + pageNumber + ".pdf");
+		
+		dateFile = OsUtilities.compareCreateConvertedFileWithFileTesting(path, fileName);
+		Boolean statusFile = (Boolean) dateFile.get("Validation file");
+		int responseAmounts = (Integer) dateFile.get("Amount file");
+		
+		stepExecutor.compareCreateFile(statusFile, responseAmounts, amount);
+	}
+
 	@Then("page count equal to specified in <fileAttributesJson>")
 	public void pageCountShouldBe(
 			@Named("fileAttributesJson") String fileAttributesJsonName) {
@@ -216,7 +250,8 @@ public class StepsDefinition {
 	}
 
 	@Then("page in pdf format to be converted to png with a size less than the maximum size <maxsize>")
-	public void compareFilesWithMaxSize(@Named("maxsize") float maxSize) throws Exception {
+	public void compareFilesWithMaxSize(@Named("maxsize") float maxSize)
+			throws Exception {
 
 		if (returnedCode == 200) {
 			// Convert PDF to PNG before compare
@@ -240,23 +275,20 @@ public class StepsDefinition {
 
 			returnedCode = (Integer) serviceResponse.get("ResponseCode");
 			serviceMessage = (String) serviceResponse.get("ResponseBody");
-			
-			
-			
+
 			if (returnedCode == 200) {
 				File f = new File(outputFilePath);
 				float pngSize = (float) (f.length());
-				stepExecutor.comparingSizePageToPngWithMaxSize(pngSize, maxSize);
-	
+				stepExecutor
+						.comparingSizePageToPngWithMaxSize(pngSize, maxSize);
+
 			} else {
 				LOGGER.error(serviceMessage);
 				throw new Exception("Unable to convert pdf to png");
 			}
 		}
 	}
-	
-	
-	
+
 	@Then("conversion result matches the image reference <referenceImage> (difference less $precise percent)")
 	@Alias("conversion result matches with template <referenceImage> (difference less $precise percent)")
 	public void compareFilesWithSpecificPrecise(
@@ -556,16 +588,16 @@ public class StepsDefinition {
 		// e.printStackTrace();
 		// }
 
-//		String zipFilePath = StepsDefinition.class.getClassLoader()
-//				.getResource(".").getPath()
-//				+ "/../../filesForTesting.zip";
-//
-//		try {
-//			FSUtils.UnzipUtility.unzip(new File(zipFilePath), new File(
-//					pathToFilesForTestingPath));
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
+		// String zipFilePath = StepsDefinition.class.getClassLoader()
+		// .getResource(".").getPath()
+		// + "/../../filesForTesting.zip";
+		//
+		// try {
+		// FSUtils.UnzipUtility.unzip(new File(zipFilePath), new File(
+		// pathToFilesForTestingPath));
+		// } catch (IOException e) {
+		// e.printStackTrace();
+		// }
 
 	}
 
