@@ -16,7 +16,7 @@ Examples:
 |common/odt/WriterPage5.odt|0|1|4|5|Hint/PositiveHintParameter|3000|
 
 
-Scenario: Value "first" hint parameter in less than NumberPage must be ignored
+Scenario: Value "first" of hint parameter is less than page number
 
 Given Office conversion service is up and running
 When user sends a request with hint parameter first <first> and last <last> to convert pages <pageNumber> office document <file>
@@ -24,7 +24,7 @@ Then server must respond with status 200
 And number of converted PDF files for current office document is equal to <amount>
 Examples:
 |file|pageNumber|first|last|amount|destination|timeOut|
-|common/ods/CalcPage5.ods|0|1|3|4|Hint/firstLessPage|3000|
+|common/ods/CalcPage5.ods|2|1|3|3|Hint/firstLessPage|3000|
 |common/odg/DrawPage4.odg|2|1|3|3|Hint/firstLessPage|3000|
 |common/xlsx/ExcelPage4.xlsx|3|2|3|2|Hint/firstLessPage|3000|
 |common/odp/ImpressPage4.odp|2|1|3|3|Hint/firstLessPage|3000|

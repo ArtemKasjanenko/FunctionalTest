@@ -192,7 +192,7 @@ public class StepsDefinition {
 	}
 
 	 @Then("file should not be created")
-	 public void fileNotExist(@Named("file") String fileName,
+	 public void checkThatConvertidFileDoesNotExist(@Named("file") String fileName,
 	 @Named("pageNumber") int pageNumber,
 	 @Named("destination") String destination) {
 	
@@ -205,7 +205,7 @@ public class StepsDefinition {
 	 }
 
 	@Then("number of converted PDF files for current office document is equal to <amount>")
-	public void dateFileCreated(@Named("file") String fileName,
+	public void checkAmountOfConvertedFiles(@Named("file") String fileName,
 			@Named("pageNumber") int pageNumber, @Named("amount") int amount,
 			@Named("destination") String destination,
 			@Named("timeOut") int timeOut) throws InterruptedException {
