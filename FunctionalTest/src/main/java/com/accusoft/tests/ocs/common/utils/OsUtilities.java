@@ -215,34 +215,16 @@ public final class OsUtilities {
 		return searchMessage;
 	}
 
-	public static Map compareCreateConvertedFileWithFileTesting(String path,
-			String fileName) {
+	public static int getNumberOfConvertedFiles(String rootDir) {
 
-		File f = new File(path);
-		File fdir = new File(f.getParent());
-
-		Map validFile = new HashMap();
-		String[] fileList = null;
-		int amount = 0;
-
-		if (f.exists()) {
-			if (f.isFile()) {
-				validFile.put("Validation file", f.exists());
-			}
-			if (fdir.isDirectory()) {
-				fileList = fdir.list();
-				for (int i = 0; i < fileList.length; i++) {
-					if (fileList[i].contains(searchRegularExpressions(
-							"\\w+\\.\\w+", fileName))) {
-						amount = amount + 1;
-					}
-				}
-				validFile.put("Amount file", amount);
-
-			}
-		} else {
-			validFile.put("Validation file", f.exists());
+		File f = new File(rootDir);
+		
+		if(f.isDirectory()){
+			return f.list().length;
 		}
-		return validFile;
+		
+		return 0;
+		
+	
 	}
 }

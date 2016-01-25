@@ -6,8 +6,8 @@ When user sends a request with hint parameter first <first> and last <last> to c
 Then server must respond with status 200
 And amount of files created with the same expected <amount>
 Examples:
-|file|pageNumber|first|last|amount|
-|Hint/PositiveHintParameter/CalcPage5.ods|0|1|4|4|
+|file|pageNumber|first|last|amount|destination|
+|common/calc/CalcPage5.ods|0|1|4|4|Hint/PositiveHintParameter|
 |Hint/PositiveHintParameter/DrawPage4.odg|0|1|3|4|
 |Hint/PositiveHintParameter/ExcelPage4.xlsx|0|1|3|4|
 |Hint/PositiveHintParameter/ImpressPage4.odp|0|1|3|4|
@@ -23,8 +23,8 @@ When user sends a request with hint parameter first <first> and last <last> to c
 Then server must respond with status 200
 And amount of files created with the same expected <amount>
 Examples:
-|file|pageNumber|first|last|amount|
-|Hint/firstLessPage/CalcPage5.ods|2|1|4|3|
+|file|pageNumber|first|last|amount|destination|
+|Hint/PositiveHintParameter/CalcPage5.ods|2|1|4|3|Hint/firstLessPage/|
 |Hint/firstLessPage/DrawPage4.odg|2|1|3|3|
 |Hint/firstLessPage/ExcelPage4.xlsx|3|2|3|2|
 |Hint/firstLessPage/ImpressPage4.odp|2|1|3|3|

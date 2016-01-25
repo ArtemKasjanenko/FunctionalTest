@@ -14,7 +14,6 @@ import org.jbehave.core.annotations.*;
 import org.json.JSONObject;
 
 import com.accusoft.tests.ocs.common.Constants;
-import com.accusoft.tests.ocs.common.utils.FSUtils;
 import com.accusoft.tests.ocs.common.utils.JsonUtils;
 import com.accusoft.tests.ocs.common.utils.OsUtilities;
 import com.accusoft.tests.ocs.common.utils.PdfUtils;
@@ -210,14 +209,13 @@ public class StepsDefinition {
 	public void dateFileCreated(@Named("file") String fileName,
 			@Named("pageNumber") int pageNumber, @Named("amount") int amount) {
 
-		Map dateFile = new HashMap();
+		
 		String path = OsUtilities.prettifyFilePath(convertedFolderPath
 				+ fileName + ".page." + pageNumber + ".pdf");
 			
-		dateFile = OsUtilities.compareCreateConvertedFileWithFileTesting(path, fileName);
-		Boolean statusFile = (Boolean) dateFile.get("Validation file");
-		int responseAmounts = (Integer) dateFile.get("Amount file");
+		int responseAmounts = OsUtilities.getNumberOfConvertedFiles(path);//path - desination
 		
+	
 		stepExecutor.compareCreateFile(statusFile, responseAmounts, amount);
 	}
 

@@ -1,5 +1,6 @@
 package com.accusoft.tests.ocs.steps_definitions;
 
+import java.io.File;
 import java.util.Date;
 
 import org.jbehave.core.annotations.Aliases;
@@ -13,7 +14,6 @@ import com.accusoft.tests.ocs.common.utils.JsonUtils;
 import com.accusoft.tests.ocs.common.utils.OsUtilities;
 import com.accusoft.tests.ocs.steps.Steps;
 import com.accusoft.tests.ocs.steps_definitions.StepsDefinition;
-import com.gargoylesoftware.htmlunit.WebConsole.Logger;
 
 public class ConvertStepsDefinition extends StepsDefinition {
 
