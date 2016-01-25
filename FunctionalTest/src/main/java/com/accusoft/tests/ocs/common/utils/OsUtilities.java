@@ -218,13 +218,24 @@ public final class OsUtilities {
 	public static int getNumberOfConvertedFiles(String rootDir) {
 
 		File f = new File(rootDir);
-		
-		if(f.isDirectory()){
+
+		if (f.isDirectory()) {
 			return f.list().length;
 		}
-		
+
 		return 0;
-		
-	
+
+	}
+
+	public static void cleanFolderConvertedFiles(File dir) {
+		if (dir.isDirectory()) {
+			String[] children = dir.list();
+			for (int i = 0; i < children.length; i++) {
+				File f = new File(dir, children[i]);
+				cleanFolderConvertedFiles(f);
+			}
+			dir.delete();
+		} else
+			dir.delete();
 	}
 }

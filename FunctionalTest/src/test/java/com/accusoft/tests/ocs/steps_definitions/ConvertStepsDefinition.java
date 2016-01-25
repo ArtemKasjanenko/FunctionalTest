@@ -447,10 +447,15 @@ public class ConvertStepsDefinition extends StepsDefinition {
 	public void requestConvertWithHintParameters(
 			@Named("file") String fileName,
 			@Named("pageNumber") int pageNumber, @Named("first") String first,
-			@Named("last") String last) {
+			@Named("last") String last, @Named("destination") String destination) {
 
 		String destFormat = "pdf";
 		sourceOfficeFilePath = sourceFolderPath + fileName;
+
+		String rootDir = OsUtilities
+				.prettifyFilePath(convertedFolderPath + "/" + destination);
+		File f = new File(rootDir);
+		OsUtilities.cleanFolderConvertedFiles(f);
 
 		JSONObject requestBodyJson = new JSONObject();
 		JSONObject request = new JSONObject();
@@ -462,8 +467,9 @@ public class ConvertStepsDefinition extends StepsDefinition {
 		request.put(Constants.DEST_FORMAT, destFormat);
 		request.put(
 				Constants.OUTPUT_TEMPLATE,
-				OsUtilities.prettifyFilePath(convertedFolderPath + fileName
-						+ ".page." + "{pageNumber}" + "." + destFormat));
+				OsUtilities.prettifyFilePath(convertedFolderPath + "/"
+						+ destination + "/" + ".page." + "{pageNumber}" + "."
+						+ destFormat));
 		request.put("password", "");
 		request.put("pageNumber", pageNumber);
 

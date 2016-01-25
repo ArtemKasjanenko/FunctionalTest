@@ -787,17 +787,15 @@ public class Steps {
 	}
 	
 	@Step
-	public void compareNotCreateFile(Boolean statusFile) {
-		assertEquals("file was not created", statusFile, false);
+	public void compareNotCreateFile(int responseAmounts) {
+		assertEquals("file was not created", responseAmounts, 0);
 		LOGGER.info("file was not created");
 	}
 	
 	@Step
-	public void compareCreateFile(Boolean statusFile, int responseAmounts, int amounts) {
-		assertEquals("file was created", statusFile, true);
+	public void compareCreateFile(int responseAmounts, int amounts) {
 		assertEquals("amounts file valide", responseAmounts, amounts);
-		LOGGER.info("file was created");
-		LOGGER.info("amounts file: " + responseAmounts +", matches expected amounts file: "+ amounts);
+		LOGGER.info("file was created, amounts file: " + responseAmounts +", matches expected amounts file: "+ amounts);
 	}
 
 }

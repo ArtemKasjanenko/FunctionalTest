@@ -191,32 +191,33 @@ public class StepsDefinition {
 					returnedServiceMessage, errorMessage, message);
 	}
 
-	@Then("file should not be created")
-	public void fileNotExist(@Named("file") String fileName,
-			@Named("pageNumber") int pageNumber) {
-
-		Map dateFile = new HashMap();
-		String path = OsUtilities.prettifyFilePath(convertedFolderPath
-				+ fileName + ".page." + pageNumber + ".pdf");
-		
-		dateFile = OsUtilities.compareCreateConvertedFileWithFileTesting(path, null);
-		Boolean statusFile = (Boolean) dateFile.get("Validation file");
-		
-		stepExecutor.compareNotCreateFile(statusFile);
-	}
+	 @Then("file should not be created")
+	 public void fileNotExist(@Named("file") String fileName,
+	 @Named("pageNumber") int pageNumber,
+	 @Named("destination") String destination) {
+	
+	 String rootDir = OsUtilities.prettifyFilePath(convertedFolderPath + "/"
+	 + destination + "/");
+	
+	 int responseAmounts = OsUtilities.getNumberOfConvertedFiles(rootDir);
+	
+	 stepExecutor.compareNotCreateFile(responseAmounts);
+	 }
 
 	@Then("number of converted PDF files for current office document is equal to <amount>")
 	public void dateFileCreated(@Named("file") String fileName,
-			@Named("pageNumber") int pageNumber, @Named("amount") int amount) {
+			@Named("pageNumber") int pageNumber, @Named("amount") int amount,
+			@Named("destination") String destination,
+			@Named("timeOut") int timeOut) throws InterruptedException {
 
-		
-		String path = OsUtilities.prettifyFilePath(convertedFolderPath
-				+ fileName + ".page." + pageNumber + ".pdf");
-			
-		int responseAmounts = OsUtilities.getNumberOfConvertedFiles(path);//path - desination
-		
-	
-		stepExecutor.compareCreateFile(statusFile, responseAmounts, amount);
+		String rootDir = OsUtilities.prettifyFilePath(convertedFolderPath + "/"
+				+ destination + "/");
+
+		Thread.sleep(timeOut);
+
+		int responseAmounts = OsUtilities.getNumberOfConvertedFiles(rootDir);
+
+		stepExecutor.compareCreateFile(responseAmounts, amount);
 	}
 
 	@Then("page count equal to specified in <fileAttributesJson>")
