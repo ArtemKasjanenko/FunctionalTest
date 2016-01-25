@@ -205,7 +205,7 @@ public class StepsDefinition {
 		stepExecutor.compareNotCreateFile(statusFile);
 	}
 
-	@Then("amount of files created with the same expected <amount>")
+	@Then("number of converted PDF files for current office document is equal to <amount>")
 	public void dateFileCreated(@Named("file") String fileName,
 			@Named("pageNumber") int pageNumber, @Named("amount") int amount) {
 

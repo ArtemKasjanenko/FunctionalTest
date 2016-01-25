@@ -4,7 +4,7 @@ Scenario: As a user I want to get some convert page use with hint parameter afte
 Given Office conversion service is up and running
 When user sends a request with hint parameter first <first> and last <last> to convert pages <pageNumber> office document <file>
 Then server must respond with status 200
-And amount of files created with the same expected <amount>
+And number of converted PDF files for current office document is equal to <amount>
 Examples:
 |file|pageNumber|first|last|amount|destination|
 |common/calc/CalcPage5.ods|0|1|4|4|Hint/PositiveHintParameter|
@@ -21,7 +21,7 @@ Scenario: Value "first" hint parameter in less than NumberPage must be ignored
 Given Office conversion service is up and running
 When user sends a request with hint parameter first <first> and last <last> to convert pages <pageNumber> office document <file>
 Then server must respond with status 200
-And amount of files created with the same expected <amount>
+And number of converted PDF files for current office document is equal to <amount>
 Examples:
 |file|pageNumber|first|last|amount|destination|
 |Hint/PositiveHintParameter/CalcPage5.ods|2|1|4|3|Hint/firstLessPage/|
@@ -38,7 +38,7 @@ Scenario: Value "last" hint parameter more then max page must be ignored
 Given Office conversion service is up and running
 When user sends a request with hint parameter first <first> and last <last> to convert pages <pageNumber> office document <file>
 Then server must respond with status 200
-And amount of files created with the same expected <amount>
+And number of converted PDF files for current office document is equal to <amount>
 Examples:
 |file|pageNumber|first|last|amount|
 |Hint/lastMoreMaxPage/CalcPage5.ods|0|3|15|2|
