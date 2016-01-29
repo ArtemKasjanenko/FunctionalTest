@@ -17,6 +17,7 @@ import com.accusoft.tests.ocs.common.Constants;
 import com.accusoft.tests.ocs.common.utils.JsonUtils;
 import com.accusoft.tests.ocs.common.utils.OsUtilities;
 import com.accusoft.tests.ocs.common.utils.PdfUtils;
+import com.accusoft.tests.ocs.common.utils.PrizmUtils;
 import com.accusoft.tests.ocs.common.utils.TestDefinitionUtils;
 import com.accusoft.tests.ocs.steps.Steps;
 
@@ -60,9 +61,14 @@ public class StepsDefinition {
 	public static Date dateBeforeConversion = null;
 	public static Date dateAfterConversion = null;
 
+	public static long beforePCCStartTime;
+	public static Thread serviceStartThread;
+	public static boolean isServiceStarted = false;
+	
 	@net.thucydides.core.annotations.Steps
 	public Steps stepExecutor;
-
+	
+	
 	@Given("Office conversion service is up and running")
 	@Then("Office conversion service is up and running")
 	public void getServiceParameters() {
@@ -191,18 +197,19 @@ public class StepsDefinition {
 					returnedServiceMessage, errorMessage, message);
 	}
 
-	 @Then("file should not be created")
-	 public void checkThatConvertidFileDoesNotExist(@Named("file") String fileName,
-	 @Named("pageNumber") int pageNumber,
-	 @Named("destination") String destination) {
-	
-	 String rootDir = OsUtilities.prettifyFilePath(convertedFolderPath + "/"
-	 + destination + "/");
-	
-	 int responseAmounts = OsUtilities.getNumberOfConvertedFiles(rootDir);
-	
-	 stepExecutor.compareNotCreateFile(responseAmounts);
-	 }
+	@Then("file should not be created")
+	public void checkThatConvertidFileDoesNotExist(
+			@Named("file") String fileName,
+			@Named("pageNumber") int pageNumber,
+			@Named("destination") String destination) {
+
+		String rootDir = OsUtilities.prettifyFilePath(convertedFolderPath + "/"
+				+ destination + "/");
+
+		int responseAmounts = OsUtilities.getNumberOfConvertedFiles(rootDir);
+
+		stepExecutor.compareNotCreateFile(responseAmounts);
+	}
 
 	@Then("number of converted PDF files for current office document is equal to <amount>")
 	public void checkAmountOfConvertedFiles(@Named("file") String fileName,
@@ -597,6 +604,29 @@ public class StepsDefinition {
 		// } catch (IOException e) {
 		// e.printStackTrace();
 		// }
+
+	}
+
+	@When("pcc is stoped and started in background")
+	public void serviceRestarted() throws InterruptedException {
+		
+		isServiceStarted = true;
+		PrizmUtils.stopPrizm();
+		isServiceStarted = false;
+		
+		LOGGER.info("Prizm service stop");
+
+		serviceStartThread = new Thread() {
+			public void run() {
+				isServiceStarted = false;
+				PrizmUtils.startPrizm();
+				isServiceStarted = true;
+			}
+		};
+
+		serviceStartThread.start();
+		
+		beforePCCStartTime = (new Date()).getTime();
 
 	}
 

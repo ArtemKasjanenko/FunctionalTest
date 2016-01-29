@@ -785,17 +785,29 @@ public class Steps {
 
 		return serverResponse;
 	}
-	
+
 	@Step
 	public void compareNotCreateFile(int responseAmounts) {
 		assertEquals("file was not created", responseAmounts, 0);
 		LOGGER.info("file was not created");
 	}
-	
+
 	@Step
 	public void compareCreateFile(int responseAmounts, int amounts) {
 		assertEquals("amounts file valide", responseAmounts, amounts);
-		LOGGER.info("file was created, amounts file: " + responseAmounts +", matches expected amounts file: "+ amounts);
+		LOGGER.info("file was created, amounts file: " + responseAmounts
+				+ ", matches expected amounts file: " + amounts);
 	}
+
+	public void checkDifferencePercents(float differenceResponce,
+			float difference) {
+		Assert.assertTrue("The time difference: " + differenceResponce
+				+ " percents for different instances parameter is out of range: "
+				+ difference + " percents", differenceResponce < difference);
+		LOGGER.info("The time difference: " + differenceResponce
+				+ " percents for different instances parameter is inside range: "
+				+ difference + " percents");
+	}
+
 
 }
