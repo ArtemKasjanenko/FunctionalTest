@@ -799,15 +799,13 @@ public class Steps {
 				+ ", matches expected amounts file: " + amounts);
 	}
 
-	public void checkDifferencePercents(float differenceResponce,
-			float difference) {
-		Assert.assertTrue("The time difference: " + differenceResponce
-				+ " percents for different instances parameter is out of range: "
-				+ difference + " percents", differenceResponce < difference);
-		LOGGER.info("The time difference: " + differenceResponce
-				+ " percents for different instances parameter is inside range: "
-				+ difference + " percents");
-	}
+	public void checkDifferencePercents(long differenceResponce, long timeDifference) {
 
+		Assert.assertTrue(
+				"The time difference: " + differenceResponce + " sec",
+				differenceResponce < timeDifference);
+		LOGGER.info("The time difference: " + differenceResponce + " sec for different instances parameter is inside range: "
+				+ timeDifference + " sec");
+	}
 
 }

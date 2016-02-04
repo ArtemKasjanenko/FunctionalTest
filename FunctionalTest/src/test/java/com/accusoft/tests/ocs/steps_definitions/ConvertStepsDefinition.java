@@ -494,4 +494,26 @@ public class ConvertStepsDefinition extends StepsDefinition {
 		returnedCode = (Integer) serviceResponse.get("ResponseCode");
 		serviceMessage = (String) serviceResponse.get("ResponseBody");
 	}
+	
+	
+	@When("response for get convert request is arrived")
+	public void timeResponceConvertRequest(@Named ("file") String fileName) throws InterruptedException {
+
+		while (true) {
+			generalConversionRequest(fileName, "pdf", 0, null);
+			
+			if (returnedCode == 200) {
+				break;
+			}
+		}
+
+		long currentTimeMsEnd = (new Date()).getTime();
+		timeResponce.add(currentTimeMsEnd - beforePCCStartTime);
+		
+	}
+	
+	
+
+	
 }
+

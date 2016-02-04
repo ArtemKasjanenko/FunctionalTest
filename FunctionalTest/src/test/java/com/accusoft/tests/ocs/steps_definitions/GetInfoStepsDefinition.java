@@ -22,7 +22,7 @@ import com.accusoft.tests.ocs.steps.Steps;
 public class GetInfoStepsDefinition extends StepsDefinition {
 
 	public static final Logger LOGGER = Logger.getLogger(GetInfoStepsDefinition.class);
-	public static ArrayList timeResponce = new ArrayList();
+
 
 	@When("user requests OfficeConversionService information")
 	@Alias("user sends info request")
@@ -127,14 +127,6 @@ public class GetInfoStepsDefinition extends StepsDefinition {
 		getServiceInfoMissingHeader(true, true, true);
 	}
 
-	@When("number of instances is set to $instancesForRound")
-	public void numberOfInstances(
-			@Named("instancesForRound") int instancesForRound) throws Exception {
-
-		SetNumberOfOCSInstances.setNumberInstances(instancesForRound);
-		LOGGER.info("number of instances is set to: " + instancesForRound);
-	}
-
 	@When("response for get info request is arrived")
 	public void timeResponceInfoRequest() throws InterruptedException {
 
@@ -147,54 +139,7 @@ public class GetInfoStepsDefinition extends StepsDefinition {
 
 		long currentTimeMsEnd = (new Date()).getTime();
 		timeResponce.add(currentTimeMsEnd - beforePCCStartTime);
-		returnedCode = 0;
 	}
 
-	@When("service is started compleatelly")
-	public void waitUntilServiceIsStarted() {
-		while (true) {
-			if (isServiceStarted) {
-				LOGGER.info("Prizm service is started compleatelly");
-				return;
-			} else {
-				try {
-					Thread.sleep(100);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-
-	}
-
-	@Then("max getInfo response time must be not more the then <difference> percents from first get response time")
-	public void comparisonTimeBetweenRestartAndFirstResponceGetInfo(
-			@Named("difference") float difference) {
-
-		float differenceResponce;
-		float firstTime = Float.valueOf((Long) timeResponce.get(0));
-		float maxTime = Float.valueOf((Long) timeResponce.get(1));
-		int i = 2;
-
-		while (i < timeResponce.size()) {
-
-			if (Float.valueOf((Long) timeResponce.get(i)) > maxTime) {
-				maxTime = Float.valueOf((Long) timeResponce.get(i));
-			}
-			i++;
-		}
-
-		if (firstTime >= maxTime) {
-			differenceResponce = maxTime / firstTime;
-		} else {
-			differenceResponce = firstTime / maxTime;
-		}
-
-		differenceResponce = (1 - differenceResponce);
-		LOGGER.info("max getInfo response time =" + maxTime
-				+ " ms, first get response time = " + firstTime
-				+ " ms, the percents difference = " + differenceResponce + " %");
-		stepExecutor.checkDifferencePercents(differenceResponce, difference);
-	}
 
 }

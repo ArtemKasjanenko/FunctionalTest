@@ -14,6 +14,7 @@ import org.jbehave.core.annotations.*;
 import org.json.JSONObject;
 
 import com.accusoft.tests.ocs.common.Constants;
+import com.accusoft.tests.ocs.common.build.SetNumberOfOCSInstances;
 import com.accusoft.tests.ocs.common.utils.JsonUtils;
 import com.accusoft.tests.ocs.common.utils.OsUtilities;
 import com.accusoft.tests.ocs.common.utils.PdfUtils;
@@ -64,11 +65,12 @@ public class StepsDefinition {
 	public static long beforePCCStartTime;
 	public static Thread serviceStartThread;
 	public static boolean isServiceStarted = false;
-	
+
+	public static ArrayList timeResponce = new ArrayList();
+
 	@net.thucydides.core.annotations.Steps
 	public Steps stepExecutor;
-	
-	
+
 	@Given("Office conversion service is up and running")
 	@Then("Office conversion service is up and running")
 	public void getServiceParameters() {
@@ -609,11 +611,16 @@ public class StepsDefinition {
 
 	@When("pcc is stoped and started in background")
 	public void serviceRestarted() throws InterruptedException {
-		
+
+		String rootDir = OsUtilities
+				.prettifyFilePath(convertedFolderPath + "/");
+		File f = new File(rootDir);
+		OsUtilities.cleanFolderConvertedFiles(f);
+
 		isServiceStarted = true;
 		PrizmUtils.stopPrizm();
 		isServiceStarted = false;
-		
+
 		LOGGER.info("Prizm service stop");
 
 		serviceStartThread = new Thread() {
@@ -625,9 +632,69 @@ public class StepsDefinition {
 		};
 
 		serviceStartThread.start();
-		
+
 		beforePCCStartTime = (new Date()).getTime();
 
 	}
 
+	@When("service is started compleatelly")
+	public void waitUntilServiceIsStarted() {
+		while (true) {
+			if (isServiceStarted) {
+				LOGGER.info("Prizm service is started compleatelly");
+				return;
+			} else {
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+	}
+
+	@When("number of instances is set to $instancesForRound")
+	public void numberOfInstances(
+			@Named("instancesForRound") int instancesForRound) throws Exception {
+
+		SetNumberOfOCSInstances.setNumberInstances(instancesForRound);
+		LOGGER.info("number of instances is set to: " + instancesForRound);
+	}
+
+	@Then("max service response time must be not more the then $timeDifference sec from first get response time")
+	public void comparisonTimeBetweenRestartAndFirstResponceGetInfo(
+			@Named("timeDifference") long timeDifference) {
+
+		long differenceResponce = (Math.abs((Long) timeResponce.get(0)
+				- (Long) timeResponce.get(timeResponce.size() - 1))) / 1000;
+
+		LOGGER.warn("service response time ="
+				+ ((Long) timeResponce.get(timeResponce.size() - 1)) / 1000
+				+ " sec, first get response time = "
+				+ ((Long) timeResponce.get(0)) / 1000 + " sec");
+
+		
+		LOGGER.warn(timeResponce);
+		
+		LOGGER.warn("differenceResponce =" + differenceResponce + "=" +
+				+ (Long) timeResponce.get(0) / 1000 + "-"
+				+ ((Long) timeResponce.get(timeResponce.size() - 1))/1000);
+				
+		LOGGER.warn(timeDifference);
+		
+		
+		
+		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!" + timeResponce);
+		
+		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!"
+				+ "differenceResponce =" + differenceResponce
+				+ (Long) timeResponce.get(0) / 1000 + "-"
+				+ (Long) timeResponce.get(timeResponce.size() - 1));
+		
+		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!" + timeDifference);
+
+		stepExecutor
+				.checkDifferencePercents(differenceResponce, timeDifference);
+	}
 }
