@@ -226,4 +226,28 @@ public class FSUtils {
 
 	}
 
+	public static int getNumberOfFiles(String rootDir) {
+
+		File f = new File(rootDir);
+
+		if (f.isDirectory()) {
+			return f.list().length;
+		}
+
+		return 0;
+
+	}
+
+	public static void cleanFolder(File dir) {
+		if (dir.isDirectory()) {
+			String[] children = dir.list();
+			for (int i = 0; i < children.length; i++) {
+				File f = new File(dir, children[i]);
+				cleanFolder(f);
+			}
+			dir.delete();
+		} else
+			dir.delete();
+	}
+
 }

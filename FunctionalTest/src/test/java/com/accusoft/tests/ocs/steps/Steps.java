@@ -29,6 +29,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -38,9 +40,9 @@ public class Steps {
 
 	public static final Logger LOGGER = Logger.getLogger(Steps.class);
 
-	public static final int NUMBER_OF_REDELIVERIES = 1;
+	public static final int NUMBER_OF_REDELIVERIES = 10;
 
-	public static final int COMPARE_TIMEOUT = 6 * 1000; // in ms
+	public static final int COMPARE_TIMEOUT = 50 * 1000; // in ms
 
 	@SuppressWarnings({ "rawtypes", "static-access" })
 	@Step
@@ -64,7 +66,7 @@ public class Steps {
 				// "Office instance failed to load document"
 				// and "Binary URP bridge disposed during call"
 				try {
-					Thread.currentThread().sleep(6 * 1000);
+					Thread.currentThread().sleep(60 * 1000);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
@@ -111,7 +113,7 @@ public class Steps {
 				// "Office instance failed to load document"
 				// and "Binary URP bridge disposed during call"
 				try {
-					Thread.currentThread().sleep(6 * 1000);
+					Thread.currentThread().sleep(60 * 1000);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
@@ -159,7 +161,7 @@ public class Steps {
 				// "Office instance failed to load document"
 				// and "Binary URP bridge disposed during call"
 				try {
-					Thread.currentThread().sleep(1 * 1000);
+					Thread.currentThread().sleep(60 * 1000);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
@@ -230,6 +232,27 @@ public class Steps {
 
 	// Verification steps
 	@Step
+	public void responseCodeVerify(int returnedCode, int code) {
+		assertEquals("Response code is invalid", code, returnedCode);
+		LOGGER.info("Response code validation was successful");
+	}
+
+	@Step
+	public void verifyingErrorCode(int actualErrorCore, int expectedErrorCode) {
+		assertEquals("Error code is invalid", expectedErrorCode,
+				actualErrorCore);
+		LOGGER.info("Error code validation was successful");
+	}
+
+	@Step
+	public void verifyingErrorMessage(String actualErrorMessage,
+			String expectedErrorMessage) {
+		assertEquals("Error message is invalid", expectedErrorMessage,
+				actualErrorMessage);
+		LOGGER.info("Error message validation was successful");
+	}
+
+	@Step
 	public void verifyingServiceResponseCode(int returnedCode, int code,
 			String serviceMessage) {
 		assertEquals("Response code is invalid", code, returnedCode);
@@ -254,16 +277,25 @@ public class Steps {
 	}
 
 	@Step
-	public void responseCodeVerify(int returnedCode, int code) {
-		assertEquals("Response code is invalid", code, returnedCode);
-		LOGGER.info("Response code validation was successful");
-	}
-
-	@Step
 	public void checkFileSize(int maxFileSize, float currentFileSize) {
 		assertTrue("File size verification fails",
 				maxFileSize >= currentFileSize);
 		LOGGER.info("File size verification successful");
+	}
+
+	@Step
+	public String getTextByRegExp(String text, String regExp, int groupNumber) {
+
+		Pattern pattern = Pattern.compile(regExp);
+		Matcher matcher = pattern.matcher(text);
+
+		// Find all matches
+		while (matcher.find()) {
+			// Get the matching string
+			return matcher.group(groupNumber);
+		}
+
+		return null;
 	}
 
 	@Step
@@ -799,13 +831,19 @@ public class Steps {
 				+ ", matches expected amounts file: " + amounts);
 	}
 
-	public void checkDifferencePercents(long differenceResponce, long timeDifference) {
+	@Step
+	public void checkOCSResponseTime(long ocsResponseTimeWithOneOfficeInstance,
+			long currentOcsResponseTime, long expectedTimeDifference) {
 
-		Assert.assertTrue(
-				"The time difference: " + differenceResponce + " sec",
-				differenceResponce < timeDifference);
-		LOGGER.info("The time difference: " + differenceResponce + " sec for different instances parameter is inside range: "
-				+ timeDifference + " sec");
+		assertTrue("Current OCS response time is more than expected",
+				currentOcsResponseTime <= ocsResponseTimeWithOneOfficeInstance
+						+ expectedTimeDifference);
+	}
+
+	@Step
+	public void showTestProperty(String propertyName, String propertyValue) {
+		LOGGER.info("Test property with name [" + propertyName
+				+ "] has value [" + propertyValue + "]");
 	}
 
 }

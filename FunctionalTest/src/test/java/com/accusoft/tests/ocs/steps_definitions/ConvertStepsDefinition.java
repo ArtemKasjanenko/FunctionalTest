@@ -10,6 +10,7 @@ import org.jbehave.core.annotations.When;
 import org.json.JSONObject;
 
 import com.accusoft.tests.ocs.common.Constants;
+import com.accusoft.tests.ocs.common.utils.FSUtils;
 import com.accusoft.tests.ocs.common.utils.JsonUtils;
 import com.accusoft.tests.ocs.common.utils.OsUtilities;
 import com.accusoft.tests.ocs.steps.Steps;
@@ -120,7 +121,7 @@ public class ConvertStepsDefinition extends StepsDefinition {
 			@Named("language") String language,
 			@Named("pageNumber") int pageNumber) {
 		requestConvertWithSomeConversionParameters(fileName, pageNumber,
-				charset, language, null, null);
+				charset, language, null, null, null, null);
 	}
 
 	@When("user sends request to convert page <pageNumber> of text document <file> with charset <charset> and content language <language> to pdf format with additional request parameter $additionalAttributeName with value $additionalAttributeValue")
@@ -130,11 +131,15 @@ public class ConvertStepsDefinition extends StepsDefinition {
 			@Named("charset") String charset,
 			@Named("language") String language,
 			@Named("additionalAttributeName") String additionalAttributeName,
-			@Named("additionalAttributeValue") String additionalAttributeValue) {
+			@Named("additionalAttributeValue") String additionalAttributeValue,
+			@Named("headerCustomization") String headerCustomization,
+			@Named("outputFolder") String outputFolder) {
 
 		String destFormat = "pdf";
 		sourceOfficeFilePath = sourceFolderPath + fileName;
-		String outputFile = fileName + ".page." + pageNumber + "." + destFormat;
+		String outputFile = ((outputFolder == null) ? "" : outputFolder
+				+ File.separator)
+				+ fileName + ".page." + pageNumber + "." + destFormat;
 		convertedPDFFilePath = convertedFolderPath + outputFile;
 
 		JSONObject requestBodyJson = new JSONObject();
@@ -151,6 +156,10 @@ public class ConvertStepsDefinition extends StepsDefinition {
 		if (additionalAttributeName != null) {
 			request.put(additionalAttributeName, additionalAttributeValue);
 		}
+		if (headerCustomization != null) {
+			request.put("header", new JSONObject(headerCustomization));
+		}
+
 		serviceResponse = stepExecutor.sendingConvertRequest(requestBodyJson
 				.toString());
 
@@ -172,7 +181,17 @@ public class ConvertStepsDefinition extends StepsDefinition {
 	public void requestConvertWithCustomPageNumber(
 			@Named("file") String fileName, @Named("pageNumber") int pageNumber) {
 		requestConvertWithSomeConversionParameters(fileName, pageNumber, null,
-				null, null, null);
+				null, null, null, null, null);
+	}
+
+	@When("user sends request to convert page <pageNumber> of office document <file> to <outputFolder> with header customization <headerCustomization>")
+	public void requestConvertWithHeaderCustomization(
+			@Named("file") String fileName,
+			@Named("pageNumber") int pageNumber,
+			@Named("headerCustomization") String headerCustomization,
+			@Named("outputFolder") String outputFolder) {
+		requestConvertWithSomeConversionParameters(fileName, pageNumber, null,
+				null, null, null, headerCustomization, outputFolder);
 	}
 
 	@When("user sends request to convert all pages from office document <file> to pdf format")
@@ -452,10 +471,10 @@ public class ConvertStepsDefinition extends StepsDefinition {
 		String destFormat = "pdf";
 		sourceOfficeFilePath = sourceFolderPath + fileName;
 
-		String rootDir = OsUtilities
-				.prettifyFilePath(convertedFolderPath + "/" + destination);
+		String rootDir = OsUtilities.prettifyFilePath(convertedFolderPath + "/"
+				+ destination);
 		File f = new File(rootDir);
-		OsUtilities.cleanFolderConvertedFiles(f);
+		FSUtils.cleanFolder(f);
 
 		JSONObject requestBodyJson = new JSONObject();
 		JSONObject request = new JSONObject();
@@ -494,26 +513,24 @@ public class ConvertStepsDefinition extends StepsDefinition {
 		returnedCode = (Integer) serviceResponse.get("ResponseCode");
 		serviceMessage = (String) serviceResponse.get("ResponseBody");
 	}
-	
-	
-	@When("response for get convert request is arrived")
-	public void timeResponceConvertRequest(@Named ("file") String fileName) throws InterruptedException {
+
+	@When("response for convert request is arrived")
+	public void checkResponseTimeForConvertRequest(@Named("file") String fileName)
+			throws InterruptedException {
 
 		while (true) {
 			generalConversionRequest(fileName, "pdf", 0, null);
-			
+
 			if (returnedCode == 200) {
 				break;
 			}
+
+			Thread.sleep(500);
 		}
 
 		long currentTimeMsEnd = (new Date()).getTime();
 		timeResponce.add(currentTimeMsEnd - beforePCCStartTime);
-		
+
 	}
-	
-	
 
-	
 }
-

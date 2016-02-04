@@ -31,15 +31,11 @@ public class PrizmUtils {
 
     public static void stopPrizm() {
         ShellExecutor.runCommand(getStopPrizmCommand());
-        String stopProxyServer = "/usr/share/prizm/scripts/proxyserver.sh stop";
-        if (OsUtilities.isLinux()) ShellExecutor.runCommand(stopProxyServer);
         LOGGER.info("Prizm services stopped successfully");
     }
 
     public static void startPrizm() {
         ShellExecutor.runCommand(getStartPrizmCommand());
-        String startProxyServer = "/usr/share/prizm/scripts/proxyserver.sh start";
-        if (OsUtilities.isLinux()) ShellExecutor.runCommand(startProxyServer);
         LOGGER.info("Prizm services started successfully");
     }
 

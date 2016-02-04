@@ -15,6 +15,7 @@ import org.json.JSONObject;
 
 import com.accusoft.tests.ocs.common.Constants;
 import com.accusoft.tests.ocs.common.build.SetNumberOfOCSInstances;
+import com.accusoft.tests.ocs.common.utils.FSUtils;
 import com.accusoft.tests.ocs.common.utils.JsonUtils;
 import com.accusoft.tests.ocs.common.utils.OsUtilities;
 import com.accusoft.tests.ocs.common.utils.PdfUtils;
@@ -64,9 +65,9 @@ public class StepsDefinition {
 
 	public static long beforePCCStartTime;
 	public static Thread serviceStartThread;
-	public static boolean isServiceStarted = false;
+	public static boolean isServiceStarted = true;
 
-	public static ArrayList timeResponce = new ArrayList();
+	public static ArrayList<Long> timeResponce = new ArrayList<Long>();
 
 	@net.thucydides.core.annotations.Steps
 	public Steps stepExecutor;
@@ -178,25 +179,59 @@ public class StepsDefinition {
 	@Then("error code must be <errorCode>")
 	public void serviceErrorCodeShouldBe(@Named("errorCode") int errorCode) {
 		String compileReg = "\\d+";
-		int returnedServiceCode = Integer.valueOf(OsUtilities
-				.searchRegularExpressions(compileReg, serviceMessage));
+		int returnedServiceCode = Integer.valueOf(stepExecutor.getTextByRegExp(
+				serviceMessage, compileReg, 0));
 		String message = "Response from service: " + serviceMessage;
 		if (serviceMessage != null)
 			stepExecutor.verifyingServiceResponseErrorCode(returnedServiceCode,
 					errorCode, message);
 	}
 
+	@Then("error code must be $code")
+	public void errorCodeShouldBe(@Named("code") int expectedErrorCode) {
+
+		int actualErrorCode = -1;
+
+		if (serviceMessage != null) {
+
+			String actualErrorCodeString = stepExecutor.getTextByRegExp(
+					serviceMessage, "\"number\":(\\d+)", 1);
+
+			actualErrorCode = Integer.parseInt(actualErrorCodeString);
+		}
+
+		stepExecutor.verifyingErrorCode(actualErrorCode, expectedErrorCode);
+
+	}
+
 	@Then("error message must be <errorMessage>")
 	public void serviceErrorMessageShouldBe(
 			@Named("errorMessage") String errorMessage) {
 		String compileReg = "(\"message\":).+(\\\")";
-		String returnedServiceMessage = OsUtilities.searchRegularExpressions(
-				compileReg, serviceMessage);
+		String returnedServiceMessage = stepExecutor.getTextByRegExp(
+				serviceMessage, compileReg, 0);
 		String message = "Response from service: " + serviceMessage;
 
 		if (serviceMessage != null)
 			stepExecutor.verifyingServiceResponseErrorMessage(
 					returnedServiceMessage, errorMessage, message);
+	}
+
+	@Then("error message must be $errorMessage")
+	public void errorMessageShouldBe(
+			@Named("errorMessage") String expectedErrorMessage) {
+
+		String actualErrorMessage = null;
+
+		if (serviceMessage != null) {
+
+			actualErrorMessage = stepExecutor.getTextByRegExp(serviceMessage,
+					"\"message\":\\\"([a-zA-z\\s]*)\\\"", 1);
+		}
+
+		stepExecutor.verifyingErrorMessage(actualErrorMessage,
+				expectedErrorMessage);
+
 	}
 
 	@Then("file should not be created")
@@ -208,7 +243,7 @@ public class StepsDefinition {
 		String rootDir = OsUtilities.prettifyFilePath(convertedFolderPath + "/"
 				+ destination + "/");
 
-		int responseAmounts = OsUtilities.getNumberOfConvertedFiles(rootDir);
+		int responseAmounts = FSUtils.getNumberOfFiles(rootDir);
 
 		stepExecutor.compareNotCreateFile(responseAmounts);
 	}
@@ -224,7 +259,7 @@ public class StepsDefinition {
 
 		Thread.sleep(timeOut);
 
-		int responseAmounts = OsUtilities.getNumberOfConvertedFiles(rootDir);
+		int responseAmounts = FSUtils.getNumberOfFiles(rootDir);
 
 		stepExecutor.compareCreateFile(responseAmounts, amount);
 	}
@@ -581,13 +616,14 @@ public class StepsDefinition {
 
 	@BeforeStory
 	public void beforeStory() {
+		timeResponce.clear();
 	}
 
 	@BeforeStories
 	public void beforeStories() {
 		// Refresh content folder with files for testing
-		String pathToFilesForTestingPath = OsUtilities
-				.prettifyFilePath(TestDefinitionUtils.getOriginalFilePath());
+		// String pathToFilesForTestingPath = OsUtilities
+		// .prettifyFilePath(TestDefinitionUtils.getOriginalFilePath());
 
 		// File pathToFilesForTestingDir = new File(pathToFilesForTestingPath);
 		// try {
@@ -609,13 +645,13 @@ public class StepsDefinition {
 
 	}
 
-	@When("pcc is stoped and started in background")
+	@When("pccis is stoped and started in background")
 	public void serviceRestarted() throws InterruptedException {
 
 		String rootDir = OsUtilities
 				.prettifyFilePath(convertedFolderPath + "/");
 		File f = new File(rootDir);
-		OsUtilities.cleanFolderConvertedFiles(f);
+		FSUtils.cleanFolder(f);
 
 		isServiceStarted = true;
 		PrizmUtils.stopPrizm();
@@ -637,7 +673,7 @@ public class StepsDefinition {
 
 	}
 
-	@When("service is started compleatelly")
+	@Then("pccis is started compleatelly")
 	public void waitUntilServiceIsStarted() {
 		while (true) {
 			if (isServiceStarted) {
@@ -654,47 +690,39 @@ public class StepsDefinition {
 
 	}
 
-	@When("number of instances is set to $instancesForRound")
-	public void numberOfInstances(
-			@Named("instancesForRound") int instancesForRound) throws Exception {
+	@When("number of instances is set to $numberOfOfficeInstances")
+	@Alias("number of office instances is set to <numberOfOfficeInstances>")
+	public void setNumberOfOfficeInstances(
+			@Named("numberOfOfficeInstances") int numberOfOfficeInstances)
+			throws Exception {
 
-		SetNumberOfOCSInstances.setNumberInstances(instancesForRound);
-		LOGGER.info("number of instances is set to: " + instancesForRound);
+		if (OsUtilities.isUbuntu()) {
+			return;
+		}
+		SetNumberOfOCSInstances.updateContentOfOCSConfigurationFile(
+				numberOfOfficeInstances,
+				OsUtilities.getPathToPrizmCentralConfig());
+		LOGGER.info("number of office instances is set to: "
+				+ numberOfOfficeInstances);
 	}
 
-	@Then("max service response time must be not more the then $timeDifference sec from first get response time")
+	@Then("service response time must be not more the then $maxServiceResponseTimeDelta sec from response time with one ocs instance")
+	@Alias("service response time must be not more the then <maxServiceResponseTimeDelta> seconds from response time with one ocs instance")
 	public void comparisonTimeBetweenRestartAndFirstResponceGetInfo(
-			@Named("timeDifference") long timeDifference) {
+			@Named("maxServiceResponseTimeDelta") long maxServiceResponseTimeDelta) {
 
-		long differenceResponce = (Math.abs((Long) timeResponce.get(0)
-				- (Long) timeResponce.get(timeResponce.size() - 1))) / 1000;
+		long ocsResponseTimeWithOneOfficeInstance = timeResponce.get(0) / 1000;
 
-		LOGGER.warn("service response time ="
-				+ ((Long) timeResponce.get(timeResponce.size() - 1)) / 1000
-				+ " sec, first get response time = "
-				+ ((Long) timeResponce.get(0)) / 1000 + " sec");
+		long currentOcsResponseTime = timeResponce.get(timeResponce.size() - 1) / 1000;
 
-		
-		LOGGER.warn(timeResponce);
-		
-		LOGGER.warn("differenceResponce =" + differenceResponce + "=" +
-				+ (Long) timeResponce.get(0) / 1000 + "-"
-				+ ((Long) timeResponce.get(timeResponce.size() - 1))/1000);
-				
-		LOGGER.warn(timeDifference);
-		
-		
-		
-		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!" + timeResponce);
-		
-		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!"
-				+ "differenceResponce =" + differenceResponce
-				+ (Long) timeResponce.get(0) / 1000 + "-"
-				+ (Long) timeResponce.get(timeResponce.size() - 1));
-		
-		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!" + timeDifference);
+		stepExecutor.showTestProperty("Current response time, sec ", 
+				String.valueOf(currentOcsResponseTime));
 
-		stepExecutor
-				.checkDifferencePercents(differenceResponce, timeDifference);
+		stepExecutor.showTestProperty(
+				"OCS response time with one office instance, sec ", 
+						String.valueOf(ocsResponseTimeWithOneOfficeInstance));
+
+		stepExecutor.checkOCSResponseTime(ocsResponseTimeWithOneOfficeInstance,
+				currentOcsResponseTime, maxServiceResponseTimeDelta);
 	}
 }

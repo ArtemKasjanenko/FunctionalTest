@@ -21,6 +21,10 @@ public class SetNumberOfOCSInstances {
 	public static void main(String[] args) throws Exception {
 
 		init();
+		run();
+	}
+
+	private static void run() throws Exception {
 
 		showInputParameters();
 
@@ -33,12 +37,6 @@ public class SetNumberOfOCSInstances {
 		showContentOfConfigurationFile(); // show content of configuration file
 											// after modification
 
-	}
-	
-	public static void setNumberInstances (int instances) throws Exception{
-		input(instances);
-		validateInputParameters();
-		updateContentOfOCSConfigurationFile();
 	}
 
 	private static void showInputParameters() {
@@ -60,7 +58,7 @@ public class SetNumberOfOCSInstances {
 
 	private static void updateContentOfOCSConfigurationFile() {
 
-//		showHeader("Updating content of OCS configuration file");
+		showHeader("Updating content of OCS configuration file");
 
 		String numberOfOfficeInstances = null;
 		try {
@@ -75,28 +73,37 @@ public class SetNumberOfOCSInstances {
 							+ configLocation + "]");
 		}
 
-//		System.out.println("Fount current number of office instances ["
-//				+ numberOfOfficeInstances + "]");
-//
-		String replaceString = "resourceUsage.ocs.numInstances: " + numberOFInstances;
-//
-//		System.out.println("Replacing [" + numberOfOfficeInstances + "] by ["
-//				+ replaceString + "] unside [" + configLocation + "]");
+		System.out.println("Found current number of office instances ["
+				+ numberOfOfficeInstances + "]");
+
+		String replaceString = "resourceUsage.ocs.numInstances: "
+				+ numberOFInstances;
+
+		System.out.println("Replacing [" + numberOfOfficeInstances + "] by ["
+				+ replaceString + "] unside [" + configLocation + "]");
 
 		updateFileContentByRegexp(configLocation, numberOfOfficeInstances,
 				replaceString);
 	}
 
-	private static void input(int instances) {
-		configLocation = System.getProperty(ARG_OCS_CONFIG_LOCATION_NAME);
-		numberOFInstances = instances;	
+	public static void updateContentOfOCSConfigurationFile(
+			int numberOfInstances, String pathToConfigFile) throws Exception {
+		init(numberOfInstances, pathToConfigFile);
+		validateInputParameters();
+		updateContentOfOCSConfigurationFile();
 	}
-	
+
 	private static void init() {
 
 		configLocation = System.getProperty(ARG_OCS_CONFIG_LOCATION_NAME);
 		numberOFInstances = Integer.parseInt(System
 				.getProperty(ARG_NUMBER_OF_OFICE_INSTANCES_NAME));
+
+	}
+
+	private static void init(int numberOfInstances, String pathToConfigFile) {
+		numberOFInstances = numberOfInstances;
+		configLocation = pathToConfigFile;
 	}
 
 	private static void validateInputParameters()
@@ -134,8 +141,8 @@ public class SetNumberOfOCSInstances {
 
 		CharSequence fileContent = readFile(pathToFile);
 
-//		System.out.println("Applying regexp  [" + regexp + "] to file ["
-//				+ pathToFile + "]");
+		System.out.println("Applying regexp  [" + regexp + "] to file ["
+				+ pathToFile + "]");
 
 		Pattern pattern = Pattern.compile(regexp);
 		Matcher matcher = pattern.matcher(fileContent);

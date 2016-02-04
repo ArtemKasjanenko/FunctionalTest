@@ -3,12 +3,7 @@ package com.accusoft.tests.ocs.common.utils;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-import org.apache.commons.codec.CharEncoding;
 import org.apache.log4j.Logger;
 
 import com.accusoft.tests.ocs.common.utils.CompareImagesUtils.CmdOutput;
@@ -204,38 +199,12 @@ public final class OsUtilities {
 		return prettifiedPath;
 	}
 
-	public static String searchRegularExpressions(String compile, String message) {
-		String searchMessage = null;
-		Pattern pat = Pattern.compile(compile);
-		Matcher m = pat.matcher(message);
-		if (m.find()) {
-			searchMessage = m.group();
-
+	public static String getPathToPrizmCentralConfig() {
+		if (isWindows()) {
+			return "c:/prizm/prizm-services-config.yml";
+		} else {
+			return "/usr/share/prizm/prizm-services-config.yml";
 		}
-		return searchMessage;
 	}
 
-	public static int getNumberOfConvertedFiles(String rootDir) {
-
-		File f = new File(rootDir);
-
-		if (f.isDirectory()) {
-			return f.list().length;
-		}
-
-		return 0;
-
-	}
-
-	public static void cleanFolderConvertedFiles(File dir) {
-		if (dir.isDirectory()) {
-			String[] children = dir.list();
-			for (int i = 0; i < children.length; i++) {
-				File f = new File(dir, children[i]);
-				cleanFolderConvertedFiles(f);
-			}
-			dir.delete();
-		} else
-			dir.delete();
-	}
 }

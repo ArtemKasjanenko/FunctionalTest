@@ -1,33 +1,24 @@
 package com.accusoft.tests.ocs.steps_definitions;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 import org.apache.log4j.Logger;
-import org.apache.xerces.impl.xpath.regex.Match;
 import org.jbehave.core.annotations.Alias;
-import org.jbehave.core.annotations.Aliases;
-import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.Named;
-import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
 import org.json.JSONObject;
 
 import com.accusoft.tests.ocs.common.Constants;
-import com.accusoft.tests.ocs.common.build.SetNumberOfOCSInstances;
 import com.accusoft.tests.ocs.common.utils.JsonUtils;
-import com.accusoft.tests.ocs.steps.Steps;
-
 
 public class GetInfoStepsDefinition extends StepsDefinition {
 
-	public static final Logger LOGGER = Logger.getLogger(GetInfoStepsDefinition.class);
-
+	public static final Logger LOGGER = Logger
+			.getLogger(GetInfoStepsDefinition.class);
 
 	@When("user requests OfficeConversionService information")
 	@Alias("user sends info request")
 	public void getServiceInfo() {
-
 		JSONObject requestBodyJson = new JSONObject();
 		JSONObject request = new JSONObject();
 
@@ -40,7 +31,6 @@ public class GetInfoStepsDefinition extends StepsDefinition {
 
 		returnedCode = (Integer) serviceResponse.get("ResponseCode");
 		serviceMessage = (String) serviceResponse.get("ResponseBody");
-
 	}
 
 	@When("user sends info request with unexpected JSON data <postData>")
@@ -128,18 +118,19 @@ public class GetInfoStepsDefinition extends StepsDefinition {
 	}
 
 	@When("response for get info request is arrived")
-	public void timeResponceInfoRequest() throws InterruptedException {
+	public void checkResponseTimeForInfoRequest() throws InterruptedException {
 
 		while (true) {
 			getServiceInfo();
 			if (returnedCode == 200) {
 				break;
 			}
+
+			Thread.sleep(500);
 		}
 
 		long currentTimeMsEnd = (new Date()).getTime();
 		timeResponce.add(currentTimeMsEnd - beforePCCStartTime);
 	}
-
 
 }
